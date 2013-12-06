@@ -149,7 +149,17 @@ public class AuthenticationController {
 			@RequestParam("userType") Integer userType,
 			HttpSession session) {
 
+		ModelAndView modelAndView = new ModelAndView();
 
+		if(userType == 0)
+		{
+			System.out.println("You are a employee");
+			
+		}
+		else
+		{
+			System.out.println("You are a customer");
+		}
 
 
 
