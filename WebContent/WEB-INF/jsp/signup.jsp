@@ -9,53 +9,14 @@
 <%@include file="includes.jsp"%>
 
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
+	$(document).ready(function() {
+		var userType = $("input:radio[name=userTypeInput]:checked").val();
+		if (userType == 0) {
+		
+		} else {
 
-						$('#signup')
-								.click(
-										function(event) {
-
-											var fname = $('#firstNameInput')
-													.val();
-											var lname = $('#lastNameInput')
-													.val();
-											var email = $('#emailInput').val();
-											var password = $('#passwordInput')
-													.val();
-											var userType = $(
-													"input:radio[name=userTypeInput]:checked")
-													.val();
-
-											$
-													.ajax({
-														url : "signup.htm",
-														type : "POST",
-														data : "fname=" + fname
-																+ "&lname="
-																+ lname
-																+ "&email="
-																+ email
-																+ "&password="
-																+ password
-																+ "&userType="
-																+ userType,
-														success : function(
-																data,
-																textStatus,
-																jqXHR) {
-															window.location.href = "viewProjects.htm";
-														},
-														error : function(jqXHR,
-																textStatus,
-																errorThrown) {
-															alert("Could not process request.. "
-																	+ errorThrown);
-														}
-													});
-										});
-					});
+		}
+	});
 </script>
 
 </head>
@@ -63,7 +24,7 @@
 	<%@include file="header.jsp"%>
 
 
-	<div id="container" style="padding-top: 40px;">
+	<div id="container" style="padding: 40px 0px 80px 0px;">
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div id="sidebar" class="span2">
@@ -76,16 +37,14 @@
 						<table>
 							<!--Body content-->
 							<tr>
-								<td><h2>
-										Create an AMS account here
-										</h2></td>
+								<td><h2>Create an AMS account here</h2></td>
 							</tr>
 							<tr>
 								<td><h5>You are a</h5></td>
 								<td><input name="userTypeInput" id="userTypeInputEmployee"
 									type="radio" class="required" value="0">
 
-									<h5>Employee</h5> </td>
+									<h5>Employee</h5></td>
 								<td><input name="userTypeInput" id="userTypeInputCustomer"
 									type="radio" class="required" value="1">
 									<h5>Customer</h5></td>
@@ -174,6 +133,7 @@
 									</div></td>
 							</tr>
 							<tr></tr>
+							<tr></tr>
 							<tr>
 								<td></td>
 								<td><div class="col-sm-offset-2 col-sm-10">
@@ -187,7 +147,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<%@include file="footer.jsp"%>
 
