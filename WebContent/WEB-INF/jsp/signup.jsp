@@ -10,12 +10,16 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		var userType = $("input:radio[name=userTypeInput]:checked").val();
-		if (userType == 0) {
-		
-		} else {
-
-		}
+		$('input:radio[name=userTypeInput]').change( function() {
+			var userType = $("input:radio[name=userTypeInput]:checked").val();
+			if (userType == 0) {
+				$('.customerExtra').css('display', 'none');
+				$('.empExtra').css('display', 'block');
+			} else {
+				$('.empExtra').css('display', 'none');
+				$('.customerExtra').css('display', 'block');
+			}
+		});
 	});
 </script>
 
@@ -96,7 +100,7 @@
 							<tr>
 								<td><h5>Address</h5></td>
 								<td><div class="input-group">
-										<input type="address" id="addressInput" class="required"
+										<input type="text" id="addressInput" class="required"
 											placeholder="Address">
 									</div></td>
 							</tr>
@@ -104,7 +108,7 @@
 							<tr>
 								<td><h5>City</h5></td>
 								<td><div class="input-group">
-										<input type="city" id="cityInput" class="required"
+										<input type="text" id="cityInput" class="required"
 											placeholder="City">
 									</div></td>
 							</tr>
@@ -112,7 +116,7 @@
 							<tr>
 								<td><h5>State</h5></td>
 								<td><div class="input-group">
-										<input type="state" id="stateInput" class="required"
+										<input type="text" id="stateInput" class="required"
 											placeholder="State">
 									</div></td>
 							</tr>
@@ -120,7 +124,7 @@
 							<tr>
 								<td><h5>PinCode</h5></td>
 								<td><div class="input-group">
-										<input type="zipCode" id="zipCode" class="required"
+										<input type="text" id="zipCode" class="required"
 											placeholder="Zip Code">
 									</div></td>
 							</tr>
@@ -128,11 +132,51 @@
 							<tr>
 								<td><h5>Date Of Birth</h5></td>
 								<td><div class="input-group">
-										<input type="dob" id="dobInput" class="required"
+										<input type="text" id="dobInput" class="required"
 											placeholder="DOB">
 									</div></td>
 							</tr>
-							<tr></tr>
+<!-- 							Extra Fields -->
+							<tr class="customerExtra" style="display: none;"></tr>
+							<tr class="customerExtra" style="display: none;">
+								<td><h5>Passport Number</h5></td>
+								<td></td>
+								<td><div class="input-group">
+										<input type="text" id="passport" class="required" placeholder="Passport Number">
+									</div></td>
+							</tr>
+							<tr class="customerExtra" style="display: none;"></tr>
+							<tr class="customerExtra" style="display: none;">
+								<td><h5>Nationality</h5></td>
+								<td></td>
+								<td><div class="input-group">
+										<input type="text" id="nationality" class="required" placeholder="Nationality">
+									</div></td>
+							</tr>
+							<tr class="empExtra" style="display: none;"></tr>
+							<tr class="empExtra" style="display: none;">
+								<td><h5>Work Description</h5></td>
+								<td></td>
+								<td><div class="input-group">
+										<input type="text" id="workDesc" class="required" placeholder="Work Description">
+									</div></td>
+							</tr>
+							<tr class="empExtra" style="display: none;"></tr>
+							<tr class="empExtra" style="display: none;">
+								<td><h5>Position</h5></td>
+								<td></td>
+								<td><div class="input-group">
+										<input type="text" id="position" class="required" placeholder="Position">
+									</div></td>
+							</tr>
+							<tr class="empExtra" style="display: none;"></tr>
+							<tr class="empExtra" style="display: none;">
+								<td><h5>Hire Date</h5></td>
+								<td><div class="input-group">
+										<input type="text" id="hireDate" class="required" placeholder="Hire Date">
+									</div></td>
+							</tr>
+<!-- 							End Extra -->
 							<tr></tr>
 							<tr>
 								<td></td>
