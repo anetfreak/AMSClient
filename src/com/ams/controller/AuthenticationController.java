@@ -22,7 +22,7 @@ public class AuthenticationController {
 	AuthenticationServiceProxy authProxy=new AuthenticationServiceProxy(); 
 	CustomerServiceProxy custProxy = new CustomerServiceProxy();
 	EmployeeServiceProxy empProxy = new EmployeeServiceProxy();
-	
+
 	@RequestMapping(value = "/login.htm", method = RequestMethod.GET)
 	public ModelAndView showLogin() {
 		return new ModelAndView("login");
@@ -36,10 +36,10 @@ public class AuthenticationController {
 		ModelAndView modelAndView = new ModelAndView();
 
 		Customer customer = null;
-		session.setAttribute("sessionId", session.getId());
+
 
 		authProxy.setEndpoint("http://localhost:8080/AMS/services/AuthenticationService");
-		
+
 		if(userType == 0)
 		{
 			System.out.println("You are a Customer");
@@ -48,28 +48,32 @@ public class AuthenticationController {
 				int personId = authProxy.signInCustomer(email, password);
 				if(personId < 0)
 				{
-					System.out.println("Failed to login");
-					modelAndView.setViewName("error");
-
-					return modelAndView;
+					System.out.println("Failed to login  - inside customer");
+					modelAndView.setViewName("login");
 				}
-				System.out.println("Customer entry is present in database");
-				custProxy.setEndpoint("http://localhost:8080/AMS/services/CustomerService");
-
-				customer = custProxy.retriveCustomerbypId(personId);
-				if(customer == null)
+				else
 				{
-					System.out.println("Customer is null");
-					modelAndView.setViewName("error");
+					System.out.println("Customer entry is present in database");
+					custProxy.setEndpoint("http://localhost:8080/AMS/services/CustomerService");
 
-					return modelAndView;
+					customer = custProxy.retriveCustomerbypId(personId);
+					if(customer == null)
+					{
+						System.out.println("Customer is null");
+						modelAndView.setViewName("login");
+					}
+					else
+					{
+						String firstName = customer.getPerson().getFirstName();
+						int customerId = customer.getCustomerId();
+
+						session.setAttribute("firstname", firstName);
+						session.setAttribute("customerId", customerId);
+						session.setAttribute("sessionId", session.getId());
+						System.out.println("Session sttributes set for Customer..!!");
+						modelAndView.setViewName("home");
+					}
 				}
-				String firstName = customer.getPerson().getFirstName();
-				int customerId = customer.getCustomerId();
-				
-				session.setAttribute("firstname", firstName);
-				session.setAttribute("customerId", customerId);
-				System.out.println("Session sttributes set for Customer..!!");
 			} 
 			catch (RemoteException e) {
 				// TODO Auto-generated catch block
@@ -86,41 +90,43 @@ public class AuthenticationController {
 				if(personId < 0)
 				{
 					System.out.println("Failed to login");
-					modelAndView.setViewName("error");
-
-					return modelAndView;
+					modelAndView.setViewName("login");
 				}
-				System.out.println("Employee is present in database..!!");
-				
-				empProxy.setEndpoint("http://localhost:8080/AMS/services/EmployeeService");
-				
-				Employee employee = null;
-				employee = empProxy.retriveEmployeebypId(personId);
-				if(employee == null)
+				else
 				{
-					System.out.println("employee is null");
-					modelAndView.setViewName("error");
+					System.out.println("Employee is present in database..!!");
 
-					return modelAndView;
+					empProxy.setEndpoint("http://localhost:8080/AMS/services/EmployeeService");
+
+					Employee employee = null;
+					employee = empProxy.retriveEmployeebypId(personId);
+					if(employee == null)
+					{
+						System.out.println("employee is null");
+						modelAndView.setViewName("login");
+					}
+					else
+					{
+						String firstName = employee.getPerson().getFirstName();
+						int employeeId = employee.getEmployeeId();
+
+						session.setAttribute("firstname", firstName);
+						session.setAttribute("employeeId", employeeId);
+						session.setAttribute("sessionId", session.getId());
+						System.out.println("Session sttributes set for Employee..!!");
+						modelAndView.setViewName("home");
+					} 
 				}
-				String firstName = employee.getPerson().getFirstName();
-				int employeeId = employee.getEmployeeId();
-				
-				session.setAttribute("firstname", firstName);
-				session.setAttribute("employeeId", employeeId);
-				System.out.println("Session sttributes set for Employee..!!");
-				
-			} 
+			}
 			catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				System.out.println("Exception in signin - employee");
 				e.printStackTrace();
 			}
-			
+
 		}
 
-		modelAndView.setViewName("home");
-
+		//modelAndView.setViewName("home");
 		return modelAndView;
 	}
 
@@ -129,45 +135,49 @@ public class AuthenticationController {
 		return new ModelAndView("signup");
 	}
 
-	//	@RequestMapping(value = "/signup.htm", method = RequestMethod.POST)
-	//	public ModelAndView signup(@RequestParam("fname") String fname, 
-	//			@RequestParam("lname") String lname, 
-	//			@RequestParam("email") String email,
-	//			@RequestParam("password") String password, 
-	//			@RequestParam("userType") Integer userType,
-	//			HttpSession session) {
-	//		
-	//		User user = new User();
-	//		Developer developer = new Developer();
-	//		Tester tester = new Tester();
-	//
-	//		if(userType == 0) {
-	//			user.setIsTester(false);
-	//			//developer.setFirstName(fname);
-	//			//developer.setLastName(lname);
-	//			//developer.setLinkedInUrl("test url");
-	//		} else {
-	//			user.setIsTester(true);
-	//			//tester.setFirstName(fname);
-	//			//tester.setLastName(lname);
-	//			//tester.setLinkedInUrl("test url");
-	//		}
-	//		user.setUserName(email);
-	//		user.setPassword(password);
-	//		user.setDeveloper(developer);
-	//		user.setTester(tester);
-	//		user.setFirstName(fname);
-	//		user.setLastName(lname);
-	//		
-	//		System.out.println("Signup started for" + user.getFirstName() );
-	//		
-	//		userFacade.createUser(user);
-	//		
-	//		session.setAttribute("user", userFacade.getUser(user.getUserName()));
-	//		session.setAttribute("sessionId", session.getId());
-	//		System.out.println("Signup completed for user" + user.getFirstName() );
-	//		return new ModelAndView("home");
-	//	}
+	@RequestMapping(value = "/signup.htm", method = RequestMethod.POST)
+	public ModelAndView signup(@RequestParam("fname") String fname, 
+			@RequestParam("lname") String lname, 
+			@RequestParam("email") String email,
+			@RequestParam("password") String password, 
+			@RequestParam("userType") Integer userType,
+			HttpSession session) {
+
+
+
+
+
+		//		User user = new User();
+		//		Developer developer = new Developer();
+		//		Tester tester = new Tester();
+		//
+		//		if(userType == 0) {
+		//			user.setIsTester(false);
+		//			//developer.setFirstName(fname);
+		//			//developer.setLastName(lname);
+		//			//developer.setLinkedInUrl("test url");
+		//		} else {
+		//			user.setIsTester(true);
+		//			//tester.setFirstName(fname);
+		//			//tester.setLastName(lname);
+		//			//tester.setLinkedInUrl("test url");
+		//		}
+		//		user.setUserName(email);
+		//		user.setPassword(password);
+		//		user.setDeveloper(developer);
+		//		user.setTester(tester);
+		//		user.setFirstName(fname);
+		//		user.setLastName(lname);
+		//		
+		//		System.out.println("Signup started for" + user.getFirstName() );
+		//		
+		//		userFacade.createUser(user);
+		//		
+		//		session.setAttribute("user", userFacade.getUser(user.getUserName()));
+		//		session.setAttribute("sessionId", session.getId());
+		//		System.out.println("Signup completed for user" + user.getFirstName() );
+		return new ModelAndView("home");
+	}
 
 	@RequestMapping(value = "/logout.htm", method = RequestMethod.GET)
 	public ModelAndView logout(HttpSession session) {
