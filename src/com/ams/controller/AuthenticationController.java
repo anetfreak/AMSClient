@@ -49,7 +49,8 @@ public class AuthenticationController {
 				if(personId < 0)
 				{
 					System.out.println("Failed to login  - inside customer");
-					modelAndView.setViewName("login");
+//					modelAndView.setViewName("login");
+					modelAndView.addObject("response", "failure");
 				}
 				else
 				{
@@ -60,7 +61,8 @@ public class AuthenticationController {
 					if(customer == null)
 					{
 						System.out.println("Customer is null");
-						modelAndView.setViewName("login");
+//						modelAndView.setViewName("login");
+						modelAndView.addObject("response", "failure");
 					}
 					else
 					{
@@ -71,7 +73,8 @@ public class AuthenticationController {
 						session.setAttribute("customerId", customerId);
 						session.setAttribute("sessionId", session.getId());
 						System.out.println("Session sttributes set for Customer..!!");
-						modelAndView.setViewName("home");
+//						modelAndView.setViewName("home");
+						modelAndView.addObject("response", "success");
 					}
 				}
 			} 
@@ -90,7 +93,8 @@ public class AuthenticationController {
 				if(personId < 0)
 				{
 					System.out.println("Failed to login");
-					modelAndView.setViewName("login");
+//					modelAndView.setViewName("login");
+					modelAndView.addObject("response", "failure");
 				}
 				else
 				{
@@ -103,7 +107,8 @@ public class AuthenticationController {
 					if(employee == null)
 					{
 						System.out.println("employee is null");
-						modelAndView.setViewName("login");
+//						modelAndView.setViewName("login");
+						modelAndView.addObject("response", "failure");
 					}
 					else
 					{
@@ -114,7 +119,8 @@ public class AuthenticationController {
 						session.setAttribute("employeeId", employeeId);
 						session.setAttribute("sessionId", session.getId());
 						System.out.println("Session sttributes set for Employee..!!");
-						modelAndView.setViewName("home");
+//						modelAndView.setViewName("home");
+						modelAndView.addObject("response", "success");
 					} 
 				}
 			}
@@ -126,7 +132,7 @@ public class AuthenticationController {
 
 		}
 
-		//modelAndView.setViewName("home");
+		modelAndView.setViewName("home");
 		return modelAndView;
 	}
 

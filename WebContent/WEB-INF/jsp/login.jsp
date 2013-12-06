@@ -20,7 +20,14 @@
 				    type: "POST",
 				    data : "email=" + email + "&password=" + password + "&userType=" + userType,
 				    success:function(data, textStatus, jqXHR){
-				    	window.location.href="/AMSClient/";
+				    	console.log(data);
+				    	console.log(data.response);
+				    	if(data.response == "success") {
+				    		window.location.href="/AMSClient/";
+				    	} else {
+				    		$('#email').val('');
+				    		$('#password').val('');
+				    	}
 				    },
 				    error: function(jqXHR, textStatus, errorThrown){
 				    	alert("Could not process request.. " + errorThrown);
