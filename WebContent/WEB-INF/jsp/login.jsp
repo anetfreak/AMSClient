@@ -8,6 +8,7 @@
 <%@include file="includes.jsp" %>
 <script type="text/javascript">
 	$(document).ready(function(){
+		$('#loginError').css('display', 'none');
 		
 		$('#login').click(function(event) {
 			//Validate email
@@ -20,17 +21,18 @@
 				    type: "POST",
 				    data : "email=" + email + "&password=" + password + "&userType=" + userType,
 				    success:function(data, textStatus, jqXHR){
-				    	console.log(data);
-				    	console.log(data.response);
+				    	$('#loginError').css('display', 'none;');
 				    	if(data.response == "success") {
 				    		window.location.href="/AMSClient/";
 				    	} else {
+				    		$('#loginError').css('display', 'block');
 				    		$('#email').val('');
 				    		$('#password').val('');
 				    	}
 				    },
 				    error: function(jqXHR, textStatus, errorThrown){
-				    	alert("Could not process request.. " + errorThrown);
+				    	$('#loginError').css('display', 'block');
+// 				    	alert("Could not process request.. " + errorThrown);
 				    }
 				});
 			}
@@ -64,6 +66,10 @@
 
 	<div id="container" style="padding-top: 40px;" align="center">
 		<div class="container-fluid">
+			<div id="loginError" class="alert alert-error alert-dismissable" style="display: none;">
+			  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			  Login Error. Please try again.
+			</div>
 			<div id="loginOptions" style="margin: 80px 0px 0px 300px;">
 				<div class="span1"></div>
 				<div class="span4">
