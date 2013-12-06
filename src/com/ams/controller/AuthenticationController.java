@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.domain.Customer;
 import com.domain.Employee;
+import com.domain.Response;
 import com.service.AuthenticationServiceProxy;
 import com.service.CustomerServiceProxy;
 import com.service.EmployeeServiceProxy;
@@ -19,6 +20,7 @@ import com.service.EmployeeServiceProxy;
 @Controller
 public class AuthenticationController {
 
+	private static final String VIEW_NAME = "commonJsonView";
 	AuthenticationServiceProxy authProxy=new AuthenticationServiceProxy(); 
 	CustomerServiceProxy custProxy = new CustomerServiceProxy();
 	EmployeeServiceProxy empProxy = new EmployeeServiceProxy();
@@ -34,7 +36,7 @@ public class AuthenticationController {
 			@RequestParam("userType") Integer userType,
 			HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-
+		Response response = null;
 		Customer customer = null;
 
 
@@ -49,8 +51,7 @@ public class AuthenticationController {
 				if(personId < 0)
 				{
 					System.out.println("Failed to login  - inside customer");
-//					modelAndView.setViewName("login");
-					modelAndView.addObject("response", "failure");
+					response = new Response("failure");
 				}
 				else
 				{
@@ -61,8 +62,7 @@ public class AuthenticationController {
 					if(customer == null)
 					{
 						System.out.println("Customer is null");
-//						modelAndView.setViewName("login");
-						modelAndView.addObject("response", "failure");
+						response = new Response("failure");
 					}
 					else
 					{
@@ -73,8 +73,7 @@ public class AuthenticationController {
 						session.setAttribute("customerId", customerId);
 						session.setAttribute("sessionId", session.getId());
 						System.out.println("Session sttributes set for Customer..!!");
-//						modelAndView.setViewName("home");
-						modelAndView.addObject("response", "success");
+						response = new Response("success");
 					}
 				}
 			} 
@@ -93,8 +92,7 @@ public class AuthenticationController {
 				if(personId < 0)
 				{
 					System.out.println("Failed to login");
-//					modelAndView.setViewName("login");
-					modelAndView.addObject("response", "failure");
+					response = new Response("failure");
 				}
 				else
 				{
@@ -107,8 +105,7 @@ public class AuthenticationController {
 					if(employee == null)
 					{
 						System.out.println("employee is null");
-//						modelAndView.setViewName("login");
-						modelAndView.addObject("response", "failure");
+						response = new Response("failure");
 					}
 					else
 					{
@@ -119,8 +116,7 @@ public class AuthenticationController {
 						session.setAttribute("employeeId", employeeId);
 						session.setAttribute("sessionId", session.getId());
 						System.out.println("Session sttributes set for Employee..!!");
-//						modelAndView.setViewName("home");
-						modelAndView.addObject("response", "success");
+						response = new Response("success");
 					} 
 				}
 			}
@@ -132,8 +128,7 @@ public class AuthenticationController {
 
 		}
 
-		modelAndView.setViewName("home");
-		return modelAndView;
+		return new ModelAndView(VIEW_NAME, "result", response);
 	}
 
 	@RequestMapping(value = "/signup.htm", method = RequestMethod.GET)

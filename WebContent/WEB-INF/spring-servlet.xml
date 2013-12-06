@@ -15,6 +15,11 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 	<import resource="datasource-batch.xml"/>
     <import resource="user-context.xml"/>
     
+    <bean id="commonJsonView" class="com.ams.view.CommonJSONView" />
+    <bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="1"/>
+	</bean>
+    
     <context:component-scan base-package="com.ams" />
 	
     <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
