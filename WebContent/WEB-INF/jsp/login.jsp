@@ -80,7 +80,7 @@
 											<span style="margin-top:5px;">Customer</span>
 											</span>
 											<span> <input name="userTypeInput"
-												id="userTypeInputDeveloper" type="radio" class="required"
+												id="userTypeInputEmployee" type="radio" class="required"
 												value="1">
 											</span>
 											<span>Employee</span>
