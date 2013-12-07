@@ -14,6 +14,35 @@
 			$('#returnDate').datetimepicker({
 			      pickTime: false
 			});
+			
+			$('#btnSearchFlight').click(function(){
+				var source = $('#source').val();
+				var destination = $('#destination').val();
+				var departPicker = $('#departDate').data('datetimepicker');
+				var departDate = departPicker.getDate();
+				var returnPicker = $('#returnDate').data('datetimepicker');
+				var returnDate = returnPicker.getDate();
+				
+				$.ajax({
+					url : "searchFlights.htm",
+				    type: "POST",
+				    data : "source=" + source + "&destination=" + destination + "&departDate=" + departDate + "&returnDate=" + returnDate,
+				    success:function(data, textStatus, jqXHR){
+				    	$('#searchFlightError').css('display', 'none;');
+// 				    	if(data.response == "success") {
+// 				    		window.location.href="/AMSClient/";
+// 				    	} else {
+// 				    		$('#loginError').css('display', 'block');
+// 				    		$('#email').val('');
+// 				    		$('#password').val('');
+// 				    	}
+				    },
+				    error: function(jqXHR, textStatus, errorThrown){
+				    	$('#searchFlightError').css('display', 'block');
+				    	alert("Could not process request.. " + errorThrown);
+				    }
+				});
+			});
 		});
 	</script>
 </head>
@@ -24,52 +53,37 @@
 		<div class="container-fluid">
 			<div id="searchFlightError" class="alert alert-error alert-dismissable" style="display: none;">
 			  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			  No FLights found. Please try again.
+			  No Flights found. Please try again.
 			</div>
-			<div id="searchOptions" style="margin: 80px 0px 0px 300px;">
-				<div class="span1"></div>
-				<div class="span4">
+			<div id="searchOptions" style="margin: 30px 0px 0px 0px;">
+				<div class="span6">
 					<div>
-							<form class="form-horizontal">
-								<span style="margin-left: 20px;"><h3>Search a Flight</h3></span>
-							  <div class="control-group">
-							    <label class="control-label" for="source">Source</label>
-							    <div class="controls">
-							      <input type="text" id="source" placeholder="Source">
-							    </div>
+						<span><h3>Search a Flight</h3></span>
+						<form class="form-inline">
+					      <input type="text" id="source" placeholder="Source">
+					      <input type="text" id="destination" placeholder="Destination">
+						  <div class="control-group">
+						    <label class="control-label" for="departDate">Departure Date</label>
+						      <div id="departDate">
+							    <input data-format="yyyy-MM-dd" type="text"></input>
+							    <span class="add-on">
+							      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+							      </i>
+							    </span>
 							  </div>
-							  <div class="control-group">
-							    <label class="control-label" for="destination">Destination</label>
-							    <div class="controls">
-							      <input type="text" id="destination" placeholder="Destination">
-							    </div>
-							  </div>
-							  <div class="control-group">
-							    <label class="control-label" for="departDate">Departure Date</label>
-							      <div id="departDate">
-								    <input data-format="yyyy-MM-dd" type="text"></input>
-								    <span class="add-on">
-								      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-								      </i>
-								    </span>
-								  </div>
-							  </div>
-							  <div class="control-group">
-							    <label class="control-label" for="returnDate">Return Date</label>
-							    <div id="returnDate">
-								    <input data-format="yyyy-MM-dd" type="text"></input>
-								    <span class="add-on">
-								      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-								      </i>
-								    </span>
-								</div>	
-							  </div>
-							  <div class="control-group">
-							    <div class="controls">
-							      <button type="submit" class="btn">Search</button>
-							    </div>
-							  </div>
-							</form>
+						  </div>
+						  <div class="control-group">
+						    <label class="control-label" for="returnDate">Return Date</label>
+						    <div id="returnDate">
+							    <input data-format="yyyy-MM-dd" type="text"></input>
+							    <span class="add-on">
+							      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+							      </i>
+							    </span>
+							</div>	
+						  </div>
+					      <button type="submit" class="btn" id="btnSearchFlight">Search</button>
+						</form>
 					</div>
 				</div>
 			</div>
