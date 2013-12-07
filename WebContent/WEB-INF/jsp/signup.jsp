@@ -11,6 +11,14 @@
 <script type="text/javascript">
 
 	$(document).ready(function() {
+		
+		$('#departDate').datetimepicker({
+		      pickTime: false
+		});
+		$('#returnDate').datetimepicker({
+		      pickTime: false
+		});
+		
 		$('input:radio[name=userTypeInput]').change(function() {
 			var userType = $("input:radio[name=userTypeInput]:checked").val();
 			if (userType == 0) {
@@ -32,13 +40,15 @@
 			var city = $('#city');
 			var state = $('#state');
 			var pincode = $('#zipCode');
-			var dob = $('#dob');
+			var dobDate = $('#dob').data('datetimepicker');
+			var dob = dobDate.getDate();
 			var userType = $("input:radio[name=userTypeInput]:checked");
 			var passport = $('#passport');
 			var nationality = $('#nationality');
 			var workdesc = $('#workDesc');
 			var position = $('#position');
-			var hiredate = $('hireDate');
+			var hiredatepick = $('#hireDate').data('datetimepicker');
+			var hiredate = hiredatepick.getDate();
 			var result = false;
 			
 			if(userType.val() == null || userType.val().trim() == '') {
@@ -191,12 +201,14 @@
 		var city = $('#city').val();
 		var state = $('#state').val();
 		var pincode = $('#zipCode').val();
-		var dob = $('#dob').val();
+		var dobDate = $('#dob').data('datetimepicker');
+		var dob = dobDate.getDate();
 		var passport = $('#passport').val();
 		var nationality = $('#nationality').val();
 		var workdesc = $('#workDesc').val();
 		var position = $('#position').val();
-		var hiredate = $('hireDate').val();
+		var hiredatepick = $('#hireDate').data('datetimepicker');
+		var hiredate = hiredatepick.getDate();
 		var userType = $("input:radio[name=userTypeInput]:checked").val();
 		
 		$.ajax({
@@ -289,11 +301,8 @@
 								<td><div class="input-group">
 										<input type="password" id="reEnterPassword"
 											name="reEnterPasswordInput" class="required"
-											placeholder="Re-enter Password" maxlength="12"
-											onChange="checkPasswordMatch();">
+											placeholder="Re-enter Password" maxlength="12">
 									</div></td>
-								<td><div class="registrationFormAlert"
-										id="divCheckPasswordMatch"></div></td>
 							</tr>
 							<tr></tr>
 							<tr>
@@ -337,9 +346,13 @@
 							<tr></tr>
 							<tr>
 								<td><h5>Date Of Birth</h5></td>
-								<td><div class="input-group">
-										<input type="text" id="dob" class="required" placeholder="DOB">
-									</div></td>
+								<td><div id="dob">
+							    <input data-format="yyyy-MM-dd" type="text"></input>
+							    <span class="add-on">
+							      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+							      </i>
+							    </span>
+							  </div></td>
 							</tr>
 							<!-- 							Extra Fields -->
 							<tr class="customerExtra" style="display: none;"></tr>
@@ -381,10 +394,13 @@
 							<tr class="empExtra" style="display: none;"></tr>
 							<tr class="empExtra" style="display: none;">
 								<td><h5>Hire Date</h5></td>
-								<td><div class="input-group">
-										<input type="text" id="hireDate" class="required"
-											placeholder="Hire Date">
-									</div></td>
+								<td><div id="hireDate">
+							    <input data-format="yyyy-MM-dd" type="text"></input>
+							    <span class="add-on">
+							      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+							      </i>
+							    </span>
+							  </div></td>
 							</tr>
 							<!-- End Extra -->
 							<tr></tr>
