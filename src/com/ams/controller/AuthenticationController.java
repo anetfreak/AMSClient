@@ -342,22 +342,5 @@ public class AuthenticationController {
 		session.invalidate();
 		return new ModelAndView("EditProfile");
 	}
-	
-
-	//	@RequestMapping(value = "/checkUserRegistered.htm", method = RequestMethod.POST)
-	//	public ModelAndView checkUser(@RequestParam("email") String email, HttpSession session) {
-	//		Response response = null;
-	//		boolean exists = userFacade.checkInUser(email);
-	//		if(exists) {
-	//			response = new Response("exists");
-	//			User user = userFacade.getInUser(email);
-	//			session.setAttribute("user", user);
-	//			session.setAttribute("sessionId", session.getId());
-	//		} else {
-	//			response = new Response("newUser");
-	//		}
-	//		
-	//		return new ModelAndView(VIEW_NAME, "result", response);
-	//	}
 
 }
