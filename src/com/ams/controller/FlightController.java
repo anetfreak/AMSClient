@@ -35,13 +35,11 @@ public class FlightController {
 	@RequestMapping(value = "/searchFlights.htm", method = RequestMethod.POST)
 	public ModelAndView searchFlight(@RequestParam("source") String source,
 			@RequestParam("destination") String destination,
-			@RequestParam("departDate") String departDate,
-			@RequestParam("returnDate") String returnDate) {
+			@RequestParam("departDate") String departDate) {
 		
 		System.out.println("Source: " + source);
 		System.out.println("Destination: " + destination);
 		System.out.println("Depart Date: " + departDate);
-		System.out.println("Return Date: " + returnDate);
 		
 		return new ModelAndView("search_flight");
 	}
