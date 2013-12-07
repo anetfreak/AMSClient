@@ -8,34 +8,25 @@
 	<%@include file="includes.jsp" %>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('#departDate').datetimepicker({
-			      pickTime: false
-			});
-			$('#returnDate').datetimepicker({
-			      pickTime: false
-			});
 			
-			$('#btnSearchFlight').click(function(){
+			$('#departDate').datepicker();
+			
+			$('#btnSearchFlight').click(function(e){
+				e.preventDefault();
 				var source = $('#source').val();
 				var destination = $('#destination').val();
-				var departPicker = $('#departDate').data('datetimepicker');
-				var departDate = departPicker.getDate();
-				var returnPicker = $('#returnDate').data('datetimepicker');
-				var returnDate = returnPicker.getDate();
-				
+				var departDate = $('#departDate').val();
 				$.ajax({
 					url : "searchFlights.htm",
 				    type: "POST",
-				    data : "source=" + source + "&destination=" + destination + "&departDate=" + departDate + "&returnDate=" + returnDate,
+				    data : "source=" + source + "&destination=" + destination + "&departDate=" + departDate,
 				    success:function(data, textStatus, jqXHR){
 				    	$('#searchFlightError').css('display', 'none;');
-				    	window.location.href="searchFlight.htm";
 				    	alert("Inside Success");
 				    },
 				    error: function(jqXHR, textStatus, errorThrown){
 				    	$('#searchFlightError').css('display', 'block');
 // 				    	alert("Could not process request.. " + errorThrown);
-						return false;
 				    }
 				});
 			});
@@ -55,29 +46,11 @@
 				<div class="span6">
 					<div>
 						<span><h3>Search a Flight</h3></span>
-						<form class="form-inline">
+						<form class="form-inline" style="widht: 700px; !important">
 					      <input type="text" id="source" placeholder="Source">
 					      <input type="text" id="destination" placeholder="Destination">
-						  <div class="control-group">
-						    <label class="control-label" for="departDate">Departure Date</label>
-						      <div id="departDate">
-							    <input data-format="yyyy-MM-dd" type="text"></input>
-							    <span class="add-on">
-							      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-							      </i>
-							    </span>
-							  </div>
-						  </div>
-						  <div class="control-group">
-						    <label class="control-label" for="returnDate">Return Date</label>
-						    <div id="returnDate">
-							    <input data-format="yyyy-MM-dd" type="text"></input>
-							    <span class="add-on">
-							      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-							      </i>
-							    </span>
-							</div>	
-						  </div>
+					      
+							<input id="departDate" size="16" type="text" readonly data-date-format="yyyy-mm-dd" placeholder="Departure Date">
 					      <button type="submit" class="btn" id="btnSearchFlight">Search</button>
 						</form>
 					</div>
