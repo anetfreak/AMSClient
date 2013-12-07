@@ -329,6 +329,20 @@ public class AuthenticationController {
 		session.invalidate();
 		return new ModelAndView("home");
 	}
+	
+	
+	@RequestMapping(value = "/EditProfile.htm", method = RequestMethod.GET)
+	public ModelAndView showEditProfile(HttpSession session) {
+		session.invalidate();
+		return new ModelAndView("EditProfile");
+	}
+	
+	@RequestMapping(value = "/EditProfile.htm", method = RequestMethod.POST)
+	public ModelAndView editProfile(HttpSession session) {
+		session.invalidate();
+		return new ModelAndView("EditProfile");
+	}
+	
 
 	//	@RequestMapping(value = "/checkUserRegistered.htm", method = RequestMethod.POST)
 	//	public ModelAndView checkUser(@RequestParam("email") String email, HttpSession session) {

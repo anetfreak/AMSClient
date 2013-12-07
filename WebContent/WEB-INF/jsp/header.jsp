@@ -18,7 +18,7 @@
 				<li class="dropdown" id="loggedInDown">
 	 				<a class="dropdown-toggle" data-toggle="dropdown" href="#loggedInDown">Hello ${firstname} <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-				      <li><a href="showProfile.htm">Profile</a></li>
+				      <li><a href="EditProfile.htm">Profile</a></li>
 				      <li><a href="logout.htm">Logout</a></li>
 				    </ul>
 			    </li>

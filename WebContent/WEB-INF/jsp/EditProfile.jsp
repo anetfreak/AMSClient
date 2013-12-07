@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>AMS - Update Profile</title>
+<title>AMS - Edit Profile</title>
 
 <%@include file="includes.jsp"%>
 
@@ -252,7 +252,7 @@
 						<table>
 							<!--Body content-->
 							<tr>
-								<td><h2>Create an AMS account here</h2></td>
+								<td><h2>Edit Profile</h2></td>
 							</tr>
 							<tr>
 								<td><h5>You are a</h5></td>
