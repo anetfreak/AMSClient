@@ -22,16 +22,38 @@
 				<td><BR>Flight Day</td>
 				<td><BR>Flight Time</td>
 			</tr>
-				<c:forEach items="${flights}" var="flight">
+			<c:if test="${arr_flights ne null}">
+				<c:forEach items="${arr_flights}" var="flight">
 					<tr>
-						<td>${flight.flightId}</td>
-						<td>${flight.flightNo}</td>
-						<td>${flight.airlineName}</td>
-						<td>${flight.source}</td>
-						<td>${flight.destination}</td>
-						<td>${flight.noOfSeats}</td>
+						<c:if test="${flight ne null}">
+							<td>${flight.flightId}</td>
+							<td>${flight.flightNo}</td>
+							<td>${flight.airlineName}</td>
+							<td>${flight.source}</td>
+							<td>${flight.destination}</td>
+							<td>${flight.noOfSeats}</td>
+
+							<td><c:forEach items="${flight.flightTime}" var="timing">
+									<c:if test="${timing  ne null}">
+									${timing.flightDay}
+									<br>
+									</c:if>
+								</c:forEach>
+							</td>
+
+							<td><c:forEach items="${flight.flightTime}" var="timing">
+									<c:if test="${timing  ne null}">
+									${timing.flightTime}
+									<br>
+									</c:if>
+								</c:forEach>
+							</td>
+
+						</c:if>
 					</tr>
 				</c:forEach>
+			</c:if>
+
 			<tr>
 			</tr>
 		</table>
