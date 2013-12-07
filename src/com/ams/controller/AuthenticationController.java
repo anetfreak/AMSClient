@@ -132,6 +132,63 @@ public class AuthenticationController {
 		return new ModelAndView(VIEW_NAME, "result", response);
 	}
 
+	@RequestMapping(value = "/ListFlight.htm", method = RequestMethod.GET)
+	public ModelAndView showFlights() {
+		
+		ModelAndView modelAndView = new ModelAndView("ListFlight");
+		Flight[] flights = null;
+		
+		//BEGIN testing code
+		flights = new Flight[2];
+		flights[0] = new Flight();
+		flights[0].setAirlineName("airline0");
+		flights[0].setDestination("destination1");
+		flights[0].setFlightId(1000);
+		flights[0].setFlightNo("AF1000");
+		flights[0].setNoOfSeats(100);
+		flights[0].setSource("source0");
+		
+		flights[1] = new Flight();
+		flights[1].setAirlineName("airline1");
+		flights[1].setDestination("destination1");
+		flights[1].setFlightId(1001);
+		flights[1].setFlightNo("AF1001");
+		flights[1].setNoOfSeats(100);
+		flights[1].setSource("source1");
+		
+		FlightTime[] ft = new FlightTime[2];
+		ft[0] = new FlightTime();
+		ft[0].setFlightDay("Mon");
+		ft[0].setFlightTime("10:10 AM");
+		
+		ft[1] = new FlightTime();
+		ft[1].setFlightDay("Tue");
+		ft[1].setFlightTime("11:11 AM");
+		
+		flights[0].setFlightTime(ft);
+		flights[1].setFlightTime(ft);
+		
+		List<Flight> flight_list = Arrays.asList(flights);
+		//END testing code
+		
+		flightProxy.setEndpoint("http://localhost:8080/AMS/services/FlightService");
+		/*
+		try {
+			flights = flightProxy.getFlights();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+		if(flight_list != null)
+		{
+			System.out.println("Size : "+ flight_list.size());
+			modelAndView.addObject("arr_flights", flight_list);
+		}
+		
+		return new ModelAndView("ListFlight");
+	}
+
 	@RequestMapping(value = "/signup.htm", method = RequestMethod.GET)
 	public ModelAndView showSignup() {
 		return new ModelAndView("signup");
