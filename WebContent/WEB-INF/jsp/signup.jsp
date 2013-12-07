@@ -23,7 +23,146 @@
 			}
 		});
 		
+		var nullValueCheck = function() {
+			var fname = $('#firstName');
+			var lname = $('#lastName');
+			var email = $('#email');
+			var password = $('#password');
+			var rePassword = $('#reEnterPassword');
+			var address = $('#address');
+			var city = $('#city');
+			var state = $('#state');
+			var pincode = $('#zipCode');
+			var dob = $('#dob');
+			var userType = $("input:radio[name=userTypeInput]:checked");
+			var passport = $('#passport');
+			var nationality = $('#nationality');
+			var workdesc = $('#workDesc');
+			var position = $('#position');
+			var hiredate = $('hireDate');
+			var result = false;
+			
+			if(userType.val() == null || userType.val().trim() == '') {
+				alert('Please enter user type.');				
+			}
+			else if(fname.val() == null || fname.val().trim() == '') {
+				alert('Please enter your First Name.');
+			}
+			else if(lname.val() == null || lname.val().trim() == '') {
+				alert('Please enter your Last Name.');
+			}
+			else if(email.val() == null || email.val().trim() == '') {
+				alert('Please enter your email.');
+			}
+			else if(password.val() == null || password.val().trim() == '') {
+				alert('Please enter your Password.');
+			}
+			else if(rePassword.val() == null || rePassword.val().trim() == '') {
+				alert('Please re-enter your Password.');
+			}
+			else if(address.val() == null || address.val().trim() == '') {
+				alert('Please enter your Address.');
+			}
+			else if(city.val() == null || city.val().trim() == '') {
+				alert('Please enter City.');
+			}
+			else if(state.val() == null || state.val().trim() == '') {
+				alert('Please enter State.');
+			}
+			else if(pincode.val() == null || pincode.val().trim() == '') {
+				alert('Please enter ZipCode.');
+			}
+			else if(dob.val() == null || dob.val().trim() == '') {
+				alert('Please enter your Date Of Birth.');
+			}
+			else if(userType.val() == 0 && (workdesc.val() == null || workdesc.val().trim() == '')) {
+				alert('Please enter your Work Description.');
+			}
+			else if(userType.val() == 0 && (position.val() == null || position.val().trim() == '')) {
+				alert('Please enter your Position.');
+			}
+			else if(userType.val() == 0 && (hiredate.val() == null || hiredate.val().trim() == '')) {
+				alert('Please enter your Hire Date.');
+			}
+			else if (userType.val() == 1 && (passport.val() == null || passport.val().trim() == '')) {
+				alert('Please enter your Passport Number.');
+			}
+			else if (userType.val() == 1 && (nationality.val() == null || nationality.val().trim() == '')) {
+				alert('Please enter your Nationality.');
+			}
+			else {
+				result = true;
+			}
+			return result;
+		};
+		
+		var validEmail = function() {
+			var email = $('#email');
+			var EMAIL_PATTERN = /^([a-zA-Z0-9_\-\.]+([+])?[a-zA-Z0-9_\-\.]+)@((\[[0-2]{1}[0-5]{1}[0-5]{1}\.[0-2]{1}[0-5]{1}[0-5]{1}\.[0-2]{1}[0-5]{1}[0-5]{1}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-2]{1}[0-5]{1}[0-5]{1})(\]?)$/;
+			var result = false;
+
+		 if(!EMAIL_PATTERN.test(email.val())) {
+				alert('Email is not in a valid format.');
+				email.val('');
+			} 
+		 else {
+				result = true;
+			}
+			return result;
+			
+		};
+		
+		var validPassword = function(){
+			var password = $('#password');
+			var rePassword = $('#reEnterPassword');
+			var result = false;
+
+			if(password.val().length < 8 || password.val().length > 12){
+				alert('Password can be between 8 and 12 characters');
+				password.val('');
+			}
+			else if(password.val() != rePassword.val()){
+				alert('Passwords do not match');
+			}
+			else{
+				result = true;
+			}
+			return result;			
+		};
+		
+		var validateSSN = function(){
+			var ssn = $('#ssn');
+			var SSN_PATTERN = /^(?!000)([0-6]\d{2}|7([0-6]\d|7[012]))([ -]?)(?!00)\d\d\3(?!0000)\d{4}$/;
+			var result = false;
+			
+			if(!SSN_PATTERN.test(ssn.val())) {
+				alert('SSN is not in a valid format.');
+				ssn.val('');
+			} 
+		 else {
+				result = true;
+			}
+			return result;
+		};
+		
+		var validateZip = function(){
+			var zipCode = $('#zipCode');
+			var ZIP_PATTERN = /^\d{5}(-\d{4})?$/;
+			var result = false;
+			
+			if(!ZIP_PATTERN.test(zipCode.val())) {
+				alert('Zip Code is not in a valid format.');
+				zipCode.val('');
+			} 
+		 else {
+				result = true;
+			}
+			return result;
+		};
+		
+		
 		$('#signup').click(function(event) {
+		if(nullValueCheck() && validEmail() && validPassword() && validateSSN() && validateZip()) {
 		var fname = $('#firstName').val();
 		var lname = $('#lastName').val();
 		var email = $('#email').val();
@@ -58,8 +197,9 @@
 		    	$('#loginError').css('display', 'block');
 		    }
 		});
-		});
-		});
+		}
+	});
+});
 </script>
 
 </head>
@@ -120,7 +260,7 @@
 								<td><h5>Password</h5></td>
 								<td><div class="input-group">
 										<input type="password" id="password" name="passwordInput"
-											class="required" placeholder="Password">
+											class="required" placeholder="Password" maxlength="12">
 									</div></td>
 							</tr>
 							<tr></tr>
@@ -129,11 +269,18 @@
 								<td><div class="input-group">
 										<input type="password" id="reEnterPassword"
 											name="reEnterPasswordInput" class="required"
-											placeholder="Re-enter Password"
+											placeholder="Re-enter Password" maxlength="12"
 											onChange="checkPasswordMatch();">
 									</div></td>
 								<td><div class="registrationFormAlert"
 										id="divCheckPasswordMatch"></div></td>
+							</tr>
+							<tr></tr>
+							<tr>
+								<td><h5>Social Security Number</h5></td>
+								<td><div class="input-group">
+										<input type="text" id="ssn" class="required" placeholder="SSN">
+									</div></td>
 							</tr>
 							<tr></tr>
 							<tr>
