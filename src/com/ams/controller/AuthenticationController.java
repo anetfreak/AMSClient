@@ -43,13 +43,10 @@ public class AuthenticationController {
 			@RequestParam("password") String password,
 			@RequestParam("userType") Integer userType,
 			HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView();
 		Response response = null;
-		Customer customer = null;
-
+		Customer customer = new Customer();
 
 		authProxy.setEndpoint("http://localhost:8080/AMS/services/AuthenticationService");
-
 		if(userType == 0)
 		{
 			System.out.println("You are a Customer");
@@ -105,9 +102,7 @@ public class AuthenticationController {
 				else
 				{
 					System.out.println("Employee is present in database..!!");
-
 					empProxy.setEndpoint("http://localhost:8080/AMS/services/EmployeeService");
-
 					Employee employee = null;
 					employee = empProxy.retriveEmployeebypId(personId);
 					if(employee == null)
@@ -123,7 +118,7 @@ public class AuthenticationController {
 						session.setAttribute("firstname", firstName);
 						session.setAttribute("employeeId", employeeId);
 						session.setAttribute("sessionId", session.getId());
-						System.out.println("Session sttributes set for Employee..!!");
+						System.out.println("Session attributes set for Employee..!!");
 						response = new Response("success");
 					} 
 				}
@@ -133,9 +128,7 @@ public class AuthenticationController {
 				System.out.println("Exception in signin - employee");
 				e.printStackTrace();
 			}
-
 		}
-
 		return new ModelAndView(VIEW_NAME, "result", response);
 	}
 
@@ -233,13 +226,13 @@ public class AuthenticationController {
 	public ModelAndView showSignup() {
 		return new ModelAndView("signup");
 	}
-
 	
 	@RequestMapping(value = "/signup.htm", method = RequestMethod.POST)
 	public ModelAndView signup(@RequestParam("fname") String fname, 
 			@RequestParam("lname") String lname, 
 			@RequestParam("email") String email,
 			@RequestParam("password") String password, 
+			@RequestParam("ssn") Integer ssn,
 			@RequestParam("address") String address,
 			@RequestParam("city") String city,
 			@RequestParam("state") String state,
@@ -253,11 +246,10 @@ public class AuthenticationController {
 			@RequestParam("userType") Integer userType,
 			HttpSession session) {
 
-		ModelAndView modelAndView = new ModelAndView();
-
 		authProxy.setEndpoint("http://localhost:8080/AMS/services/AuthenticationService");
-		Employee employee = null;
-		Customer customer = null;
+		Employee employee = new Employee();
+		Customer customer = new Customer();
+		Response response = null; 
 		
 		Person person = null;
 		person.setFirstName(fname);
@@ -277,6 +269,7 @@ public class AuthenticationController {
 			
 			try 
 			{
+				employee.setEmployeeId(ssn);
 				employee.setHireDate(hiredate);
 				employee.setPosition(position);
 				employee.setWorkDesc(workdesc);
@@ -284,7 +277,13 @@ public class AuthenticationController {
 				
 				int employeeId = authProxy.employeeSignUp(employee);
 				if(employeeId > 0)
+				{
 					System.out.println("Employee Created..!! EmployeeID : "+employeeId);
+					response = new Response("success");
+					session.setAttribute("employeeId", employeeId);
+				}
+				else
+					response = new Response("failure");
 			}
 			catch (RemoteException e) 
 			{
@@ -292,7 +291,6 @@ public class AuthenticationController {
 				System.out.println("Exception in employee creation "+e);
 				e.printStackTrace();
 			}
-			
 		}
 		else
 		{
@@ -300,13 +298,20 @@ public class AuthenticationController {
 		
 			try 
 			{
+				customer.setCustomerId(ssn);
 				customer.setNationality(nationality);
 				customer.setPassportNumber(passport);
 				customer.setPerson(person);
 				
 				int customerId = authProxy.customerSignUp(customer);
 				if (customerId > 0)
+				{
 					System.out.println("Customer Created..!!Customer ID : "+customerId);
+					response = new Response("success");
+					session.setAttribute("customerId", customerId);
+				}
+				else
+					response = new Response("failure");
 			} 
 			catch (RemoteException e) 
 			{
@@ -316,10 +321,7 @@ public class AuthenticationController {
 			}
 		}
 
-
-
-	
-		return new ModelAndView("home");
+		return new ModelAndView(VIEW_NAME, "result", response);
 	}
 
 	@RequestMapping(value = "/logout.htm", method = RequestMethod.GET)
