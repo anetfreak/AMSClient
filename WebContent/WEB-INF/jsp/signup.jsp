@@ -11,7 +11,6 @@
 <script type="text/javascript">
 
 	$(document).ready(function() {
-		
 		$('input:radio[name=userTypeInput]').change(function() {
 			var userType = $("input:radio[name=userTypeInput]:checked").val();
 			if (userType == 0) {
@@ -96,6 +95,28 @@
 			return result;
 		};
 		
+		var validateAlphabets = function(){
+			var fname = $('#firstName');
+			var lname = $('#lastName');
+			var nationality = $('#nationality');
+			var PATTERN = /^[a-zA-Z]+$/;
+			var result = false;
+			
+			if(!PATTERN.test(fname.val())){
+				alert('Please enter only alphabets in First Name');
+			}
+			else if(!PATTERN.test(lname.val())){
+				alert('Please enter only alphabets in Last Name');
+			}
+			else if(!PATTERN.test(nationality.val())){
+				alert('Please enter only alphabets in Nationality');
+			}
+			else
+				result = true;
+			
+			return result;
+		};
+		
 		var validEmail = function() {
 			var email = $('#email');
 			var EMAIL_PATTERN = /^([a-zA-Z0-9_\-\.]+([+])?[a-zA-Z0-9_\-\.]+)@((\[[0-2]{1}[0-5]{1}[0-5]{1}\.[0-2]{1}[0-5]{1}[0-5]{1}\.[0-2]{1}[0-5]{1}[0-5]{1}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-2]{1}[0-5]{1}[0-5]{1})(\]?)$/;
@@ -109,7 +130,6 @@
 				result = true;
 			}
 			return result;
-			
 		};
 		
 		var validPassword = function(){
@@ -162,7 +182,7 @@
 		
 		
 		$('#signup').click(function(event) {
-		if(nullValueCheck() && validEmail() && validPassword() && validateSSN() && validateZip()) {
+		if(nullValueCheck() && validateAlphabets() && validEmail() && validPassword() && validateSSN() && validateZip()) {
 		var fname = $('#firstName').val();
 		var lname = $('#lastName').val();
 		var email = $('#email').val();
