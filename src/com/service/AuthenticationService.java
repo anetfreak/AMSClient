@@ -10,7 +10,7 @@ package com.service;
 public interface AuthenticationService extends java.rmi.Remote {
     public boolean updateEmpInformation(com.domain.Employee employee) throws java.rmi.RemoteException;
     public boolean updateCustInformation(com.domain.Customer customer) throws java.rmi.RemoteException;
-    public boolean employeeSignUp(com.domain.Employee employee) throws java.rmi.RemoteException;
+    public int employeeSignUp(com.domain.Employee employee) throws java.rmi.RemoteException;
     public int signInEmployee(java.lang.String username, java.lang.String password) throws java.rmi.RemoteException;
     public int signInCustomer(java.lang.String username, java.lang.String password) throws java.rmi.RemoteException;
     public boolean customerSignUp(com.domain.Customer customer) throws java.rmi.RemoteException;

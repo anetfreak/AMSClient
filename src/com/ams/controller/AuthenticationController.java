@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.domain.Customer;
 import com.domain.Employee;
+import com.domain.Person;
 import com.domain.Response;
 import com.service.AuthenticationServiceProxy;
 import com.service.CustomerServiceProxy;
@@ -136,19 +137,68 @@ public class AuthenticationController {
 		return new ModelAndView("signup");
 	}
 
+	
 	@RequestMapping(value = "/signup.htm", method = RequestMethod.POST)
 	public ModelAndView signup(@RequestParam("fname") String fname, 
 			@RequestParam("lname") String lname, 
 			@RequestParam("email") String email,
 			@RequestParam("password") String password, 
+			@RequestParam("address") String address,
+			@RequestParam("city") String city,
+			@RequestParam("state") String state,
+			@RequestParam("pincode") Integer pincode,
+			@RequestParam("dob") String dob,
+			@RequestParam("passport") String passport,
+			@RequestParam("nationality") String nationality,
+			@RequestParam("workdesc") String workdesc,
+			@RequestParam("position") String position,
+			@RequestParam("hiredate") String hiredate,
 			@RequestParam("userType") Integer userType,
 			HttpSession session) {
 
 		ModelAndView modelAndView = new ModelAndView();
 
+		authProxy.setEndpoint("http://localhost:8080/AMS/services/AuthenticationService");
+		Employee employee = null;
+		Customer customer = null;
+		
+		Person person = null;
+		person.setFirstName(fname);
+		person.setLastName(lname);
+		person.setAddress(address);
+		person.setCity(city);
+		person.setState(state);
+		person.setZip(pincode);
+		person.setDOB(dob);
+		person.setUsername(email);
+		person.setPassword(password);
+		person.setPersonType(userType);
+		
 		if(userType == 0)
 		{
-			System.out.println("You are a employee");
+			System.out.println("You are an employee");
+			
+			try 
+			{
+				employee.setHireDate(hiredate);
+				employee.setPosition(position);
+				employee.setWorkDesc(workdesc);
+				employee.setPerson(person);
+				
+				int employeeId = authProxy.employeeSignUp(employee);
+				
+				if(employeeId > 0)
+				{
+					System.out.println("Employee Created..!!");
+					System.out.println("Employee ID : "+employeeId);
+				}
+			}
+			catch (RemoteException e) 
+			{
+				// TODO Auto-generated catch block
+				System.out.println("Exception in employee creation");
+				e.printStackTrace();
+			}
 			
 		}
 		else
@@ -158,35 +208,7 @@ public class AuthenticationController {
 
 
 
-		//		User user = new User();
-		//		Developer developer = new Developer();
-		//		Tester tester = new Tester();
-		//
-		//		if(userType == 0) {
-		//			user.setIsTester(false);
-		//			//developer.setFirstName(fname);
-		//			//developer.setLastName(lname);
-		//			//developer.setLinkedInUrl("test url");
-		//		} else {
-		//			user.setIsTester(true);
-		//			//tester.setFirstName(fname);
-		//			//tester.setLastName(lname);
-		//			//tester.setLinkedInUrl("test url");
-		//		}
-		//		user.setUserName(email);
-		//		user.setPassword(password);
-		//		user.setDeveloper(developer);
-		//		user.setTester(tester);
-		//		user.setFirstName(fname);
-		//		user.setLastName(lname);
-		//		
-		//		System.out.println("Signup started for" + user.getFirstName() );
-		//		
-		//		userFacade.createUser(user);
-		//		
-		//		session.setAttribute("user", userFacade.getUser(user.getUserName()));
-		//		session.setAttribute("sessionId", session.getId());
-		//		System.out.println("Signup completed for user" + user.getFirstName() );
+	
 		return new ModelAndView("home");
 	}
 
