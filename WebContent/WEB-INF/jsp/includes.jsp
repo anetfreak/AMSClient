@@ -9,8 +9,8 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/bootstrap/bootstrap-scrollspy.js"/></script>
 
 <!-- DatePicker -->
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/datetimepicker/js/bootstrap-datetimepicker.min.js"/></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/js/datetimepicker/css/bootstrap-datetimepicker.min.css"/>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/datepicker/js/bootstrap-datepicker.js"/></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/js/datepicker/css/datepicker.css"/>
 <!-- DatePicker -->
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap/bootstrap.css"/>
