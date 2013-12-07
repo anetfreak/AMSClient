@@ -44,18 +44,6 @@ public class CustomerServiceProxy implements com.service.CustomerService {
     return customerService;
   }
   
-  public boolean insertCustomer(com.domain.Customer customer) throws java.rmi.RemoteException{
-    if (customerService == null)
-      _initCustomerServiceProxy();
-    return customerService.insertCustomer(customer);
-  }
-  
-  public com.domain.Customer getCustomer(int customerId) throws java.rmi.RemoteException{
-    if (customerService == null)
-      _initCustomerServiceProxy();
-    return customerService.getCustomer(customerId);
-  }
-  
   public boolean updateCustomer(com.domain.Customer customer) throws java.rmi.RemoteException{
     if (customerService == null)
       _initCustomerServiceProxy();
@@ -66,6 +54,24 @@ public class CustomerServiceProxy implements com.service.CustomerService {
     if (customerService == null)
       _initCustomerServiceProxy();
     return customerService.retriveCustomerbypId(personId);
+  }
+  
+  public int insertCustomer(com.domain.Customer customer) throws java.rmi.RemoteException{
+    if (customerService == null)
+      _initCustomerServiceProxy();
+    return customerService.insertCustomer(customer);
+  }
+  
+  public com.domain.Customer[] getCustomers() throws java.rmi.RemoteException{
+    if (customerService == null)
+      _initCustomerServiceProxy();
+    return customerService.getCustomers();
+  }
+  
+  public com.domain.Customer getCustomer(int customerId) throws java.rmi.RemoteException{
+    if (customerService == null)
+      _initCustomerServiceProxy();
+    return customerService.getCustomer(customerId);
   }
   
   
