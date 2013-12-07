@@ -1,6 +1,8 @@
 package com.ams.controller;
 
 import java.rmi.RemoteException;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,11 +14,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.domain.Customer;
 import com.domain.Employee;
+import com.domain.Flight;
+import com.domain.FlightTime;
 import com.domain.Person;
 import com.domain.Response;
 import com.service.AuthenticationServiceProxy;
 import com.service.CustomerServiceProxy;
 import com.service.EmployeeServiceProxy;
+import com.service.FlightServiceProxy;
 
 @Controller
 public class AuthenticationController {
@@ -25,6 +30,7 @@ public class AuthenticationController {
 	AuthenticationServiceProxy authProxy=new AuthenticationServiceProxy(); 
 	CustomerServiceProxy custProxy = new CustomerServiceProxy();
 	EmployeeServiceProxy empProxy = new EmployeeServiceProxy();
+	FlightServiceProxy flightProxy = new FlightServiceProxy();
 
 	@RequestMapping(value = "/login.htm", method = RequestMethod.GET)
 	public ModelAndView showLogin() {
