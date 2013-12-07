@@ -279,7 +279,7 @@ public class AuthenticationServiceSoapBindingStub extends org.apache.axis.client
 }
     }
 
-    public boolean employeeSignUp(com.domain.Employee employee) throws java.rmi.RemoteException {
+    public int employeeSignUp(com.domain.Employee employee) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
