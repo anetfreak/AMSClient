@@ -29,17 +29,13 @@
 				    data : "source=" + source + "&destination=" + destination + "&departDate=" + departDate + "&returnDate=" + returnDate,
 				    success:function(data, textStatus, jqXHR){
 				    	$('#searchFlightError').css('display', 'none;');
-// 				    	if(data.response == "success") {
-// 				    		window.location.href="/AMSClient/";
-// 				    	} else {
-// 				    		$('#loginError').css('display', 'block');
-// 				    		$('#email').val('');
-// 				    		$('#password').val('');
-// 				    	}
+				    	window.location.href="searchFlight.htm";
+				    	alert("Inside Success");
 				    },
 				    error: function(jqXHR, textStatus, errorThrown){
 				    	$('#searchFlightError').css('display', 'block');
-				    	alert("Could not process request.. " + errorThrown);
+// 				    	alert("Could not process request.. " + errorThrown);
+						return false;
 				    }
 				});
 			});
