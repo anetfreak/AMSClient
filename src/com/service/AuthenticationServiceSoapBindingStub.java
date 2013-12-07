@@ -49,8 +49,8 @@ public class AuthenticationServiceSoapBindingStub extends org.apache.axis.client
         oper.setName("employeeSignUp");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://service.com", "employee"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://domain.com", "Employee"), com.domain.Employee.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "boolean"));
-        oper.setReturnClass(boolean.class);
+        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
+        oper.setReturnClass(int.class);
         oper.setReturnQName(new javax.xml.namespace.QName("http://service.com", "employeeSignUpReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
@@ -86,8 +86,8 @@ public class AuthenticationServiceSoapBindingStub extends org.apache.axis.client
         oper.setName("customerSignUp");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://service.com", "customer"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://domain.com", "Customer"), com.domain.Customer.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "boolean"));
-        oper.setReturnClass(boolean.class);
+        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
+        oper.setReturnClass(int.class);
         oper.setReturnQName(new javax.xml.namespace.QName("http://service.com", "customerSignUpReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
@@ -303,9 +303,9 @@ public class AuthenticationServiceSoapBindingStub extends org.apache.axis.client
         else {
             extractAttachments(_call);
             try {
-                return ((java.lang.Boolean) _resp).booleanValue();
+                return ((java.lang.Integer) _resp).intValue();
             } catch (java.lang.Exception _exception) {
-                return ((java.lang.Boolean) org.apache.axis.utils.JavaUtils.convert(_resp, boolean.class)).booleanValue();
+                return ((java.lang.Integer) org.apache.axis.utils.JavaUtils.convert(_resp, int.class)).intValue();
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -381,7 +381,7 @@ public class AuthenticationServiceSoapBindingStub extends org.apache.axis.client
 }
     }
 
-    public boolean customerSignUp(com.domain.Customer customer) throws java.rmi.RemoteException {
+    public int customerSignUp(com.domain.Customer customer) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -405,9 +405,9 @@ public class AuthenticationServiceSoapBindingStub extends org.apache.axis.client
         else {
             extractAttachments(_call);
             try {
-                return ((java.lang.Boolean) _resp).booleanValue();
+                return ((java.lang.Integer) _resp).intValue();
             } catch (java.lang.Exception _exception) {
-                return ((java.lang.Boolean) org.apache.axis.utils.JavaUtils.convert(_resp, boolean.class)).booleanValue();
+                return ((java.lang.Integer) org.apache.axis.utils.JavaUtils.convert(_resp, int.class)).intValue();
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {

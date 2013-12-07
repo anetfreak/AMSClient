@@ -74,7 +74,7 @@ public class AuthenticationServiceProxy implements com.service.AuthenticationSer
     return authenticationService.signInCustomer(username, password);
   }
   
-  public boolean customerSignUp(com.domain.Customer customer) throws java.rmi.RemoteException{
+  public int customerSignUp(com.domain.Customer customer) throws java.rmi.RemoteException{
     if (authenticationService == null)
       _initAuthenticationServiceProxy();
     return authenticationService.customerSignUp(customer);

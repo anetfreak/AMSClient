@@ -219,7 +219,7 @@
 											placeholder="Hire Date">
 									</div></td>
 							</tr>
-							<!-- 							End Extra -->
+							<!-- End Extra -->
 							<tr></tr>
 							<tr>
 								<td></td>

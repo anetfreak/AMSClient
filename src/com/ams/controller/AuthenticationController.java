@@ -186,17 +186,13 @@ public class AuthenticationController {
 				employee.setPerson(person);
 				
 				int employeeId = authProxy.employeeSignUp(employee);
-				
 				if(employeeId > 0)
-				{
-					System.out.println("Employee Created..!!");
-					System.out.println("Employee ID : "+employeeId);
-				}
+					System.out.println("Employee Created..!! EmployeeID : "+employeeId);
 			}
 			catch (RemoteException e) 
 			{
 				// TODO Auto-generated catch block
-				System.out.println("Exception in employee creation");
+				System.out.println("Exception in employee creation "+e);
 				e.printStackTrace();
 			}
 			
@@ -204,6 +200,23 @@ public class AuthenticationController {
 		else
 		{
 			System.out.println("You are a customer");
+		
+			try 
+			{
+				customer.setNationality(nationality);
+				customer.setPassportNumber(passport);
+				customer.setPerson(person);
+				
+				int customerId = authProxy.customerSignUp(customer);
+				if (customerId > 0)
+					System.out.println("Customer Created..!!Customer ID : "+customerId);
+			} 
+			catch (RemoteException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Exception encountered in customer creation..!! "+e);
+			}
 		}
 
 
