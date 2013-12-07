@@ -44,28 +44,16 @@ public class AuthenticationServiceProxy implements com.service.AuthenticationSer
     return authenticationService;
   }
   
-  public boolean updateEmpInformation(com.domain.Employee employee) throws java.rmi.RemoteException{
+  public int signInEmployee(java.lang.String username, java.lang.String password) throws java.rmi.RemoteException{
     if (authenticationService == null)
       _initAuthenticationServiceProxy();
-    return authenticationService.updateEmpInformation(employee);
-  }
-  
-  public boolean updateCustInformation(com.domain.Customer customer) throws java.rmi.RemoteException{
-    if (authenticationService == null)
-      _initAuthenticationServiceProxy();
-    return authenticationService.updateCustInformation(customer);
+    return authenticationService.signInEmployee(username, password);
   }
   
   public int employeeSignUp(com.domain.Employee employee) throws java.rmi.RemoteException{
     if (authenticationService == null)
       _initAuthenticationServiceProxy();
     return authenticationService.employeeSignUp(employee);
-  }
-  
-  public int signInEmployee(java.lang.String username, java.lang.String password) throws java.rmi.RemoteException{
-    if (authenticationService == null)
-      _initAuthenticationServiceProxy();
-    return authenticationService.signInEmployee(username, password);
   }
   
   public int signInCustomer(java.lang.String username, java.lang.String password) throws java.rmi.RemoteException{
@@ -78,6 +66,18 @@ public class AuthenticationServiceProxy implements com.service.AuthenticationSer
     if (authenticationService == null)
       _initAuthenticationServiceProxy();
     return authenticationService.customerSignUp(customer);
+  }
+  
+  public boolean updateCustInformation(com.domain.Customer customer) throws java.rmi.RemoteException{
+    if (authenticationService == null)
+      _initAuthenticationServiceProxy();
+    return authenticationService.updateCustInformation(customer);
+  }
+  
+  public boolean updateEmpInformation(com.domain.Employee employee) throws java.rmi.RemoteException{
+    if (authenticationService == null)
+      _initAuthenticationServiceProxy();
+    return authenticationService.updateEmpInformation(employee);
   }
   
   

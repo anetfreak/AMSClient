@@ -24,7 +24,7 @@ import com.service.EmployeeServiceProxy;
 import com.service.FlightServiceProxy;
 
 @Controller
-public class AuthenticationController {
+public class PersonController {
 
 	CustomerServiceProxy custProxy = new CustomerServiceProxy();
 	EmployeeServiceProxy empProxy = new EmployeeServiceProxy();
@@ -34,7 +34,7 @@ public class AuthenticationController {
 		
 		Customer[] customer = null;
 
-		custProxy.setEndpoint("http://localhost:8080/AMS/services/EmployeeService");
+		custProxy.setEndpoint("http://localhost:8080/AMS/services/CustomerService");
 		
 		try {
 			customer = custProxy.getCustomers();
@@ -55,10 +55,10 @@ public class AuthenticationController {
 		
 		Employee[] employee = null;
 
-		custProxy.setEndpoint("http://localhost:8080/AMS/services/EmployeeService");
+		empProxy.setEndpoint("http://localhost:8080/AMS/services/EmployeeService");
 		
 		try {
-			employee = custProxy.getEmployees();
+			employee = empProxy.getEmployees();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -70,4 +70,4 @@ public class AuthenticationController {
 		
 		return new ModelAndView("ListEmployees","Employees",employees);
 	}
-
+}

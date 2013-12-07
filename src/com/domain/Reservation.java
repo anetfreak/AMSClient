@@ -8,6 +8,10 @@
 package com.domain;
 
 public class Reservation  implements java.io.Serializable {
+    private java.lang.Integer customerId;
+
+    private com.domain.Journey[] journey;
+
     private java.lang.Integer reservationId;
 
     private java.lang.String reservationNo;
@@ -22,16 +26,60 @@ public class Reservation  implements java.io.Serializable {
     }
 
     public Reservation(
+           java.lang.Integer customerId,
+           com.domain.Journey[] journey,
            java.lang.Integer reservationId,
            java.lang.String reservationNo,
            java.lang.Integer reservationStatus,
            java.lang.Integer seatsBooked,
            com.domain.Traveller[] travellers) {
+           this.customerId = customerId;
+           this.journey = journey;
            this.reservationId = reservationId;
            this.reservationNo = reservationNo;
            this.reservationStatus = reservationStatus;
            this.seatsBooked = seatsBooked;
            this.travellers = travellers;
+    }
+
+
+    /**
+     * Gets the customerId value for this Reservation.
+     * 
+     * @return customerId
+     */
+    public java.lang.Integer getCustomerId() {
+        return customerId;
+    }
+
+
+    /**
+     * Sets the customerId value for this Reservation.
+     * 
+     * @param customerId
+     */
+    public void setCustomerId(java.lang.Integer customerId) {
+        this.customerId = customerId;
+    }
+
+
+    /**
+     * Gets the journey value for this Reservation.
+     * 
+     * @return journey
+     */
+    public com.domain.Journey[] getJourney() {
+        return journey;
+    }
+
+
+    /**
+     * Sets the journey value for this Reservation.
+     * 
+     * @param journey
+     */
+    public void setJourney(com.domain.Journey[] journey) {
+        this.journey = journey;
     }
 
 
@@ -146,6 +194,12 @@ public class Reservation  implements java.io.Serializable {
         __equalsCalc = obj;
         boolean _equals;
         _equals = true && 
+            ((this.customerId==null && other.getCustomerId()==null) || 
+             (this.customerId!=null &&
+              this.customerId.equals(other.getCustomerId()))) &&
+            ((this.journey==null && other.getJourney()==null) || 
+             (this.journey!=null &&
+              java.util.Arrays.equals(this.journey, other.getJourney()))) &&
             ((this.reservationId==null && other.getReservationId()==null) || 
              (this.reservationId!=null &&
               this.reservationId.equals(other.getReservationId()))) &&
@@ -172,6 +226,20 @@ public class Reservation  implements java.io.Serializable {
         }
         __hashCodeCalc = true;
         int _hashCode = 1;
+        if (getCustomerId() != null) {
+            _hashCode += getCustomerId().hashCode();
+        }
+        if (getJourney() != null) {
+            for (int i=0;
+                 i<java.lang.reflect.Array.getLength(getJourney());
+                 i++) {
+                java.lang.Object obj = java.lang.reflect.Array.get(getJourney(), i);
+                if (obj != null &&
+                    !obj.getClass().isArray()) {
+                    _hashCode += obj.hashCode();
+                }
+            }
+        }
         if (getReservationId() != null) {
             _hashCode += getReservationId().hashCode();
         }
@@ -206,6 +274,19 @@ public class Reservation  implements java.io.Serializable {
     static {
         typeDesc.setXmlType(new javax.xml.namespace.QName("http://domain.com", "Reservation"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("customerId");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://domain.com", "customerId"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
+        elemField.setNillable(true);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("journey");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://domain.com", "journey"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://domain.com", "Journey"));
+        elemField.setNillable(true);
+        elemField.setItemQName(new javax.xml.namespace.QName("http://service.com", "item"));
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("reservationId");
         elemField.setXmlName(new javax.xml.namespace.QName("http://domain.com", "reservationId"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));

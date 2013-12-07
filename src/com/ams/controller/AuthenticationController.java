@@ -1,12 +1,7 @@
 package com.ams.controller;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,14 +10,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.domain.Customer;
 import com.domain.Employee;
-import com.domain.Flight;
-import com.domain.FlightTime;
 import com.domain.Person;
 import com.domain.Response;
 import com.service.AuthenticationServiceProxy;
 import com.service.CustomerServiceProxy;
 import com.service.EmployeeServiceProxy;
-import com.service.FlightServiceProxy;
+//import com.service.FlightServiceProxy;
 
 @Controller
 public class AuthenticationController {
@@ -31,7 +24,7 @@ public class AuthenticationController {
 	AuthenticationServiceProxy authProxy=new AuthenticationServiceProxy(); 
 	CustomerServiceProxy custProxy = new CustomerServiceProxy();
 	EmployeeServiceProxy empProxy = new EmployeeServiceProxy();
-	FlightServiceProxy flightProxy = new FlightServiceProxy();
+	//FlightServiceProxy flightProxy = new FlightServiceProxy();
 
 	@RequestMapping(value = "/login.htm", method = RequestMethod.GET)
 	public ModelAndView showLogin() {
@@ -132,96 +125,6 @@ public class AuthenticationController {
 		return new ModelAndView(VIEW_NAME, "result", response);
 	}
 
-	@RequestMapping(value = "/ListFlight.htm", method = RequestMethod.GET)
-	public ModelAndView showFlights() {
-		
-//		Flight[] flights = null;
-//		
-//		//BEGIN testing code
-//		flights = new Flight[2];
-//		flights[0] = new Flight();
-//		flights[0].setAirlineName("airline0");
-//		flights[0].setDestination("destination1");
-//		flights[0].setFlightId(1000);
-//		flights[0].setFlightNo("AF1000");
-//		flights[0].setNoOfSeats(100);
-//		flights[0].setSource("source0");
-//		
-//		flights[1] = new Flight();
-//		flights[1].setAirlineName("airline1");
-//		flights[1].setDestination("destination1");
-//		flights[1].setFlightId(1001);
-//		flights[1].setFlightNo("AF1001");
-//		flights[1].setNoOfSeats(100);
-//		flights[1].setSource("source1");
-//		
-//		FlightTime[] ft = new FlightTime[2];
-//		ft[0] = new FlightTime();
-//		ft[0].setFlightDay("Mon");
-//		ft[0].setFlightTime("10:10 AM");
-//		
-//		ft[1] = new FlightTime();
-//		ft[1].setFlightDay("Tue");
-//		ft[1].setFlightTime("11:11 AM");
-//		
-//		flights[0].setFlightTime(ft);
-//		flights[1].setFlightTime(ft);
-//		
-//		List<Flight> flight_list = Arrays.asList(flights);
-//		//END testing code
-		
-		flightProxy.setEndpoint("http://localhost:8080/AMS/services/FlightService");
-		/*
-		try {
-			flights = flightProxy.getFlights();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-		
-		ArrayList<Flight> flights = new ArrayList<Flight>();
-		
-		//BEGIN testing code
-		ArrayList<FlightTime> fTimes = new ArrayList<FlightTime>();
-		FlightTime fTime1 = new FlightTime();
-		fTime1.setFlightDay("Mon");
-		fTime1.setFlightTime("10:10 AM");
-		
-		FlightTime fTime2 = new FlightTime();
-		fTime2.setFlightDay("Tue");
-		fTime2.setFlightTime("11:11 AM");
-		
-		fTimes.add(fTime1);
-		fTimes.add(fTime2);
-		
-		
-		Flight flight = new Flight();
-		flight.setAirlineName("airline0");
-		flight.setDestination("destination1");
-		flight.setFlightId(1000);
-		flight.setFlightNo("AF1000");
-		flight.setNoOfSeats(100);
-		flight.setSource("source0");
-		
-		Flight flight2 = new Flight();
-		flight2.setAirlineName("airline1");
-		flight2.setDestination("destination1");
-		flight2.setFlightId(1001);
-		flight2.setFlightNo("AF1001");
-		flight2.setNoOfSeats(100);
-		flight2.setSource("source1");
-		flights.add(flight);
-		flights.add(flight2);
-		
-		if(flights != null)
-		{
-			System.out.println("Size : "+ flights.size());
-		}
-		
-		return new ModelAndView("ListFlight", "flights", flights);
-	}
-
 	@RequestMapping(value = "/signup.htm", method = RequestMethod.GET)
 	public ModelAndView showSignup() {
 		return new ModelAndView("signup");
@@ -249,9 +152,9 @@ public class AuthenticationController {
 		authProxy.setEndpoint("http://localhost:8080/AMS/services/AuthenticationService");
 		Employee employee = new Employee();
 		Customer customer = new Customer();
+		Person person = new Person();
 		Response response = null; 
 		
-		Person person = null;
 		person.setFirstName(fname);
 		person.setLastName(lname);
 		person.setAddress(address);
@@ -262,6 +165,8 @@ public class AuthenticationController {
 		person.setUsername(email);
 		person.setPassword(password);
 		person.setPersonType(userType);
+		
+		int personId = -1;
 		
 		if(userType == 0)
 		{
@@ -275,12 +180,14 @@ public class AuthenticationController {
 				employee.setWorkDesc(workdesc);
 				employee.setPerson(person);
 				
-				int employeeId = authProxy.employeeSignUp(employee);
-				if(employeeId > 0)
+				personId = authProxy.employeeSignUp(employee);
+				if(personId > 0)
 				{
-					System.out.println("Employee Created..!! EmployeeID : "+employeeId);
+					System.out.println("Employee Created..!! PersonID : "+personId);
 					response = new Response("success");
-					session.setAttribute("employeeId", employeeId);
+					session.setAttribute("person", person);
+					session.setAttribute("employee", employee);
+					
 				}
 				else
 					response = new Response("failure");
@@ -303,12 +210,13 @@ public class AuthenticationController {
 				customer.setPassportNumber(passport);
 				customer.setPerson(person);
 				
-				int customerId = authProxy.customerSignUp(customer);
-				if (customerId > 0)
+				personId = authProxy.customerSignUp(customer);
+				if (personId > 0)
 				{
-					System.out.println("Customer Created..!!Customer ID : "+customerId);
+					System.out.println("Customer Created..!! Person ID : "+personId);
 					response = new Response("success");
-					session.setAttribute("customerId", customerId);
+					session.setAttribute("person", person);
+					session.setAttribute("customer", customer);
 				}
 				else
 					response = new Response("failure");
@@ -333,7 +241,21 @@ public class AuthenticationController {
 	
 	@RequestMapping(value = "/EditProfile.htm", method = RequestMethod.GET)
 	public ModelAndView showEditProfile(HttpSession session) {
-		session.invalidate();
+		
+		Response response = null;
+		authProxy.setEndpoint("http://localhost:8080/AMS/services/AuthenticationService");
+		
+		Person person = (Person)session.getAttribute("person");
+		int personId = person.getPersonId();
+		int userType = person.getPersonType();
+		
+		if(userType == 0){
+			
+		}
+		else{
+			
+		}
+		
 		return new ModelAndView("EditProfile");
 	}
 	

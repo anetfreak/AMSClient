@@ -27,3 +27,7 @@ encoding//src/com/service/PersonService.java=UTF-8
 encoding//src/com/service/PersonServiceService.java=UTF-8
 encoding//src/com/service/PersonServiceServiceLocator.java=UTF-8
 encoding//src/com/service/PersonServiceSoapBindingStub.java=UTF-8
+encoding//src/com/service/ReservationService.java=UTF-8
+encoding//src/com/service/ReservationServiceService.java=UTF-8
+encoding//src/com/service/ReservationServiceServiceLocator.java=UTF-8
+encoding//src/com/service/ReservationServiceSoapBindingStub.java=UTF-8

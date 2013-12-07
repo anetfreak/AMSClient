@@ -44,22 +44,16 @@ public class FlightServiceProxy implements com.service.FlightService {
     return flightService;
   }
   
-  public com.domain.Flight[] getFlights() throws java.rmi.RemoteException{
-    if (flightService == null)
-      _initFlightServiceProxy();
-    return flightService.getFlights();
-  }
-  
   public boolean insertFlight(com.domain.Flight flight) throws java.rmi.RemoteException{
     if (flightService == null)
       _initFlightServiceProxy();
     return flightService.insertFlight(flight);
   }
   
-  public boolean updateFlight(com.domain.Flight flight) throws java.rmi.RemoteException{
+  public com.domain.Flight[] getFlights() throws java.rmi.RemoteException{
     if (flightService == null)
       _initFlightServiceProxy();
-    return flightService.updateFlight(flight);
+    return flightService.getFlights();
   }
   
   public com.domain.Flight getFlightByNo(java.lang.String flightNo) throws java.rmi.RemoteException{
@@ -74,10 +68,16 @@ public class FlightServiceProxy implements com.service.FlightService {
     return flightService.getFlightById(flightId);
   }
   
-  public com.domain.Flight searchFlight(java.lang.String sourceAirport, java.lang.String destAirport, java.lang.String departDate, java.lang.String returnDate) throws java.rmi.RemoteException{
+  public com.domain.Flight[] searchFlight(java.lang.String sourceAirport, java.lang.String destAirport, java.lang.String departDate) throws java.rmi.RemoteException{
     if (flightService == null)
       _initFlightServiceProxy();
-    return flightService.searchFlight(sourceAirport, destAirport, departDate, returnDate);
+    return flightService.searchFlight(sourceAirport, destAirport, departDate);
+  }
+  
+  public boolean updateFlight(com.domain.Flight flight) throws java.rmi.RemoteException{
+    if (flightService == null)
+      _initFlightServiceProxy();
+    return flightService.updateFlight(flight);
   }
   
   

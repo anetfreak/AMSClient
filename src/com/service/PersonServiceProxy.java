@@ -44,6 +44,12 @@ public class PersonServiceProxy implements com.service.PersonService {
     return personService;
   }
   
+  public com.domain.Person getPerson(int personId) throws java.rmi.RemoteException{
+    if (personService == null)
+      _initPersonServiceProxy();
+    return personService.getPerson(personId);
+  }
+  
   public boolean validatePerson(java.lang.String username, java.lang.String password) throws java.rmi.RemoteException{
     if (personService == null)
       _initPersonServiceProxy();
@@ -60,12 +66,6 @@ public class PersonServiceProxy implements com.service.PersonService {
     if (personService == null)
       _initPersonServiceProxy();
     return personService.updatePerson(person);
-  }
-  
-  public com.domain.Person getPerson(int personId) throws java.rmi.RemoteException{
-    if (personService == null)
-      _initPersonServiceProxy();
-    return personService.getPerson(personId);
   }
   
   
