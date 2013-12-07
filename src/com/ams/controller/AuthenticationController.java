@@ -1,6 +1,7 @@
 package com.ams.controller;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -141,41 +142,40 @@ public class AuthenticationController {
 	@RequestMapping(value = "/ListFlight.htm", method = RequestMethod.GET)
 	public ModelAndView showFlights() {
 		
-		ModelAndView modelAndView = new ModelAndView("ListFlight");
-		Flight[] flights = null;
-		
-		//BEGIN testing code
-		flights = new Flight[2];
-		flights[0] = new Flight();
-		flights[0].setAirlineName("airline0");
-		flights[0].setDestination("destination1");
-		flights[0].setFlightId(1000);
-		flights[0].setFlightNo("AF1000");
-		flights[0].setNoOfSeats(100);
-		flights[0].setSource("source0");
-		
-		flights[1] = new Flight();
-		flights[1].setAirlineName("airline1");
-		flights[1].setDestination("destination1");
-		flights[1].setFlightId(1001);
-		flights[1].setFlightNo("AF1001");
-		flights[1].setNoOfSeats(100);
-		flights[1].setSource("source1");
-		
-		FlightTime[] ft = new FlightTime[2];
-		ft[0] = new FlightTime();
-		ft[0].setFlightDay("Mon");
-		ft[0].setFlightTime("10:10 AM");
-		
-		ft[1] = new FlightTime();
-		ft[1].setFlightDay("Tue");
-		ft[1].setFlightTime("11:11 AM");
-		
-		flights[0].setFlightTime(ft);
-		flights[1].setFlightTime(ft);
-		
-		List<Flight> flight_list = Arrays.asList(flights);
-		//END testing code
+//		Flight[] flights = null;
+//		
+//		//BEGIN testing code
+//		flights = new Flight[2];
+//		flights[0] = new Flight();
+//		flights[0].setAirlineName("airline0");
+//		flights[0].setDestination("destination1");
+//		flights[0].setFlightId(1000);
+//		flights[0].setFlightNo("AF1000");
+//		flights[0].setNoOfSeats(100);
+//		flights[0].setSource("source0");
+//		
+//		flights[1] = new Flight();
+//		flights[1].setAirlineName("airline1");
+//		flights[1].setDestination("destination1");
+//		flights[1].setFlightId(1001);
+//		flights[1].setFlightNo("AF1001");
+//		flights[1].setNoOfSeats(100);
+//		flights[1].setSource("source1");
+//		
+//		FlightTime[] ft = new FlightTime[2];
+//		ft[0] = new FlightTime();
+//		ft[0].setFlightDay("Mon");
+//		ft[0].setFlightTime("10:10 AM");
+//		
+//		ft[1] = new FlightTime();
+//		ft[1].setFlightDay("Tue");
+//		ft[1].setFlightTime("11:11 AM");
+//		
+//		flights[0].setFlightTime(ft);
+//		flights[1].setFlightTime(ft);
+//		
+//		List<Flight> flight_list = Arrays.asList(flights);
+//		//END testing code
 		
 		flightProxy.setEndpoint("http://localhost:8080/AMS/services/FlightService");
 		/*
@@ -186,13 +186,47 @@ public class AuthenticationController {
 			e.printStackTrace();
 		}
 		*/
-		if(flight_list != null)
+		
+		ArrayList<Flight> flights = new ArrayList<Flight>();
+		
+		//BEGIN testing code
+		ArrayList<FlightTime> fTimes = new ArrayList<FlightTime>();
+		FlightTime fTime1 = new FlightTime();
+		fTime1.setFlightDay("Mon");
+		fTime1.setFlightTime("10:10 AM");
+		
+		FlightTime fTime2 = new FlightTime();
+		fTime2.setFlightDay("Tue");
+		fTime2.setFlightTime("11:11 AM");
+		
+		fTimes.add(fTime1);
+		fTimes.add(fTime2);
+		
+		
+		Flight flight = new Flight();
+		flight.setAirlineName("airline0");
+		flight.setDestination("destination1");
+		flight.setFlightId(1000);
+		flight.setFlightNo("AF1000");
+		flight.setNoOfSeats(100);
+		flight.setSource("source0");
+		
+		Flight flight2 = new Flight();
+		flight2.setAirlineName("airline1");
+		flight2.setDestination("destination1");
+		flight2.setFlightId(1001);
+		flight2.setFlightNo("AF1001");
+		flight2.setNoOfSeats(100);
+		flight2.setSource("source1");
+		flights.add(flight);
+		flights.add(flight2);
+		
+		if(flights != null)
 		{
-			System.out.println("Size : "+ flight_list.size());
-			modelAndView.addObject("arr_flights", flight_list);
+			System.out.println("Size : "+ flights.size());
 		}
 		
-		return new ModelAndView("ListFlight");
+		return new ModelAndView("ListFlight", "flights", flights);
 	}
 
 	@RequestMapping(value = "/signup.htm", method = RequestMethod.GET)
