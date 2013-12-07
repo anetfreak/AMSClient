@@ -6,6 +6,7 @@
 			<a class="brand" href="/AMSClient/"><span style="margin: 0px 10px 0px 10px;">AMS</span></a>
 			<ul id="testMenu" class="nav">
 				<li><a href="ListFlight.htm">List Flights</a></li>
+				<li><a href="searchFlight.htm">Search Flight</a></li>
 			</ul>
 			<% if(session.getAttribute("sessionId") == null) { %>
 			<ul id="loginMenu" class="nav" style=" float:right;">
