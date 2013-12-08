@@ -168,8 +168,11 @@ public class AuthenticationController {
 		Person person = new Person();
 		Response response = null; 
 
-		String[] splitSSN = ssn.split("-");
-		String combinedSSN = splitSSN[0].concat(splitSSN[1]).concat(splitSSN[2]);
+		String combinedSSN = String.valueOf(ssn);
+		if(!isUpdate){
+			String[] splitSSN = ssn.split("-");
+			combinedSSN = splitSSN[0].concat(splitSSN[1]).concat(splitSSN[2]);
+		}
 		person.setFirstName(fname);
 		person.setLastName(lname);
 		person.setAddress(address);
