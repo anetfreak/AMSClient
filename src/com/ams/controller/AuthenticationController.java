@@ -164,7 +164,7 @@ public class AuthenticationController {
 		person.setDOB(dob);
 		person.setUsername(email);
 		person.setPassword(password);
-		person.setPersonType(userType);
+		person.setPersonType(userType+1);
 		
 		int personId = -1;
 		
@@ -250,7 +250,7 @@ public class AuthenticationController {
 		int userType = person.getPersonType();
 		
 		if(userType == 0){
-			
+			System.out.println("The logged in user is ");
 		}
 		else{
 			
