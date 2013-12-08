@@ -1,7 +1,9 @@
 package com.ams.controller;
 
 import java.rmi.RemoteException;
+
 import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -141,11 +143,11 @@ public class AuthenticationController {
 			@RequestParam("state") String state,
 			@RequestParam("pincode") Integer pincode,
 			@RequestParam("dob") String dob,
-			@RequestParam("passport") String passport,
-			@RequestParam("nationality") String nationality,
-			@RequestParam("workdesc") String workdesc,
-			@RequestParam("position") String position,
-			@RequestParam("hiredate") String hiredate,
+			@RequestParam(value="passport", required=false) String passport,
+			@RequestParam(value="nationality", required=false) String nationality,
+			@RequestParam(value="workdesc", required=false) String workdesc,
+			@RequestParam(value="position", required=false) String position,
+			@RequestParam(value="hiredate", required=false) String hiredate,
 			@RequestParam("userType") Integer userType,
 			HttpSession session) {
 
@@ -188,6 +190,8 @@ public class AuthenticationController {
 					session.setAttribute("person", person);
 					session.setAttribute("employee", employee);
 					
+					Person p1 = (Person)session.getAttribute("person");
+					System.out.println("First Name from session:"+ p1.getFirstName());
 				}
 				else
 					response = new Response("failure");
@@ -232,12 +236,6 @@ public class AuthenticationController {
 		return new ModelAndView(VIEW_NAME, "result", response);
 	}
 
-	@RequestMapping(value = "/logout.htm", method = RequestMethod.GET)
-	public ModelAndView logout(HttpSession session) {
-		session.invalidate();
-		return new ModelAndView("home");
-	}
-	
 	
 	@RequestMapping(value = "/EditProfile.htm", method = RequestMethod.GET)
 	public ModelAndView showEditProfile(HttpSession session) {
@@ -245,15 +243,32 @@ public class AuthenticationController {
 		Response response = null;
 		authProxy.setEndpoint("http://localhost:8080/AMS/services/AuthenticationService");
 		
-		Person person = (Person)session.getAttribute("person");
+		Person person = new Person();
+		person = (Person)session.getAttribute("person");
+		System.out.println("Person ID : "+person.getPersonId());
 		int personId = person.getPersonId();
 		int userType = person.getPersonType();
-		
-		if(userType == 0){
-			System.out.println("The logged in user is ");
+		String fname = person.getFirstName();
+		String lname = person.getLastName();
+		String address = person.getAddress();
+		String city = person.getCity();
+		String state = person.getState();
+		int zipCode = person.getZip();
+		String dob = person.getDOB();
+		String email = person.getUsername();
+		String password	= person.getPassword();
+						
+		if(userType == 1){
+			System.out.println("The logged in user is an Employee");
+			Employee emp = (Employee)session.getAttribute("employee");
+			int empId = emp.getEmployeeId();
+			String hireDate = emp.getHireDate();
+			String position = emp.getPosition();
+			String workDesc = emp.getWorkDesc();
+			int ssn = emp.getEmployeeId();
 		}
 		else{
-			
+			System.out.println("The logged in user is a customer");
 		}
 		
 		return new ModelAndView("EditProfile");
@@ -265,4 +280,12 @@ public class AuthenticationController {
 		return new ModelAndView("EditProfile");
 	}
 
+	
+
+	@RequestMapping(value = "/logout.htm", method = RequestMethod.GET)
+	public ModelAndView logout(HttpSession session) {
+		session.invalidate();
+		return new ModelAndView("home");
+	}
+	
 }

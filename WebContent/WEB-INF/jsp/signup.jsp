@@ -12,12 +12,8 @@
 
 	$(document).ready(function() {
 		
-		$('#departDate').datetimepicker({
-		      pickTime: false
-		});
-		$('#returnDate').datetimepicker({
-		      pickTime: false
-		});
+		$('#dob').datepicker();
+		$('#hireDate').datepicker();
 		
 		$('input:radio[name=userTypeInput]').change(function() {
 			var userType = $("input:radio[name=userTypeInput]:checked").val();
@@ -40,15 +36,14 @@
 			var city = $('#city');
 			var state = $('#state');
 			var pincode = $('#zipCode');
-			var dobDate = $('#dob').data('datetimepicker');
-			var dob = dobDate.getDate();
+			var dob = $('#dob');
 			var userType = $("input:radio[name=userTypeInput]:checked");
 			var passport = $('#passport');
 			var nationality = $('#nationality');
 			var workdesc = $('#workDesc');
 			var position = $('#position');
-			var hiredatepick = $('#hireDate').data('datetimepicker');
-			var hiredate = hiredatepick.getDate();
+			var hiredate = $('#hireDate');
+			
 			var result = false;
 			
 			if(userType.val() == null || userType.val().trim() == '') {
@@ -109,6 +104,7 @@
 			var fname = $('#firstName');
 			var lname = $('#lastName');
 			var nationality = $('#nationality');
+			var userType = $("input:radio[name=userTypeInput]:checked");
 			var PATTERN = /^[a-zA-Z]+$/;
 			var result = false;
 			
@@ -118,8 +114,10 @@
 			else if(!PATTERN.test(lname.val())){
 				alert('Please enter only alphabets in Last Name');
 			}
-			else if(!PATTERN.test(nationality.val())){
-				alert('Please enter only alphabets in Nationality');
+			else if(userType == 1){
+				if(!PATTERN.test(nationality.val())){
+					alert('Please enter only alphabets in Nationality');
+				}
 			}
 			else
 				result = true;
@@ -201,22 +199,20 @@
 		var city = $('#city').val();
 		var state = $('#state').val();
 		var pincode = $('#zipCode').val();
-		var dobDate = $('#dob').data('datetimepicker');
-		var dob = dobDate.getDate();
+		var dob = $('#dob').val();
 		var passport = $('#passport').val();
 		var nationality = $('#nationality').val();
 		var workdesc = $('#workDesc').val();
 		var position = $('#position').val();
-		var hiredatepick = $('#hireDate').data('datetimepicker');
-		var hiredate = hiredatepick.getDate();
+		var hiredate = $('#hireDate').val();
 		var userType = $("input:radio[name=userTypeInput]:checked").val();
 		
 		$.ajax({
 			url : "signup.htm",
 		    type: "POST",
-		    data : "email=" + email + "&password=" + password + "&userType=" + userType + "&firstName=" +fname+ "&lastName=" +lname+ "&address=" +address+
-		    "&city=" +city+ "&state=" +state+ "&pincode=" +pincode+ "&dob=" +dob+ "&passport=" +passport+ "&nationality=" +nationality+ "&workDesc=" +workdesc+
-		    "&position=" +position+ "&hireDate=" +hiredate,
+		    data : "email=" + email + "&password=" + password + "&userType=" + userType + "&fname=" +fname+ "&lname=" +lname+ "&address=" +address+
+		    "&city=" +city+ "&state=" +state+ "&pincode=" +pincode+ "&dob=" +dob+ "&passport=" +passport+ "&nationality=" +nationality+ "&workdesc=" +workdesc+
+		    "&position=" +position+ "&hiredate=" +hiredate,
 		    success:function(data, textStatus, jqXHR){
 		    	$('#loginError').css('display', 'none;');
 		    	if(data.response == "success") {
@@ -346,13 +342,7 @@
 							<tr></tr>
 							<tr>
 								<td><h5>Date Of Birth</h5></td>
-								<td><div id="dob">
-							    <input data-format="yyyy-MM-dd" type="text"></input>
-							    <span class="add-on">
-							      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-							      </i>
-							    </span>
-							  </div></td>
+								<td><input id="dob" size="16" type="text" readonly data-date-format="yyyy-mm-dd" placeholder="Date Of Birth"></td>
 							</tr>
 							<!-- 							Extra Fields -->
 							<tr class="customerExtra" style="display: none;"></tr>
@@ -394,13 +384,7 @@
 							<tr class="empExtra" style="display: none;"></tr>
 							<tr class="empExtra" style="display: none;">
 								<td><h5>Hire Date</h5></td>
-								<td><div id="hireDate">
-							    <input data-format="yyyy-MM-dd" type="text"></input>
-							    <span class="add-on">
-							      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-							      </i>
-							    </span>
-							  </div></td>
+								<td><input id="hireDate" size="16" type="text" readonly data-date-format="yyyy-mm-dd" placeholder="Hire Date"></td>
 							</tr>
 							<!-- End Extra -->
 							<tr></tr>

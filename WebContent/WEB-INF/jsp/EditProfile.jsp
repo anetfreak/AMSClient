@@ -268,7 +268,7 @@
 								<td><h5>First Name</h5></td>
 								<td><div class="input-group">
 										<input type="text" id="firstName" class="required"
-											placeholder="First Name">
+											placeholder="First Name" value="${fname}">
 									</div></td>
 							</tr>
 							<tr></tr>
@@ -276,7 +276,7 @@
 								<td><h5>Last Name</h5></td>
 								<td><div class="input-group">
 										<input type="text" id="lastName" class="required"
-											placeholder="Last Name">
+											placeholder="Last Name" value="${lname}">
 									</div></td>
 							</tr>
 							<tr></tr>
@@ -284,7 +284,7 @@
 								<td><h5>Email</h5></td>
 								<td><div class="input-group">
 										<input type="email" id="email" class="required email"
-											placeholder="Email ID">
+											placeholder="Email ID" value="${email}">
 									</div></td>
 							</tr>
 							<tr></tr>
@@ -308,7 +308,7 @@
 							<tr>
 								<td><h5>Social Security Number</h5></td>
 								<td><div class="input-group">
-										<input type="text" id="ssn" class="required" placeholder="SSN">
+										<input type="text" id="ssn" class="required" placeholder="SSN" value="${ssn}">
 									</div></td>
 							</tr>
 							<tr></tr>
@@ -316,7 +316,7 @@
 								<td><h5>Address</h5></td>
 								<td><div class="input-group">
 										<input type="text" id="address" class="required"
-											placeholder="Address">
+											placeholder="Address" value="${address}">
 									</div></td>
 							</tr>
 							<tr></tr>
@@ -324,7 +324,7 @@
 								<td><h5>City</h5></td>
 								<td><div class="input-group">
 										<input type="text" id="city" class="required"
-											placeholder="City">
+											placeholder="City" value="${city}">
 									</div></td>
 							</tr>
 							<tr></tr>
@@ -332,7 +332,7 @@
 								<td><h5>State</h5></td>
 								<td><div class="input-group">
 										<input type="text" id="state" class="required"
-											placeholder="State">
+											placeholder="State" value="${state}">
 									</div></td>
 							</tr>
 							<tr></tr>
@@ -340,14 +340,14 @@
 								<td><h5>PinCode</h5></td>
 								<td><div class="input-group">
 										<input type="text" id="zipCode" class="required"
-											placeholder="Zip Code">
+											placeholder="Zip Code" value="${zipCode}">
 									</div></td>
 							</tr>
 							<tr></tr>
 							<tr>
 								<td><h5>Date Of Birth</h5></td>
 								<td><div id="dob">
-							    <input data-format="yyyy-MM-dd" type="text"></input>
+							    <input data-format="yyyy-MM-dd" type="text" value="${dob}"></input>
 							    <span class="add-on">
 							      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
 							      </i>
@@ -361,7 +361,7 @@
 								<td></td>
 								<td><div class="input-group">
 										<input type="text" id="passport" class="required"
-											placeholder="Passport Number">
+											placeholder="Passport Number" value="${passport}">
 									</div></td>
 							</tr>
 							<tr class="customerExtra" style="display: none;"></tr>
@@ -370,7 +370,7 @@
 								<td></td>
 								<td><div class="input-group">
 										<input type="text" id="nationality" class="required"
-											placeholder="Nationality">
+											placeholder="Nationality" value="${nationality}">
 									</div></td>
 							</tr>
 							<tr class="empExtra" style="display: none;"></tr>
@@ -379,7 +379,7 @@
 								<td></td>
 								<td><div class="input-group">
 										<input type="text" id="workDesc" class="required"
-											placeholder="Work Description">
+											placeholder="Work Description" value="${workDesc}">
 									</div></td>
 							</tr>
 							<tr class="empExtra" style="display: none;"></tr>
@@ -388,14 +388,14 @@
 								<td></td>
 								<td><div class="input-group">
 										<input type="text" id="position" class="required"
-											placeholder="Position">
+											placeholder="Position" value="${position}">
 									</div></td>
 							</tr>
 							<tr class="empExtra" style="display: none;"></tr>
 							<tr class="empExtra" style="display: none;">
 								<td><h5>Hire Date</h5></td>
 								<td><div id="hireDate">
-							    <input data-format="yyyy-MM-dd" type="text"></input>
+							    <input data-format="yyyy-MM-dd" type="text" value="${hireDate}"></input>
 							    <span class="add-on">
 							      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
 							      </i>
