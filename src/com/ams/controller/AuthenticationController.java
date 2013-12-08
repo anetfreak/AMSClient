@@ -169,7 +169,8 @@ public class AuthenticationController {
 		Response response = null; 
 
 		String combinedSSN = String.valueOf(ssn);
-		if(!isUpdate){
+		if(!isUpdate)
+		{
 			String[] splitSSN = ssn.split("-");
 			combinedSSN = splitSSN[0].concat(splitSSN[1]).concat(splitSSN[2]);
 		}
@@ -203,9 +204,28 @@ public class AuthenticationController {
 				{
 					personId = authProxy.employeeSignUp(employee);
 					System.out.println("Entry not updated for employee");
+					
+					if(personId > 0)
+					{
+						System.out.println("Employee Created..!! PersonID : "+personId);
+						response = new Response("success");
+						session.setAttribute("person", person);
+						session.setAttribute("employee", employee);
+						session.setAttribute("personId", personId);
+						session.setAttribute("firstname", person.getFirstName());
+						session.setAttribute("sessionId", session.getId());
+						Person p1 = (Person)session.getAttribute("person");
+						System.out.println("First Name from session:"+ p1.getFirstName());
+					}
+					else
+					{
+						response = new Response("failure");
+					}
 				}
 				else
 				{
+					personId = (Integer) session.getAttribute("personId");
+					person.setPersonId(personId);
 					boolean b =authProxy.updateEmpInformation(employee);
 					if(b){
 
@@ -218,20 +238,6 @@ public class AuthenticationController {
 						response = new Response("updateFailed");
 					}
 				}
-				if(personId > 0)
-				{
-					System.out.println("Employee Created..!! PersonID : "+personId);
-					response = new Response("success");
-					session.setAttribute("person", person);
-					session.setAttribute("employee", employee);
-					session.setAttribute("personId", personId);
-					session.setAttribute("firstname", person.getFirstName());
-					session.setAttribute("sessionId", session.getId());
-					Person p1 = (Person)session.getAttribute("person");
-					System.out.println("First Name from session:"+ p1.getFirstName());
-				}
-				else
-					response = new Response("failure");
 			}
 			catch (RemoteException e) 
 			{
@@ -243,7 +249,6 @@ public class AuthenticationController {
 		else
 		{
 			System.out.println("You are a customer");
-
 			try 
 			{
 				customer.setCustomerId(Integer.valueOf(combinedSSN));
@@ -255,31 +260,36 @@ public class AuthenticationController {
 				{
 					personId = authProxy.customerSignUp(customer);
 					System.out.println("New Entry added for customer");
+
+					if (personId > 0)
+					{
+						System.out.println("Customer Created..!! Person ID : "+personId);
+						response = new Response("success");
+						session.setAttribute("person", person);
+						session.setAttribute("personId", personId);
+						session.setAttribute("firstname", person.getFirstName());
+						session.setAttribute("sessionId", session.getId());
+						session.setAttribute("customer", customer);
+					}
+					else
+						response = new Response("failure");
 				}
 				else
 				{
+					personId = (Integer) session.getAttribute("personId");
+					person.setPersonId(personId);
 					boolean b =authProxy.updateCustInformation(customer);
-					if(b){
+					if(b)
+					{
 						response = new Response("updated");
 						System.out.println("Customer table updated.");
 						System.out.println("personID  = "+session.getAttribute("personId"));
 					}
-					else{
+					else
+					{
 						response = new Response("updateFailed");
 					}
 				}
-				if (personId > 0)
-				{
-					System.out.println("Customer Created..!! Person ID : "+personId);
-					response = new Response("success");
-					session.setAttribute("person", person);
-					session.setAttribute("personId", personId);
-					session.setAttribute("firstname", person.getFirstName());
-					session.setAttribute("sessionId", session.getId());
-					session.setAttribute("customer", customer);
-				}
-				else
-					response = new Response("failure");
 			} 
 			catch (RemoteException e) 
 			{
@@ -288,7 +298,6 @@ public class AuthenticationController {
 				System.out.println("Exception encountered in customer creation..!! "+e);
 			}
 		}
-
 		return new ModelAndView(VIEW_NAME, "result", response);
 	}
 
