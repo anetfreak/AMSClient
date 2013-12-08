@@ -23,6 +23,7 @@
 				    data : "source=" + source + "&destination=" + destination + "&departDate=" + departDate,
 				    success:function(data, textStatus, jqXHR){
 				    	$('#searchFlightError').css('display', 'none;');
+// 				    	window.location.reload();
 				    },
 				    error: function(jqXHR, textStatus, errorThrown){
 				    	$('#searchFlightError').css('display', 'block');
@@ -71,7 +72,8 @@
 			</div>
 			<div class="row-fluid">
 				<div id="flightSearchResults">
-					<c:if test="${flights ne null}">
+					<c:choose>
+					<c:when test="${flights ne null}">
 					<table class="table table-bordered table-striped" border="1">
 						<tr>
 							<td><BR>Flight Id</td>
@@ -115,7 +117,8 @@
 						<tr>
 						</tr>
 					</table>
-					</c:if>
+					</c:when>
+					</c:choose>
 				</div>
 			</div>
 		</div>
