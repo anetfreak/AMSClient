@@ -7,6 +7,9 @@
 			<ul id="testMenu" class="nav">
 				<li><a href="ListFlight.htm">List Flights</a></li>
 				<li><a href="searchFlight.htm">Search Flight</a></li>
+				<li><a href="ListEmployees.htm">List Employees</a></li>
+				<li><a href="ListReservations.htm">List Reservations</a></li>
+				<li><a href="ListCustomers.htm">List Customers</a></li>
 			</ul>
 			<% if(session.getAttribute("sessionId") == null) { %>
 			<ul id="loginMenu" class="nav" style=" float:right;">
