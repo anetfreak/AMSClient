@@ -41,6 +41,7 @@ public class FlightController {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
+		
 		return new ModelAndView("search_flight", "flights", flights);
 	}
 	

@@ -61,4 +61,10 @@ public class PersonController {
 		
 		return new ModelAndView("ListEmployees","Employees",employees);
 	}
+		
+		
+	@RequestMapping(value = "/SearchEmployee.htm", method = RequestMethod.GET)
+	public ModelAndView showSearchEmployee() {
+		return new ModelAndView("search_employee");
+	}
 }
