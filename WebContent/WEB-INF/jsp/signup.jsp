@@ -240,6 +240,10 @@
 
 	<div id="container" style="padding: 40px 0px 80px 0px;">
 		<div class="container-fluid">
+		<div id="loginError" class="alert alert-error alert-dismissable" style="display: none;">
+			  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			  SignUp Error. Please try again.
+			</div>
 			<div class="row-fluid">
 				<div id="sidebar" class="span2">
 					<!--Sidebar content-->

@@ -13,12 +13,8 @@
 			.ready(
 					function() {
 
-						$('#departDate').datetimepicker({
-							pickTime : false
-						});
-						$('#returnDate').datetimepicker({
-							pickTime : false
-						});
+						$('#dob').datepicker();
+						$('#hireDate').datepicker();
 
 						$('input:radio[name=userTypeInput]')
 								.change(
@@ -49,72 +45,65 @@
 							var city = $('#city');
 							var state = $('#state');
 							var pincode = $('#zipCode');
-							var dobDate = $('#dob').data('datetimepicker');
-							var dob = dobDate.getDate();
+							var dob = $('#dob');
 							var userType = $("input:radio[name=userTypeInput]:checked");
 							var passport = $('#passport');
 							var nationality = $('#nationality');
 							var workdesc = $('#workDesc');
 							var position = $('#position');
-							var hiredatepick = $('#hireDate').data(
-									'datetimepicker');
-							var hiredate = hiredatepick.getDate();
+							var hiredate = $('#hireDate');
+							
 							var result = false;
-
-							if (userType.val() == null
-									|| userType.val().trim() == '') {
-								alert('Please enter user type.');
-							} else if (fname.val() == null
-									|| fname.val().trim() == '') {
+							
+							if(userType.val() == null || userType.val().trim() == '') {
+								alert('Please enter user type.');				
+							}
+							else if(fname.val() == null || fname.val().trim() == '') {
 								alert('Please enter your First Name.');
-							} else if (lname.val() == null
-									|| lname.val().trim() == '') {
+							}
+							else if(lname.val() == null || lname.val().trim() == '') {
 								alert('Please enter your Last Name.');
-							} else if (email.val() == null
-									|| email.val().trim() == '') {
+							}
+							else if(email.val() == null || email.val().trim() == '') {
 								alert('Please enter your email.');
-							} else if (password.val() == null
-									|| password.val().trim() == '') {
+							}
+							else if(password.val() == null || password.val().trim() == '') {
 								alert('Please enter your Password.');
-							} else if (rePassword.val() == null
-									|| rePassword.val().trim() == '') {
+							}
+							else if(rePassword.val() == null || rePassword.val().trim() == '') {
 								alert('Please re-enter your Password.');
-							} else if (address.val() == null
-									|| address.val().trim() == '') {
+							}
+							else if(address.val() == null || address.val().trim() == '') {
 								alert('Please enter your Address.');
-							} else if (city.val() == null
-									|| city.val().trim() == '') {
+							}
+							else if(city.val() == null || city.val().trim() == '') {
 								alert('Please enter City.');
-							} else if (state.val() == null
-									|| state.val().trim() == '') {
+							}
+							else if(state.val() == null || state.val().trim() == '') {
 								alert('Please enter State.');
-							} else if (pincode.val() == null
-									|| pincode.val().trim() == '') {
+							}
+							else if(pincode.val() == null || pincode.val().trim() == '') {
 								alert('Please enter ZipCode.');
-							} else if (dob.val() == null
-									|| dob.val().trim() == '') {
+							}
+							else if(dob.val() == null || dob.val().trim() == '') {
 								alert('Please enter your Date Of Birth.');
-							} else if (userType.val() == 0
-									&& (workdesc.val() == null || workdesc
-											.val().trim() == '')) {
+							}
+							else if(userType.val() == 0 && (workdesc.val() == null || workdesc.val().trim() == '')) {
 								alert('Please enter your Work Description.');
-							} else if (userType.val() == 0
-									&& (position.val() == null || position
-											.val().trim() == '')) {
+							}
+							else if(userType.val() == 0 && (position.val() == null || position.val().trim() == '')) {
 								alert('Please enter your Position.');
-							} else if (userType.val() == 0
-									&& (hiredate.val() == null || hiredate
-											.val().trim() == '')) {
+							}
+							else if(userType.val() == 0 && (hiredate.val() == null || hiredate.val().trim() == '')) {
 								alert('Please enter your Hire Date.');
-							} else if (userType.val() == 1
-									&& (passport.val() == null || passport
-											.val().trim() == '')) {
+							}
+							else if (userType.val() == 1 && (passport.val() == null || passport.val().trim() == '')) {
 								alert('Please enter your Passport Number.');
-							} else if (userType.val() == 1
-									&& (nationality.val() == null || nationality
-											.val().trim() == '')) {
+							}
+							else if (userType.val() == 1 && (nationality.val() == null || nationality.val().trim() == '')) {
 								alert('Please enter your Nationality.');
-							} else {
+							}
+							else {
 								result = true;
 							}
 							return result;
@@ -220,9 +209,7 @@
 												var state = $('#state').val();
 												var pincode = $('#zipCode')
 														.val();
-												var dobDate = $('#dob').data(
-														'datetimepicker');
-												var dob = dobDate.getDate();
+												var dob = $('#dob').val();
 												var passport = $('#passport')
 														.val();
 												var nationality = $(
@@ -231,18 +218,16 @@
 														.val();
 												var position = $('#position')
 														.val();
-												var hiredatepick = $(
-														'#hireDate').data(
-														'datetimepicker');
-												var hiredate = hiredatepick
-														.getDate();
+												var hiredate = $('#hireDate')
+														.val();
+												var ssn = $('#ssn').val();
 												var userType = $(
 														"input:radio[name=userTypeInput]:checked")
 														.val();
 
 												$
 														.ajax({
-															url : "EditProfile.htm",
+															url : "signup.htm",
 															type : "POST",
 															data : "email="
 																	+ email
@@ -250,9 +235,9 @@
 																	+ password
 																	+ "&userType="
 																	+ userType
-																	+ "&firstName="
+																	+ "&fname="
 																	+ fname
-																	+ "&lastName="
+																	+ "&lname="
 																	+ lname
 																	+ "&address="
 																	+ address
@@ -268,38 +253,32 @@
 																	+ passport
 																	+ "&nationality="
 																	+ nationality
-																	+ "&workDesc="
+																	+ "&workdesc="
 																	+ workdesc
 																	+ "&position="
 																	+ position
-																	+ "&hireDate="
-																	+ hiredate,
+																	+ "&hiredate="
+																	+ hiredate
+																	+ "&ssn="
+																	+ ssn
+																	+ "&isUpdate=true",
 															success : function(
 																	data,
 																	textStatus,
 																	jqXHR) {
 																$('#loginError')
-																		.css(
-																				'display',
-																				'none;');
-																if (data.response == "success") {
-																	window.location.href = "/AMSClient/";
+																		.css('display','none;');
+																if (data.response == "updated") {
+																	$('#loginError').css('display','block');
 																} else {
-																	$(
-																			'#loginError')
-																			.css(
-																					'display',
-																					'block');
+																	$('#loginError').css('display','none');
 																}
 															},
 															error : function(
 																	jqXHR,
 																	textStatus,
 																	errorThrown) {
-																$('#loginError')
-																		.css(
-																				'display',
-																				'block');
+																$('#loginError').css('display','none');
 															}
 														});
 											}
@@ -314,6 +293,10 @@
 
 	<div id="container" style="padding: 40px 0px 80px 0px;">
 		<div class="container-fluid">
+		<div id="loginError" class="alert alert-success alert-dismissable" style="display: none;">
+			  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			  Profile updated successfully. Please view it <a href="EditProfile.htm">here</a>
+			</div>
 			<div class="row-fluid">
 				<div id="sidebar" class="span2">
 					<!--Sidebar content-->
@@ -436,13 +419,9 @@
 							<tr></tr>
 							<tr>
 								<td><h5>Date Of Birth</h5></td>
-								<td><div id="dob">
-										<input data-format="yyyy-MM-dd" type="text"
-											value="${person.DOB}"></input> <span class="add-on"> <i
-											data-time-icon="icon-time" data-date-icon="icon-calendar">
-										</i>
-										</span>
-									</div></td>
+								<td>
+								<input id="dob" size="16" type="text" readonly data-date-format="yyyy-mm-dd" placeholder="Date Of Birth" value="${person.DOB}">
+									</td>
 							</tr>
 							<!-- Extra Fields -->
 							<c:choose>
@@ -450,7 +429,7 @@
 									<tr class="customerExtra"></tr>
 									<tr class="customerExtra">
 										<td><h5>Passport Number</h5></td>
-										
+
 										<td><div class="input-group">
 												<input type="text" id="passport" class="required"
 													placeholder="Passport Number"
@@ -460,7 +439,7 @@
 									<tr class="customerExtra"></tr>
 									<tr class="customerExtra">
 										<td><h5>Nationality</h5></td>
-										
+
 										<td><div class="input-group">
 												<input type="text" id="nationality" class="required"
 													placeholder="Nationality" value="${customer.nationality}">
@@ -471,7 +450,7 @@
 									<tr class="empExtra"></tr>
 									<tr class="empExtra">
 										<td><h5>Work Description</h5></td>
-										
+
 										<td><div class="input-group">
 												<input type="text" id="workDesc" class="required"
 													placeholder="Work Description" value="${emp.workDesc}">
@@ -480,7 +459,7 @@
 									<tr class="empExtra"></tr>
 									<tr class="empExtra">
 										<td><h5>Position</h5></td>
-										
+
 										<td><div class="input-group">
 												<input type="text" id="position" class="required"
 													placeholder="Position" value="${emp.position}">
@@ -489,13 +468,8 @@
 									<tr class="empExtra"></tr>
 									<tr class="empExtra">
 										<td><h5>Hire Date</h5></td>
-										<td><div id="hireDate">
-												<input data-format="yyyy-MM-dd" type="text"
-													value="${emp.hireDate}"></input> <span class="add-on">
-													<i data-time-icon="icon-time"
-													data-date-icon="icon-calendar"> </i>
-												</span>
-											</div></td>
+										<td><input id="hireDate" size="16" type="text" readonly data-date-format="yyyy-mm-dd" placeholder="Hire Date" value="${emp.hireDate}">
+											</td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
@@ -505,7 +479,7 @@
 								<td></td>
 								<td><div class="col-sm-offset-2 col-sm-10">
 										<input type="submit" class="btn btn-default"
-											id="updateProfile" value="Sign Up" />
+											id="updateProfile" value="Update Information" />
 									</div></td>
 							</tr>
 						</table>
