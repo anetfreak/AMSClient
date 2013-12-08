@@ -20,38 +20,43 @@ public class PersonController {
 
 	CustomerServiceProxy custProxy = new CustomerServiceProxy();
 	EmployeeServiceProxy empProxy = new EmployeeServiceProxy();
-	
-		@RequestMapping(value = "/ListCustomers.htm", method = RequestMethod.GET)
-	  public ModelAndView showCustomers() {
-		
+
+	@RequestMapping(value = "/ListCustomers.htm", method = RequestMethod.GET)
+	public ModelAndView showCustomers() {
+
 		Customer[] customer = null;
 
 		custProxy.setEndpoint("http://localhost:8080/AMS/services/CustomerService");
-		
-		try {
+		try 
+		{
 			customer = custProxy.getCustomers();
-		} catch (RemoteException e) {
+		} 
+		catch (RemoteException e) 
+		{
 			e.printStackTrace();
 		}
+		
 		List<Customer> customers = null;
 		if(customer != null)
 		{
 			customers = Arrays.asList(customer);
 		}
-		
 		return new ModelAndView("ListCustomers","Customers",customers);
 	}
-	
-		@RequestMapping(value = "/ListEmployees.htm", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/ListEmployees.htm", method = RequestMethod.GET)
 	public ModelAndView showEmployees() {
-		
+
 		Employee[] employee = null;
 
 		empProxy.setEndpoint("http://localhost:8080/AMS/services/EmployeeService");
-		
-		try {
+
+		try 
+		{
 			employee = empProxy.getEmployees();
-		} catch (RemoteException e) {
+		} 
+		catch (RemoteException e) 
+		{
 			e.printStackTrace();
 		}
 		List<Employee> employees = null;
@@ -59,16 +64,16 @@ public class PersonController {
 		{
 			employees = Arrays.asList(employee);
 		}
-		
+
 		return new ModelAndView("ListEmployees","Employees",employees);
 	}
-		
-		
+
+
 	@RequestMapping(value = "/searchEmployee.htm", method = RequestMethod.GET)
 	public ModelAndView showSearchEmployee() {
 		return new ModelAndView("search_employee");
 	}
-	
+
 	@RequestMapping(value = "/searchEmployees.htm", method = RequestMethod.POST)
 	public ModelAndView searchEmployees(@RequestParam("firstname") String firstname,
 			@RequestParam("lastname") String lastname) {

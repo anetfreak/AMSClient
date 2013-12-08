@@ -13,34 +13,33 @@
 	<div id="container" style="padding-top: 40px;" align="center">
 		<table class="table table-bordered table-striped" border="1">
 			<tr>
-				<td><BR>Customer Id</td>
-				<td><BR>Nationality</td>
-				<td><BR>PassportNumber</td>
-				<td><BR>First Name</td>
-				<td><BR>Last Name</td>
-				<td><BR>DOB</td>
-				<td><BR>Address</td>
-				<td><BR>City</td>
-				<td><BR>State</td>
-				<td><BR>Zip Code</td>
-				<td><BR>Username</td>
-				
+				<td><B>First Name</B></td>
+				<td><B>Last Name</B></td>
+				<td><B>Address</B></td>
+				<td><B>City</B></td>
+				<td><B>State</B></td>
+				<td><B>Zip Code</B></td>
+				<td><B>User Name</B></td>
+				<td><B>Passport No.</B></td>
+				<td><B>SSN</B></td>
+				<td><B>Nationality</B></td>
+				<td><B>DOB</B></td>
 			</tr>
 			<c:if test="${Customers ne null}">
 				<c:forEach items="${Customers}" var="customer">
 					<tr>
 						<c:if test="${customer ne null}">
-							<td>${customer.customerId}</td>
-							<td>${customer.nationality}</td>
-							<td>${customer.passportNumber}</td>
-							<td>${customer.person.firstName}</td>
+						<td>${customer.person.firstName}</td>
 							<td>${customer.person.lastName}</td>
-							<td>${customer.person.DOB}</td>
 							<td>${customer.person.address}</td>
 							<td>${customer.person.city}</td>
 							<td>${customer.person.state}</td>
 							<td>${customer.person.zip}</td>
 							<td>${customer.person.username}</td>
+							<td>${customer.passportNumber}</td>
+							<td>${customer.customerId}</td>
+							<td>${customer.nationality}</td>
+							<td>${customer.person.DOB}</td>
 						</c:if>
 					</tr>
 				</c:forEach>
