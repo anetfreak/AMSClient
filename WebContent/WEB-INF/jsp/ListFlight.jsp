@@ -13,14 +13,14 @@
 	<div id="container" style="padding-top: 40px;" align="center">
 		<table class="table table-bordered table-striped" border="1">
 			<tr>
-				<td><BR>Flight Id</td>
-				<td><BR>Flight No.</td>
-				<td><BR>Airline Name</td>
-				<td><BR>Source</td>
-				<td><BR>Destination</td>
-				<td><BR>No. Of Seat</td>
-				<td><BR>Flight Day</td>
-				<td><BR>Flight Time</td>
+				<td><B>Flight Id</B></td>
+				<td><B>Flight No.</B></td>
+				<td><B>Airline Name</B></td>
+				<td><B>Source</B></td>
+				<td><B>Destination</B></td>
+				<td><B>No. Of Seats</B></td>
+				<td><B>Flight Day</B></td>
+				<td><B>Flight Time</B></td>
 			</tr>
 			<c:if test="${arr_flights ne null}">
 				<c:forEach items="${arr_flights}" var="flight">
