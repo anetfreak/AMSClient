@@ -205,6 +205,7 @@
 		var workdesc = $('#workDesc').val();
 		var position = $('#position').val();
 		var hiredate = $('#hireDate').val();
+		var ssn = $('#ssn').val();
 		var userType = $("input:radio[name=userTypeInput]:checked").val();
 		
 		$.ajax({
@@ -212,7 +213,7 @@
 		    type: "POST",
 		    data : "email=" + email + "&password=" + password + "&userType=" + userType + "&fname=" +fname+ "&lname=" +lname+ "&address=" +address+
 		    "&city=" +city+ "&state=" +state+ "&pincode=" +pincode+ "&dob=" +dob+ "&passport=" +passport+ "&nationality=" +nationality+ "&workdesc=" +workdesc+
-		    "&position=" +position+ "&hiredate=" +hiredate,
+		    "&position=" +position+ "&hiredate=" +hiredate + "&ssn=" + ssn,
 		    success:function(data, textStatus, jqXHR){
 		    	$('#loginError').css('display', 'none;');
 		    	if(data.response == "success") {

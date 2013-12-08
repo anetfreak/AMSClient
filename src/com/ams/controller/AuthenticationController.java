@@ -137,7 +137,7 @@ public class AuthenticationController {
 			@RequestParam("lname") String lname, 
 			@RequestParam("email") String email,
 			@RequestParam("password") String password, 
-			@RequestParam("ssn") Integer ssn,
+			@RequestParam("ssn") String ssn,
 			@RequestParam("address") String address,
 			@RequestParam("city") String city,
 			@RequestParam("state") String state,
@@ -156,6 +156,9 @@ public class AuthenticationController {
 		Customer customer = new Customer();
 		Person person = new Person();
 		Response response = null; 
+		
+		String[] splitSSN = ssn.split("-");
+		String combinedSSN = splitSSN[0].concat(splitSSN[1]).concat(splitSSN[2]);
 		
 		person.setFirstName(fname);
 		person.setLastName(lname);
@@ -176,7 +179,7 @@ public class AuthenticationController {
 			
 			try 
 			{
-				employee.setEmployeeId(ssn);
+				employee.setEmployeeId(Integer.valueOf(combinedSSN));
 				employee.setHireDate(hiredate);
 				employee.setPosition(position);
 				employee.setWorkDesc(workdesc);
@@ -209,7 +212,7 @@ public class AuthenticationController {
 		
 			try 
 			{
-				customer.setCustomerId(ssn);
+				customer.setCustomerId(Integer.valueOf(combinedSSN));
 				customer.setNationality(nationality);
 				customer.setPassportNumber(passport);
 				customer.setPerson(person);
