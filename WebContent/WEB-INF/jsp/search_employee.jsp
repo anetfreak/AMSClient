@@ -9,23 +9,20 @@
 <script type="text/javascript">
 		$(document).ready(function(){
 			
-			$('#departDate').datepicker();
-			
-			$('#btnSearchFlight').click(function(e){
+			$('#btnSearchEmployee').click(function(e){
 				e.preventDefault();
-				var source = $('#source').val();
-				var destination = $('#destination').val();
-				var departDate = $('#departDate').val();
+				var firstname = $('#firstname').val();
+				var lastname = $('#lastname').val();
 				$.ajax({
-					url : "SearchEmployee.htm",
+					url : "searchEmployee.htm",
 				    type: "POST",
-				    data : "source=" + source + "&destination=" + destination + "&departDate=" + departDate,
+				    data : "firstname=" + firstname + "&lastname=" + lastname,
 				    success:function(data, textStatus, jqXHR){
 				    	$('#searchFlightError').css('display', 'none;');
 				    },
 				    error: function(jqXHR, textStatus, errorThrown){
 				    	$('#searchFlightError').css('display', 'block');
-// 				    	alert("Could not process request.. " + errorThrown);
+				    	alert("Could not process request.. " + errorThrown);
 				    }
 				});
 			});
@@ -63,47 +60,41 @@
 			</div>
 			<div class="row-fluid">
 				<div id="employeeSearchResult">
-					<c:if test="${flights ne null}">
-						<table class="table table-bordered table-striped" border="1">
-							<tr>
-								<td><BR>SSN</td>
-								<td><BR>First Name</td>
-								<td><BR>Last Name</td>
-								<td><BR>Email</td>
-								<td><BR>Destination</td>
-								<td><BR>No. Of Seat</td>
-								<td><BR>Flight Day</td>
-								<td><BR>Flight Time</td>
-							</tr>
-							<c:forEach items="${flights}" var="flight">
+					<c:if test="${employees ne null}">
+					<table class="table table-bordered table-striped" border="1">
+						<tr>
+							<td><B>Employee Id</B></td>
+							<td><B>Hire Date</B></td>
+							<td><B>Position</B></td>
+							<td><B>Work Desc</B></td>
+							<td><B>First Name</B></td>
+							<td><B>Last Name</B></td>
+							<td><B>DOB</B></td>
+							<td><B>Address</B></td>
+							<td><B>City</B></td>
+							<td><B>State</B></td>
+							<td><B>Zip Code</B></td>
+							<td><B>Username</B></td>
+							
+						</tr>
+							<c:forEach items="${employees}" var="employee">
 								<tr>
-									<c:if test="${flight ne null}">
-										<td>${flight.flightId}</td>
-										<td>${flight.flightNo}</td>
-										<td>${flight.airlineName}</td>
-										<td>${flight.source}</td>
-										<td>${flight.destination}</td>
-										<td>${flight.noOfSeats}</td>
-
-										<td><c:forEach items="${flight.flightTime}" var="timing">
-												<c:if test="${timing  ne null}">
-												${timing.flightDay}
-												<br>
-												</c:if>
-											</c:forEach></td>
-
-										<td><c:forEach items="${flight.flightTime}" var="timing">
-												<c:if test="${timing  ne null}">
-												${timing.flightTime}
-												<br>
-												</c:if>
-											</c:forEach></td>
-
+									<c:if test="${employee ne null}">
+										<td>${employee.employeeId}</td>
+										<td>${employee.hireDate}</td>
+										<td>${employee.position}</td>
+										<td>${employee.workDesc}</td>
+										<td>${employee.person.firstName}</td>
+										<td>${employee.person.lastName}</td>
+										<td>${employee.person.DOB}</td>
+										<td>${employee.person.address}</td>
+										<td>${employee.person.city}</td>
+										<td>${employee.person.state}</td>
+										<td>${employee.person.zip}</td>
+										<td>${employee.person.username}</td>
 									</c:if>
 								</tr>
 							</c:forEach>
-							<tr>
-							</tr>
 						</table>
 					</c:if>
 				</div>

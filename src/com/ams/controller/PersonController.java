@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.domain.Customer;
@@ -63,8 +64,15 @@ public class PersonController {
 	}
 		
 		
-	@RequestMapping(value = "/SearchEmployee.htm", method = RequestMethod.GET)
+	@RequestMapping(value = "/searchEmployee.htm", method = RequestMethod.GET)
 	public ModelAndView showSearchEmployee() {
+		return new ModelAndView("search_employee");
+	}
+	
+	@RequestMapping(value = "/searchEmployees.htm", method = RequestMethod.POST)
+	public ModelAndView searchEmployees(@RequestParam("firstname") String firstname,
+			@RequestParam("lastname") String lastname) {
+		//TODO- Search employee call here..
 		return new ModelAndView("search_employee");
 	}
 }
