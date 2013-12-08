@@ -10,6 +10,7 @@
 				<li><a href="ListEmployees.htm">List Employees</a></li>
 				<li><a href="ListReservations.htm">List Reservations</a></li>
 				<li><a href="ListCustomers.htm">List Customers</a></li>
+				<li><a href="searchEmployee.htm">Search Employee</a>
 			</ul>
 			<% if(session.getAttribute("sessionId") == null) { %>
 			<ul id="loginMenu" class="nav" style=" float:right;">

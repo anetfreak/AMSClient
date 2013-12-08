@@ -35,7 +35,7 @@ public class PersonController {
 		{
 			e.printStackTrace();
 		}
-		
+
 		List<Customer> customers = null;
 		if(customer != null)
 		{
@@ -74,10 +74,29 @@ public class PersonController {
 		return new ModelAndView("search_employee");
 	}
 
-	@RequestMapping(value = "/searchEmployees.htm", method = RequestMethod.POST)
-	public ModelAndView searchEmployees(@RequestParam("firstname") String firstname,
-			@RequestParam("lastname") String lastname) {
-		//TODO- Search employee call here..
-		return new ModelAndView("search_employee");
+	@RequestMapping(value = "/searchEmployee.htm", method = RequestMethod.POST)
+	public ModelAndView searchEmployees(
+			@RequestParam(value="firstname", required=false) String firstname,
+			@RequestParam(value="lastname", required=false) String lastname) 
+	{
+
+		empProxy.setEndpoint("http://localhost:8080/AMS/services/EmployeeService");
+		Employee[] employee = null;
+		try 
+		{
+			employee = empProxy.retriveEmployeesbyName(firstname, lastname);
+		} 
+		catch (RemoteException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List<Employee> employees = null;
+		if(employee != null)
+		{
+			employees = Arrays.asList(employee);
+		}
+		return new ModelAndView("search_employee","Employees",employees);
+
 	}
 }
