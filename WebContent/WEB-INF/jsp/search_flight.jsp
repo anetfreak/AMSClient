@@ -39,7 +39,7 @@
 		<div class="container-fluid">
 			<div id="searchFlightError" class="alert alert-error alert-dismissable" style="display: none;">
 			  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			  No Flights found. Please try again.
+			  No Flights found. Please try again.....
 			</div>
 			<div class="row-fluid">
 				<div id="searchOptions" style="margin: 30px 0px 0px 0px;">
