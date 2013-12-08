@@ -40,6 +40,7 @@ public class AuthenticationController {
 			HttpSession session) {
 		Response response = null;
 		Customer customer = new Customer();
+		Person person = new Person();
 
 		authProxy.setEndpoint("http://localhost:8080/AMS/services/AuthenticationService");
 		if(userType == 0)
@@ -68,11 +69,15 @@ public class AuthenticationController {
 					{
 						String firstName = customer.getPerson().getFirstName();
 						int customerId = customer.getCustomerId();
+						person = customer.getPerson();
 
 						session.setAttribute("firstname", firstName);
 						session.setAttribute("customerId", customerId);
 						session.setAttribute("sessionId", session.getId());
 						session.setAttribute("personId", personId);
+						session.setAttribute("person", person);
+						session.setAttribute("customer", customer);
+						
 						System.out.println("Session sttributes set for Customer..!!");
 						response = new Response("success");
 					}
@@ -110,11 +115,14 @@ public class AuthenticationController {
 					{
 						String firstName = employee.getPerson().getFirstName();
 						int employeeId = employee.getEmployeeId();
+						person = employee.getPerson();
 
 						session.setAttribute("firstname", firstName);
 						session.setAttribute("employeeId", employeeId);
 						session.setAttribute("sessionId", session.getId());
 						session.setAttribute("personId", personId);
+						session.setAttribute("person", person);
+						session.setAttribute("employee", employee);
 						System.out.println("Session attributes set for Employee..!!");
 						response = new Response("success");
 					} 
@@ -195,6 +203,7 @@ public class AuthenticationController {
 					session.setAttribute("employee", employee);
 					session.setAttribute("personId", personId);
 					session.setAttribute("firstname", person.getFirstName());
+					session.setAttribute("sessionId", session.getId());
 					Person p1 = (Person)session.getAttribute("person");
 					System.out.println("First Name from session:"+ p1.getFirstName());
 				}
@@ -227,6 +236,7 @@ public class AuthenticationController {
 					session.setAttribute("person", person);
 					session.setAttribute("personId", personId);
 					session.setAttribute("firstname", person.getFirstName());
+					session.setAttribute("sessionId", session.getId());
 					session.setAttribute("customer", customer);
 				}
 				else
@@ -252,12 +262,12 @@ public class AuthenticationController {
 
 		Person person = new Person();
 		person = (Person) session.getAttribute("person");
-		System.out.println("Person ID : "+person.getPersonId());
 		int personId = (Integer) session.getAttribute("personId");
+		person.setPersonId(personId);
 		int userType = person.getPersonType();
 
-		ModelAndView modelview = new ModelAndView();
-		modelview.addObject(person);
+		ModelAndView modelview = new ModelAndView("EditProfile");
+//		modelview.addObject(person);
 
 		/*String fname = person.getFirstName();
 		String lname = person.getLastName();
@@ -273,26 +283,33 @@ public class AuthenticationController {
 			System.out.println("The logged in user is an Employee");
 			System.out.println("PersonId in session : "+personId);
 			Employee emp = (Employee)session.getAttribute("employee");
+			System.out.println("Employee ID "+ emp.getEmployeeId());
 			/*int empId = emp.getEmployeeId();
 			String hireDate = emp.getHireDate();
 			String position = emp.getPosition();
 			String workDesc = emp.getWorkDesc();
 			int empSSN = emp.getEmployeeId();*/
 
-			modelview.addObject(emp);
+			emp.setPerson(person);
+			modelview.addObject("employee",emp);
+			modelview.addObject("person",emp.getPerson());
+			
 		}
 		else{
 			System.out.println("The logged in user is a customer");
 			System.out.println("PersonId in session : "+personId);
 			Customer customer = (Customer) session.getAttribute("customer");
+			System.out.println("Customer ID : "+customer.getCustomerId());
 			/*int custSSN = customer.getCustomerId();
 			String passport = customer.getPassportNumber();
 			String nationality = customer.getNationality();*/
 
-			modelview.addObject(customer);
+			customer.setPerson(person);
+			modelview.addObject("customer",customer);
+			modelview.addObject("person",customer.getPerson());
 		}
 
-		return new ModelAndView("EditProfile");
+		return modelview;
 	}
 
 	@RequestMapping(value = "/EditProfile.htm", method = RequestMethod.POST)

@@ -20,9 +20,11 @@
 			if (userType == 0) {
 				$('.customerExtra').css('display', 'none');
 				$('.empExtra').css('display', 'block');
+				$('.empExtra').css('display', 'table-row');
 			} else {
 				$('.empExtra').css('display', 'none');
 				$('.customerExtra').css('display', 'block');
+				$('.customerExtra').css('display', 'table-row');
 			}
 		});
 		
@@ -346,43 +348,34 @@
 								<td><input id="dob" size="16" type="text" readonly data-date-format="yyyy-mm-dd" placeholder="Date Of Birth"></td>
 							</tr>
 							<!-- 							Extra Fields -->
-							<tr class="customerExtra" style="display: none;"></tr>
 							<tr class="customerExtra" style="display: none;">
 								<td><h5>Passport Number</h5></td>
-								<td></td>
 								<td><div class="input-group">
 										<input type="text" id="passport" class="required"
 											placeholder="Passport Number">
 									</div></td>
 							</tr>
-							<tr class="customerExtra" style="display: none;"></tr>
 							<tr class="customerExtra" style="display: none;">
 								<td><h5>Nationality</h5></td>
-								<td></td>
 								<td><div class="input-group">
 										<input type="text" id="nationality" class="required"
 											placeholder="Nationality">
 									</div></td>
 							</tr>
-							<tr class="empExtra" style="display: none;"></tr>
 							<tr class="empExtra" style="display: none;">
 								<td><h5>Work Description</h5></td>
-								<td></td>
 								<td><div class="input-group">
 										<input type="text" id="workDesc" class="required"
 											placeholder="Work Description">
 									</div></td>
 							</tr>
-							<tr class="empExtra" style="display: none;"></tr>
 							<tr class="empExtra" style="display: none;">
 								<td><h5>Position</h5></td>
-								<td></td>
 								<td><div class="input-group">
 										<input type="text" id="position" class="required"
 											placeholder="Position">
 									</div></td>
 							</tr>
-							<tr class="empExtra" style="display: none;"></tr>
 							<tr class="empExtra" style="display: none;">
 								<td><h5>Hire Date</h5></td>
 								<td><input id="hireDate" size="16" type="text" readonly data-date-format="yyyy-mm-dd" placeholder="Hire Date"></td>
