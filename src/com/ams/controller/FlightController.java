@@ -66,4 +66,9 @@ public class FlightController {
 		return new ModelAndView("ListFlight","arr_flights", flight_list);
 	}
 	
+	@RequestMapping(value = "/UpdateFlight.htm", method = RequestMethod.GET)
+	  public ModelAndView UpdateFlight() {
+	    return new ModelAndView("UpdateFlight");
+	}
+	
 }

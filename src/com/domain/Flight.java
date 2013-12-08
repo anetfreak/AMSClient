@@ -18,8 +18,6 @@ public class Flight  implements java.io.Serializable {
 
     private com.domain.FlightTime[] flightTime;
 
-    private com.domain.Journey journey;
-
     private java.lang.Integer noOfSeats;
 
     private java.lang.String source;
@@ -41,7 +39,6 @@ public class Flight  implements java.io.Serializable {
            this.flightId = flightId;
            this.flightNo = flightNo;
            this.flightTime = flightTime;
-           this.journey = journey;
            this.noOfSeats = noOfSeats;
            this.source = source;
     }
@@ -146,27 +143,6 @@ public class Flight  implements java.io.Serializable {
         this.flightTime = flightTime;
     }
 
-
-    /**
-     * Gets the journey value for this Flight.
-     * 
-     * @return journey
-     */
-    public com.domain.Journey getJourney() {
-        return journey;
-    }
-
-
-    /**
-     * Sets the journey value for this Flight.
-     * 
-     * @param journey
-     */
-    public void setJourney(com.domain.Journey journey) {
-        this.journey = journey;
-    }
-
-
     /**
      * Gets the noOfSeats value for this Flight.
      * 
@@ -233,9 +209,6 @@ public class Flight  implements java.io.Serializable {
             ((this.flightTime==null && other.getFlightTime()==null) || 
              (this.flightTime!=null &&
               java.util.Arrays.equals(this.flightTime, other.getFlightTime()))) &&
-            ((this.journey==null && other.getJourney()==null) || 
-             (this.journey!=null &&
-              this.journey.equals(other.getJourney()))) &&
             ((this.noOfSeats==null && other.getNoOfSeats()==null) || 
              (this.noOfSeats!=null &&
               this.noOfSeats.equals(other.getNoOfSeats()))) &&
@@ -275,9 +248,6 @@ public class Flight  implements java.io.Serializable {
                     _hashCode += obj.hashCode();
                 }
             }
-        }
-        if (getJourney() != null) {
-            _hashCode += getJourney().hashCode();
         }
         if (getNoOfSeats() != null) {
             _hashCode += getNoOfSeats().hashCode();
