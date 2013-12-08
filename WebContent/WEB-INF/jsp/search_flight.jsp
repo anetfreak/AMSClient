@@ -47,10 +47,7 @@
 						<div>
 							<span><h3>Search a Flight</h3></span>
 							<form class="form-inline" style="widht: 700px; !important">
-						      <input type="text" id="source" placeholder="Source">
-						      <input type="text" id="destination" placeholder="Destination">
-						      
-							  <select>
+							  <span>Source: </span><select id="source">
 							    <option>SFO</option>
 							    <option>LAX</option>
 							    <option>SJC</option>
@@ -58,7 +55,15 @@
 							    <option>JFK</option>
 							    <option>BOS</option>
 							  </select>
-								<input id="departDate" size="16" type="text" readonly data-date-format="yyyy-mm-dd" placeholder="Departure Date">
+							  <span style="margin-left:10px;">Destination: </span><select id="destination">
+							    <option>SFO</option>
+							    <option>LAX</option>
+							    <option>SJC</option>
+							    <option>NEW</option>
+							    <option>JFK</option>
+							    <option>BOS</option>
+							  </select>
+							  <input id="departDate" size="16" type="text" readonly data-date-format="yyyy-mm-dd" placeholder="Departure Date">
 						      <button type="submit" class="btn" id="btnSearchFlight">Search</button>
 							</form>
 						</div>
