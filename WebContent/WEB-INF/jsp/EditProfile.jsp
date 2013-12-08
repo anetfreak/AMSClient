@@ -268,11 +268,11 @@
 																	jqXHR) {
 																$('#loginError')
 																		.css('display','none;');
-																if (data.response == "updated") {
-																	$('#loginError').css('display','block');
-																} else {
-																	$('#loginError').css('display','none');
-																}
+																if(data.response == "updated") {
+														    		window.location.href="ViewProfile.htm";
+														    	} else {
+														    		$('#loginError').css('display', 'block');
+														    	}
 															},
 															error : function(
 																	jqXHR,
@@ -375,11 +375,11 @@
 										<c:choose>
 											<c:when test="${person.personType eq 1}">
 												<input type="text" id="ssn" class="required"
-													placeholder="SSN" readonly value="${ emp.employeeId}">
+													placeholder="SSN" readonly value="${ employee.employeeId}">
 											</c:when>
 											<c:otherwise>
 												<input type="text" id="ssn" class="required"
-													placeholder="SSN" readonly value="${ customer.customerId}">
+													placeholder="SSN" value="${ customer.customerId}">
 											</c:otherwise>
 										</c:choose>
 									</div></td>
@@ -432,7 +432,7 @@
 
 										<td><div class="input-group">
 												<input type="text" id="passport" class="required"
-													placeholder="Passport Number"
+													placeholder="Passport Number" maxlength="8"
 													value="${customer.passportNumber}">
 											</div></td>
 									</tr>
@@ -453,7 +453,7 @@
 
 										<td><div class="input-group">
 												<input type="text" id="workDesc" class="required"
-													placeholder="Work Description" value="${emp.workDesc}">
+													placeholder="Work Description" value="${employee.workDesc}">
 											</div></td>
 									</tr>
 									<tr class="empExtra"></tr>
@@ -462,13 +462,13 @@
 
 										<td><div class="input-group">
 												<input type="text" id="position" class="required"
-													placeholder="Position" value="${emp.position}">
+													placeholder="Position" value="${employee.position}">
 											</div></td>
 									</tr>
 									<tr class="empExtra"></tr>
 									<tr class="empExtra">
 										<td><h5>Hire Date</h5></td>
-										<td><input id="hireDate" size="16" type="text" readonly data-date-format="yyyy-mm-dd" placeholder="Hire Date" value="${emp.hireDate}">
+										<td><input id="hireDate" size="16" type="text" readonly data-date-format="yyyy-mm-dd" placeholder="Hire Date" value="${employee.hireDate}">
 											</td>
 									</tr>
 								</c:otherwise>
@@ -479,7 +479,7 @@
 								<td></td>
 								<td><div class="col-sm-offset-2 col-sm-10">
 										<input type="submit" class="btn btn-default"
-											id="updateProfile" value="Update Information" />
+											id="updateProfile" value="Save Information" />
 									</div></td>
 							</tr>
 						</table>

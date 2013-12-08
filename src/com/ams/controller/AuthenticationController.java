@@ -137,6 +137,12 @@ public class AuthenticationController {
 		return new ModelAndView(VIEW_NAME, "result", response);
 	}
 
+	@RequestMapping(value = "/logout.htm", method = RequestMethod.GET)
+	public ModelAndView logout(HttpSession session) {
+		session.invalidate();
+		return new ModelAndView("home");
+	}
+	
 	@RequestMapping(value = "/signup.htm", method = RequestMethod.GET)
 	public ModelAndView showSignup() {
 		return new ModelAndView("signup");
@@ -229,9 +235,17 @@ public class AuthenticationController {
 					boolean b =authProxy.updateEmpInformation(employee);
 					if(b){
 
+						//setting updated values in session
+						session.setAttribute("person", person);
+						session.setAttribute("employee", employee);
+						session.setAttribute("personId", personId);
+						session.setAttribute("firstname", person.getFirstName());
+						session.setAttribute("sessionId", session.getId());
+
 						response = new Response("updated");
 						System.out.println("Employee table updated.");
 						System.out.println("personID  = "+session.getAttribute("personId"));
+						
 					}
 					else
 					{
@@ -281,6 +295,12 @@ public class AuthenticationController {
 					boolean b =authProxy.updateCustInformation(customer);
 					if(b)
 					{
+						//setting values in session
+						session.setAttribute("person", person);
+						session.setAttribute("personId", personId);
+						session.setAttribute("firstname", person.getFirstName());
+						session.setAttribute("sessionId", session.getId());
+						session.setAttribute("customer", customer);
 						response = new Response("updated");
 						System.out.println("Customer table updated.");
 						System.out.println("personID  = "+session.getAttribute("personId"));
@@ -302,18 +322,20 @@ public class AuthenticationController {
 	}
 
 
-	@RequestMapping(value = "/EditProfile.htm", method = RequestMethod.GET)
-	public ModelAndView showEditProfile(HttpSession session) {
+	@RequestMapping(value = "/EditProfile.htm", method = RequestMethod.POST)
+	public ModelAndView showProfile(HttpSession session) {
 
 		authProxy.setEndpoint("http://localhost:8080/AMS/services/AuthenticationService");
 
+		Response response = null;
 		Person person = new Person();
 		person = (Person) session.getAttribute("person");
 		int personId = (Integer) session.getAttribute("personId");
 		person.setPersonId(personId);
 		int userType = person.getPersonType();
 
-		ModelAndView modelview = new ModelAndView("EditProfile");
+		response = new Response("failure");
+		//ModelAndView modelview = new ModelAndView("EditProfile");
 
 		if(userType == 1){
 			System.out.println("The logged in user is an Employee");
@@ -321,8 +343,9 @@ public class AuthenticationController {
 			Employee emp = (Employee)session.getAttribute("employee");
 			System.out.println("Employee ID "+ emp.getEmployeeId());
 			emp.setPerson(person);
-			modelview.addObject("employee",emp);
-			modelview.addObject("person",emp.getPerson());
+			response = new Response("success");
+			//modelview.addObject("employee",emp);
+			//modelview.addObject("person",emp.getPerson());
 
 		}
 		else{
@@ -331,18 +354,23 @@ public class AuthenticationController {
 			Customer customer = (Customer) session.getAttribute("customer");
 			System.out.println("Customer ID : "+customer.getCustomerId());
 			customer.setPerson(person);
-			modelview.addObject("customer",customer);
-			modelview.addObject("person",customer.getPerson());
+			response = new Response("success");
+			//modelview.addObject("customer",customer);
+			//modelview.addObject("person",customer.getPerson());
 		}
 
-		return modelview;
+		return new ModelAndView(VIEW_NAME, "result", response);
+		//return modelview;
 	}
-
-
-	@RequestMapping(value = "/logout.htm", method = RequestMethod.GET)
-	public ModelAndView logout(HttpSession session) {
-		session.invalidate();
-		return new ModelAndView("home");
+	
+	@RequestMapping(value = "/EditProfile.htm", method = RequestMethod.GET)
+	public ModelAndView updateProfile() {
+		return new ModelAndView("EditProfile");
 	}
-
+	
+	@RequestMapping(value = "/ViewProfile.htm", method = RequestMethod.GET)
+	public ModelAndView displayProfile() {
+		return new ModelAndView("ViewProfile");
+	}
+	
 }

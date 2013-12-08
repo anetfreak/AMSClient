@@ -150,9 +150,12 @@
 			if(password.val().length < 8 || password.val().length > 12){
 				alert('Password can be between 8 and 12 characters');
 				password.val('');
+				rePassword.val('');
 			}
 			else if(password.val() != rePassword.val()){
 				alert('Passwords do not match');
+				password.val('');
+				rePassword.val('');
 			}
 			else{
 				result = true;
@@ -215,7 +218,8 @@
 		    type: "POST",
 		    data : "email=" + email + "&password=" + password + "&userType=" + userType + "&fname=" +fname+ "&lname=" +lname+ "&address=" +address+
 		    "&city=" +city+ "&state=" +state+ "&pincode=" +pincode+ "&dob=" +dob+ "&passport=" +passport+ "&nationality=" +nationality+ "&workdesc=" +workdesc+
-		    "&position=" +position+ "&hiredate=" +hiredate + "&ssn=" + ssn,
+		    "&position=" +position+ "&hiredate=" +hiredate + "&ssn=" + ssn + "&isUpdate=false",
+		    
 		    success:function(data, textStatus, jqXHR){
 		    	$('#loginError').css('display', 'none;');
 		    	if(data.response == "success") {
@@ -356,7 +360,7 @@
 								<td><h5>Passport Number</h5></td>
 								<td><div class="input-group">
 										<input type="text" id="passport" class="required"
-											placeholder="Passport Number">
+											placeholder="Passport Number" maxlength="8">
 									</div></td>
 							</tr>
 							<tr class="customerExtra" style="display: none;">
