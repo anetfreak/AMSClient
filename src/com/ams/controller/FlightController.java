@@ -57,11 +57,10 @@ public class FlightController {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
-		List<Flight> flight_list = Arrays.asList(flights);
-		if(flight_list != null)
+		List<Flight> flight_list = null;
+		if(flights != null)
 		{
-			System.out.println("Size : "+ flight_list.size());
+			flight_list = Arrays.asList(flights);
 		}
 		
 		return new ModelAndView("ListFlight","arr_flights", flight_list);
