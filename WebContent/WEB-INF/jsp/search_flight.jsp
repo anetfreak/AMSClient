@@ -5,6 +5,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 	<title>AMS! - Search a Flight</title>
+	
 	<%@include file="includes.jsp" %>
 	<script type="text/javascript">
 		$(document).ready(function(){

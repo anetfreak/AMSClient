@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,87 +7,134 @@
 <title>AMS - Update Flight</title>
 
 <%@include file="includes.jsp"%>
-<script type = "text/javascript">
+
+<script type="text/javascript">
 	function validateForm() {
 		var airlineName = $('#airlineName').val();
-		var flightId = $('#flightId').val();
 		var flightNo = $('#flightNo').val();
 		var source = $('#source').val();
 		var destination = $('#destination').val();
 		var time = $('#time').val();
 		var seats = $('#seats').val();
-		
-		if((airlineName == null) || (airlineName == "") || (flightId == null) || (flightId == "") || (flightNo == null)
-				|| (flightNo == "") || (source == null) || (source == "") || (destination == null) ||
-					(destination == "") || (time == null) || (time == "") || (seats == null) || (seats == "")){
-			alert("All fields should be filled!");
-			return false;
+		var result = false;
+
+		if ((airlineName == null) || (airlineName == ""))
+		{
+			alert("Please enter value for Airline Name");
 		}
-	}
+		else if((flightNo == null) || (flightNo == "")){
+			alert("Please enter value for Flight Number");
+		}
+		else if((source == null) || (source == "")){
+			alert("Please enter value for Source");
+		}
+		else if ((destination == null) || (destination == "")){
+			alert("Please enter value for Destination");
+		} 
+		else if ((time == null) || (time == "")){
+			alert("Please enter values for Time");
+		}
+		else if((seats == null) || (seats == "")) {
+			alert("Please enter value for Number of Seats");
+		}
+		else
+			result = true;
+		
+		return result;
+	};
+	
+	$(document).ready(function(){
+		$('#a').click(function(e){
+			if(validateForm){
+			e.preventDefault();
+			var flightId = $('#flightId').val();
+			$.ajax({
+				url : "UpdateFlight.htm",
+			    type: "POST",
+			    data : "flightId=" + flightId,
+			    success:function(data, textStatus, jqXHR){
+			    	$('#searchFlightError').css('display', 'none;');
+			    	if(data.response == "success") 
+			    	{
+			    		window.location.href="UpdateFlight.htm";
+			    	} else 
+			    	{
+			    		$('#loginError').css('display', 'block');
+			    	}
+			    },
+			    
+			});
+		}
+		});
+	});
+	
 </script>
 </head>
 <body>
 	<%@include file="header.jsp"%>
-		<div style = "padding: 30px;">
-			<div>
-				<span><h3>Update Flight</h3></span>
+	<div id="container" style="padding: 40px 0px 80px 0px;">
+		<div class="container-fluid">
+			<div id="loginError" class="alert alert-success alert-dismissable"
+				style="display: none;">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Flight Information updated successfully. Please view it <a
+					href="ListFlight.htm">here</a>
 			</div>
-			<div>
-			<form name = "updateflightform" action = "" method = "post" onsubmit = "return validateForm()">
-			<table>
-				<tr>
-					<td>Airlines Name : </td>
-					<td><input type = "text" id = "airlineName" name = "airlineName" value="${flight.airlineName}"></td>
-				</tr>
-				<tr>
-					<td>Flight ID : </td>
-					<td><input type = "text" id = "flightId" name = "flightId" value="${flight.flightId}"></td>
-				</tr>
-				<tr>
-					<td>Flight Number : </td>
-					<td><input type = "text" id = "flightNo" name = "flightNo" value="${flight.flightNo}"></td>
-				</tr>
-				<tr>
-					<td>Source Airport : </td>
-					<td><select id = "source" name = "source">
-							<option>--Select--</option>
-							<!--<c:forEach items="${.journey}" var="travellers">
-								<c:if test="${travellers  ne null}">
-									<option>${travellers.travellerId}</option>
-								</c:if>
-							</c:forEach>-->
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>Destination Airport : </td>
-					<td><select id="destination" name = "destination">
-							<option>--Select--</option>
-						 	<option>SFO</option>
-						    <option>LAX</option>
-						    <option>SJC</option>
-						    <option>NEW</option>
-						    <option>JFK</option>
-						    <option>BOS</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>Flight Time : </td>
-					<td><input type = "text" id="time" name = "time" value="${flight.flightTime}"></td>
-				</tr>
-				<tr>
-					<td>Number of Seats : </td>
-					<td><input type = "text" id="seats" name = "seats" value="${flight.noOfSeats}"></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><input class="btn btn-primary" type = "submit" name = "updateFlight" id = "updateFlight" value = "Update"></td>
-				</tr>
-			</table>
-			</form>
+			<div style="padding: 30px;">
+				<div>
+					<span><h3>Update Flight Info</h3></span>
+				</div>
+				<div>
+					<form name="updateflightform" action="" method="post"
+						onsubmit="return validateForm()">
+						<table>
+							<tr>
+								<td>Airlines Name :</td>
+								<td><input type="text" id="airlineName" name="airlineName"
+									value="${flight.airlineName}"></td>
+							</tr>
+							<tr>
+								<td>Flight ID :</td>
+								<td><input type="text" id="flightId" name="flightId"
+									readonly value="${flight.flightId}"></td>
+							</tr>
+							<tr>
+								<td>Flight Number :</td>
+								<td><input type="text" id="flightNo" name="flightNo"
+									value="${flight.flightNo}"></td>
+							</tr>
+							<tr>
+								<td>Source Airport :</td>
+								<td><input type="text" id="source" name="flightSource"
+									value="${flight.source}"></td>
+							</tr>
+							<tr>
+								<td>Destination Airport :</td>
+								<td><td><input type="text" id="destination"
+									name="flightdestination" value="${flight.destination}">
+							</td></tr>
+							<tr>
+								<td>Flight Time :</td>
+								<td><input type="text" id="time" name="time"
+									value="${flight.flightTime}"></td>
+							</tr>
+							<tr>
+								<td>Number of Seats :</td>
+								<td><input type="text" id="seats" name="seats"
+									value="${flight.noOfSeats}"></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><input class="btn btn-primary" type="submit"
+									name="updateFlight" id="updateFlight" value="Update"></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
 		</div>
-		</div>
+	</div>
 	<%@include file="footer.jsp"%>
 </body>
 </html>
