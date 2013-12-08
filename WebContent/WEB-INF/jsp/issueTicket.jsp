@@ -14,9 +14,11 @@
 	<div>
 		<div style = "padding: 20px;">
 			<div>
-				<p><b><u>Itinerary and Reservation Details</u></b></p>
-				<p><b>Reservation Id : ${reservation.reservationId}</b></p>
-				<p><b>Reservation Number : ${reservation.reservationNo}</b></p>
+				<span><h3>Itinerary and Reservation Details</h3></span>
+				<c:if test="${Reservations ne null}" var = "reservation">
+					<p><b>Reservation Id : ${reservation.reservationId}</b></p>
+					<p><b>Reservation Number : ${reservation.reservationNo}</b></p>
+				</c:if>
 			</div>
 			<div style = "padding-top: 10px;">
 				<p><b>Customer Info</b></p>
@@ -54,35 +56,35 @@
 						<td style = "width: 250px;"><b>Gender</b></td>
 					</tr>
 					<tr style = "text-align:center;">
-						<td><c:forEach items="${reservation.journey}" var="travellers">
+						<td><c:forEach items="${Reservations.travellers}" var="travellers">
 								<c:if test="${travellers  ne null}">
 									${travellers.travellerId}
 									<br>
 								</c:if>
 							</c:forEach>
 						</td>
-						<td><c:forEach items="${reservation.journey}" var="travellers">
+						<td><c:forEach items="${Reservations.travellers}" var="travellers">
 								<c:if test="${travellers  ne null}">
 									${travellers.firstName}
 									<br>
 								</c:if>
 							</c:forEach>
 						</td>
-						<td><c:forEach items="${reservation.journey}" var="travellers">
+						<td><c:forEach items="${Reservations.travellers}" var="travellers">
 								<c:if test="${travellers  ne null}">
 									${travellers.lastName}
 									<br>
 								</c:if>
 							</c:forEach>
 						</td>
-						<td><c:forEach items="${reservation.journey}" var="travellers">
+						<td><c:forEach items="${Reservations.travellers}" var="travellers">
 								<c:if test="${travellers  ne null}">
 									${travellers.age}
 									<br>
 								</c:if>
 							</c:forEach>
 						</td>
-						<td><c:forEach items="${reservation.journey}" var="travellers">
+						<td><c:forEach items="${Reservations.travellers}" var="travellers">
 								<c:if test="${travellers  ne null}">
 									${travellers.sex}
 									<br>
@@ -99,15 +101,17 @@
 						<td style = "width: 250px;"><b>Departure</b></td>
 						<td style = "width: 250px;"><b>Arrival</b></td>
 						<td style = "width: 250px;"><b>Flight Number</b></td>
+						<td style = "width: 250px;"><b>Flight Time</b></td>
 						<td style = "width: 250px;"><b>Aircraft</b></td>
 					</tr>
-					<c:if test="${Reservations ne null}">
-					<c:forEach items="${Reservations}" var="reservation">
+					<c:if test="${Flight ne null}">
+					<c:forEach items="${Flight}" var="flight">
 					<tr style = "text-align:center;">
-						<td>${reservation.flightDeparture}</br>${reservation.flightDepartureTime}</td>
-						<td>${reservation.flightArrival}<br/>${reservation.flightDepartureTime}</td>
-						<td>${reservation.flightNumber}</td>
-						<td>${reservation.flightAircraft}</td>
+						<td>${flight.source}</td>
+						<td>${flight.destination}</td>
+						<td>${flight.flightNo}</td>
+						<td>${flight.flightTime}</td>
+						<td>${flight.airlineName}</td>
 					</tr>
 					</c:forEach>
 					</c:if>
