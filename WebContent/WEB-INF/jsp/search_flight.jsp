@@ -22,7 +22,6 @@
 				    data : "source=" + source + "&destination=" + destination + "&departDate=" + departDate,
 				    success:function(data, textStatus, jqXHR){
 				    	$('#searchFlightError').css('display', 'none;');
-				    	alert("Inside Success");
 				    },
 				    error: function(jqXHR, textStatus, errorThrown){
 				    	$('#searchFlightError').css('display', 'block');
@@ -42,18 +41,69 @@
 			  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			  No Flights found. Please try again.
 			</div>
-			<div id="searchOptions" style="margin: 30px 0px 0px 0px;">
-				<div class="span6">
-					<div>
-						<span><h3>Search a Flight</h3></span>
-						<form class="form-inline" style="widht: 700px; !important">
-					      <input type="text" id="source" placeholder="Source">
-					      <input type="text" id="destination" placeholder="Destination">
-					      
-							<input id="departDate" size="16" type="text" readonly data-date-format="yyyy-mm-dd" placeholder="Departure Date">
-					      <button type="submit" class="btn" id="btnSearchFlight">Search</button>
-						</form>
+			<div class="row-fluid">
+				<div id="searchOptions" style="margin: 30px 0px 0px 0px;">
+					<div class="span6">
+						<div>
+							<span><h3>Search a Flight</h3></span>
+							<form class="form-inline" style="widht: 700px; !important">
+						      <input type="text" id="source" placeholder="Source">
+						      <input type="text" id="destination" placeholder="Destination">
+						      
+								<input id="departDate" size="16" type="text" readonly data-date-format="yyyy-mm-dd" placeholder="Departure Date">
+						      <button type="submit" class="btn" id="btnSearchFlight">Search</button>
+							</form>
+						</div>
 					</div>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div id="flightSearchResults">
+					<c:if test="${flights ne null}">
+					<table class="table table-bordered table-striped" border="1">
+						<tr>
+							<td><BR>Flight Id</td>
+							<td><BR>Flight No.</td>
+							<td><BR>Airline Name</td>
+							<td><BR>Source</td>
+							<td><BR>Destination</td>
+							<td><BR>No. Of Seat</td>
+							<td><BR>Flight Day</td>
+							<td><BR>Flight Time</td>
+						</tr>
+							<c:forEach items="${flights}" var="flight">
+								<tr>
+									<c:if test="${flight ne null}">
+										<td>${flight.flightId}</td>
+										<td>${flight.flightNo}</td>
+										<td>${flight.airlineName}</td>
+										<td>${flight.source}</td>
+										<td>${flight.destination}</td>
+										<td>${flight.noOfSeats}</td>
+			
+										<td><c:forEach items="${flight.flightTime}" var="timing">
+												<c:if test="${timing  ne null}">
+												${timing.flightDay}
+												<br>
+												</c:if>
+											</c:forEach>
+										</td>
+			
+										<td><c:forEach items="${flight.flightTime}" var="timing">
+												<c:if test="${timing  ne null}">
+												${timing.flightTime}
+												<br>
+												</c:if>
+											</c:forEach>
+										</td>
+			
+									</c:if>
+								</tr>
+							</c:forEach>
+						<tr>
+						</tr>
+					</table>
+					</c:if>
 				</div>
 			</div>
 		</div>

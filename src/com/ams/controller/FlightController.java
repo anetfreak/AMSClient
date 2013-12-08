@@ -10,13 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.domain.Flight;
 import com.service.AuthenticationServiceProxy;
 import com.service.CustomerServiceProxy;
 import com.service.EmployeeServiceProxy;
 import com.service.FlightServiceProxy;
-
-import com.domain.Flight;
-import com.domain.FlightTime;
 
 @Controller
 public class FlightController {
@@ -37,11 +35,13 @@ public class FlightController {
 			@RequestParam("destination") String destination,
 			@RequestParam("departDate") String departDate) {
 		
-		System.out.println("Source: " + source);
-		System.out.println("Destination: " + destination);
-		System.out.println("Depart Date: " + departDate);
-		
-		return new ModelAndView("search_flight");
+		Flight[] flights = null;
+		try {
+			flights = flightProxy.searchFlight(source, destination, departDate);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		return new ModelAndView("search_flight", "flights", flights);
 	}
 	
 	@RequestMapping(value = "/ListFlight.htm", method = RequestMethod.GET)
