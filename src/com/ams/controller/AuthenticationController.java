@@ -72,6 +72,7 @@ public class AuthenticationController {
 						session.setAttribute("firstname", firstName);
 						session.setAttribute("customerId", customerId);
 						session.setAttribute("sessionId", session.getId());
+						session.setAttribute("personId", personId);
 						System.out.println("Session sttributes set for Customer..!!");
 						response = new Response("success");
 					}
@@ -113,6 +114,7 @@ public class AuthenticationController {
 						session.setAttribute("firstname", firstName);
 						session.setAttribute("employeeId", employeeId);
 						session.setAttribute("sessionId", session.getId());
+						session.setAttribute("personId", personId);
 						System.out.println("Session attributes set for Employee..!!");
 						response = new Response("success");
 					} 
@@ -131,7 +133,7 @@ public class AuthenticationController {
 	public ModelAndView showSignup() {
 		return new ModelAndView("signup");
 	}
-	
+
 	@RequestMapping(value = "/signup.htm", method = RequestMethod.POST)
 	public ModelAndView signup(@RequestParam("fname") String fname, 
 			@RequestParam("lname") String lname, 
@@ -159,7 +161,6 @@ public class AuthenticationController {
 		
 		String[] splitSSN = ssn.split("-");
 		String combinedSSN = splitSSN[0].concat(splitSSN[1]).concat(splitSSN[2]);
-		
 		person.setFirstName(fname);
 		person.setLastName(lname);
 		person.setAddress(address);
@@ -170,13 +171,13 @@ public class AuthenticationController {
 		person.setUsername(email);
 		person.setPassword(password);
 		person.setPersonType(userType+1);
-		
+
 		int personId = -1;
-		
+
 		if(userType == 0)
 		{
 			System.out.println("You are an employee");
-			
+
 			try 
 			{
 				employee.setEmployeeId(Integer.valueOf(combinedSSN));
@@ -184,7 +185,7 @@ public class AuthenticationController {
 				employee.setPosition(position);
 				employee.setWorkDesc(workdesc);
 				employee.setPerson(person);
-				
+
 				personId = authProxy.employeeSignUp(employee);
 				if(personId > 0)
 				{
@@ -192,7 +193,8 @@ public class AuthenticationController {
 					response = new Response("success");
 					session.setAttribute("person", person);
 					session.setAttribute("employee", employee);
-					
+					session.setAttribute("personId", personId);
+					session.setAttribute("firstname", person.getFirstName());
 					Person p1 = (Person)session.getAttribute("person");
 					System.out.println("First Name from session:"+ p1.getFirstName());
 				}
@@ -209,20 +211,22 @@ public class AuthenticationController {
 		else
 		{
 			System.out.println("You are a customer");
-		
+
 			try 
 			{
 				customer.setCustomerId(Integer.valueOf(combinedSSN));
 				customer.setNationality(nationality);
 				customer.setPassportNumber(passport);
 				customer.setPerson(person);
-				
+
 				personId = authProxy.customerSignUp(customer);
 				if (personId > 0)
 				{
 					System.out.println("Customer Created..!! Person ID : "+personId);
 					response = new Response("success");
 					session.setAttribute("person", person);
+					session.setAttribute("personId", personId);
+					session.setAttribute("firstname", person.getFirstName());
 					session.setAttribute("customer", customer);
 				}
 				else
@@ -239,19 +243,23 @@ public class AuthenticationController {
 		return new ModelAndView(VIEW_NAME, "result", response);
 	}
 
-	
+
 	@RequestMapping(value = "/EditProfile.htm", method = RequestMethod.GET)
 	public ModelAndView showEditProfile(HttpSession session) {
-		
+
 		Response response = null;
 		authProxy.setEndpoint("http://localhost:8080/AMS/services/AuthenticationService");
-		
+
 		Person person = new Person();
-		person = (Person)session.getAttribute("person");
+		person = (Person) session.getAttribute("person");
 		System.out.println("Person ID : "+person.getPersonId());
-		int personId = person.getPersonId();
+		int personId = (Integer) session.getAttribute("personId");
 		int userType = person.getPersonType();
-		String fname = person.getFirstName();
+
+		ModelAndView modelview = new ModelAndView();
+		modelview.addObject(person);
+
+		/*String fname = person.getFirstName();
 		String lname = person.getLastName();
 		String address = person.getAddress();
 		String city = person.getCity();
@@ -259,36 +267,46 @@ public class AuthenticationController {
 		int zipCode = person.getZip();
 		String dob = person.getDOB();
 		String email = person.getUsername();
-		String password	= person.getPassword();
-						
+		String password	= person.getPassword();*/
+
 		if(userType == 1){
 			System.out.println("The logged in user is an Employee");
+			System.out.println("PersonId in session : "+personId);
 			Employee emp = (Employee)session.getAttribute("employee");
-			int empId = emp.getEmployeeId();
+			/*int empId = emp.getEmployeeId();
 			String hireDate = emp.getHireDate();
 			String position = emp.getPosition();
 			String workDesc = emp.getWorkDesc();
-			int ssn = emp.getEmployeeId();
+			int empSSN = emp.getEmployeeId();*/
+
+			modelview.addObject(emp);
 		}
 		else{
 			System.out.println("The logged in user is a customer");
+			System.out.println("PersonId in session : "+personId);
+			Customer customer = (Customer) session.getAttribute("customer");
+			/*int custSSN = customer.getCustomerId();
+			String passport = customer.getPassportNumber();
+			String nationality = customer.getNationality();*/
+
+			modelview.addObject(customer);
 		}
-		
+
 		return new ModelAndView("EditProfile");
 	}
-	
+
 	@RequestMapping(value = "/EditProfile.htm", method = RequestMethod.POST)
 	public ModelAndView editProfile(HttpSession session) {
 		session.invalidate();
 		return new ModelAndView("EditProfile");
 	}
 
-	
+
 
 	@RequestMapping(value = "/logout.htm", method = RequestMethod.GET)
 	public ModelAndView logout(HttpSession session) {
 		session.invalidate();
 		return new ModelAndView("home");
 	}
-	
+
 }
