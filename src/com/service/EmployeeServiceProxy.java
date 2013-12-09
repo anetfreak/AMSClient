@@ -80,5 +80,11 @@ public class EmployeeServiceProxy implements com.service.EmployeeService {
     return employeeService.retriveEmployeesbyName(firstName, lastName);
   }
   
+  public boolean deleteEmployee(int employeeId) throws java.rmi.RemoteException{
+    if (employeeService == null)
+      _initEmployeeServiceProxy();
+    return employeeService.deleteEmployee(employeeId);
+  }
+  
   
 }

@@ -7,8 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>AMS - List Employees</title>
 <%@include file="includes.jsp" %>
+
 </head>
-<body>
+<body id="body">
 	<%@include file="header.jsp" %>
 	<div id="container" style="padding-top: 40px;" align="center">
 		<table class="table table-bordered table-striped" border="1">
@@ -42,6 +43,10 @@
 							<td>${employee.workDesc}</td>
 							<td>${employee.employeeId}</td>
 							<td>${employee.person.DOB}</td>
+							<td><div class="col-sm-offset-2 col-sm-10">
+									<a href="/AMSClient/deleteEmployee/${employee.employeeId}.htm" class="btn btn-default" 
+									id="deleteEmployee" name="deleteEmployee">Delete Employee</a>
+								</div></td>
 						</c:if>
 					</tr>
 				</c:forEach>

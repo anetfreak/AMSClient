@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,12 +13,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.domain.Customer;
 import com.domain.Employee;
+import com.domain.Flight;
+import com.domain.FlightTime;
+import com.domain.Response;
 import com.service.CustomerServiceProxy;
 import com.service.EmployeeServiceProxy;
 
 @Controller
 public class PersonController {
 
+	private static final String VIEW_NAME = "commonJsonView";
 	CustomerServiceProxy custProxy = new CustomerServiceProxy();
 	EmployeeServiceProxy empProxy = new EmployeeServiceProxy();
 
@@ -98,5 +103,52 @@ public class PersonController {
 		}
 		return new ModelAndView("search_employee","Employees",employees);
 
+	}
+	
+	@RequestMapping(value = "/deleteEmployee/{employeeId}.htm", method = RequestMethod.GET)
+	public ModelAndView deleteEmployee(@PathVariable("employeeId") int employeeId) {
+
+		empProxy.setEndpoint("http://localhost:8080/AMS/services/EmployeeService");
+		Response response = null;
+		try 
+		{
+			System.out.println("Employee ID "+ employeeId);
+			boolean b = empProxy.deleteEmployee(employeeId);
+			if(b)
+			{
+				System.out.println("Employee Deleted.!!");
+				response = new Response ("success");
+			}
+			else
+			{
+				System.out.println("Cant delete employee..");
+				response = new Response("failure");
+			}
+		} 
+		catch (RemoteException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		//Function repeat..
+		
+		Employee[] employee = null;
+
+		try 
+		{
+			employee = empProxy.getEmployees();
+		} 
+		catch (RemoteException e) 
+		{
+			e.printStackTrace();
+		}
+		List<Employee> employees = null;
+		if(employee != null)
+		{
+			employees = Arrays.asList(employee);
+		}
+
+		return new ModelAndView("ListEmployees","Employees",employees);
 	}
 }
