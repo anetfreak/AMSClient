@@ -1,5 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <div id="header">
 	<div class="navbar navbar-static-top">
 		<div id="headerNav" class="navbar-inner">
