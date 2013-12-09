@@ -12,13 +12,11 @@
 <script type="text/javascript">
 	function validateForm() {
 		var airlineName = $('#airlineName').val();
-		var flightNo = $('#flightNo').val();
 		var source = $('#source').val();
 		var destination = $('#destination').val();
 		var day = $('#day').val();
 		var time = $('#time').val();
 		var seats = $('#seats').val();
-		var result = false;
 		var numbers = /^[0-9]+$/;
 		var letters = /^[A-Za-z]+$/;
 		//var timere = /^\d{1,2}:\d{2}([ap]m)?$/;
@@ -32,19 +30,19 @@
 			alert("Please enter value for Source");
 			return false;
 		}
-		if ((destination == null) || (destination == "")) {
+		if ((destination == null) || (destination.trim() == '')) {
 			alert("Please enter value for Destination");
 			return false;
 		}
-		if ((day == null) || (day == "")) {
+		if ((day == null) || (day.trim() == '')) {
 			alert("Please enter values for Day");
 			return false;
 		}
-		if ((time == null) || (time == "")) {
+		if ((time == null) || (time.trim() == '')) {
 			alert("Please enter values for Time");
 			return false;
 		}
-		if ((seats == null) || (seats == "")) {
+		if ((seats == null) || (seats.trim() == '')) {
 			alert("Please enter value for Number of Seats");
 			return false;
 		}
@@ -184,7 +182,7 @@
 							</tr>
 							<tr>
 								<td>Flight Day :</td>
-								<td><select name="day" id="day" value="${day}">
+								<td><select name="day" id="day">
 										<option value=" ">--Select--</option>
 										<c:if test="${day eq mon}">
 											<option value="mon" selected="selected">Monday</option>

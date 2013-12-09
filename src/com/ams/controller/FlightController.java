@@ -160,6 +160,7 @@ public class FlightController {
 				
 		try 
 		{
+			System.out.println("Inside post method of updateFLight");
 			boolean b = flightProxy.updateFlight(flight);
 			if(b)
 			{
