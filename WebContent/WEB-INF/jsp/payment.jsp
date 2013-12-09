@@ -64,7 +64,7 @@ $(document).ready(function(){
 		var expiryDate = $('#expireDate').val();
 		
     	$.ajax({
-			url : "showPayment.htm",
+			url : "issueTicket.htm",
 		    type: "POST",
 		    data : "name=" + name + "&card=" + card + "&cvv=" + cvv + "&expiryDate=" + expiryDate,
 		    success:function(data, textStatus, jqXHR){
@@ -85,7 +85,7 @@ $(document).ready(function(){
 			<span><h3>Payment Option</h3></span>
 		</div>
 		<div>
-			<form name = "paymentform" action = "" method = "post" onsubmit = "return validateForm()">
+			<form name = "paymentform">
 			<table>
 				<tr>
 					<td>Name on Credit Card : </td>
