@@ -21,7 +21,8 @@
 		var result = false;
 		var numbers = /^[0-9]+$/;
 		var letters = /^[A-Za-z]+$/;
-		var timere = /^\d{1,2}:\d{2}([ap]m)?$/;
+		//var timere = /^\d{1,2}:\d{2}([ap]m)?$/;
+		var timere = /^([0-9]{2})\:([0-9]{2})$/;
 
 		if ((airlineName == null) || (airlineName == "")){
 			alert("Please enter value for Airline Name");
@@ -174,7 +175,7 @@
 								</select></td>
 							</tr>
 							<tr>
-								<td>Flight Time (hh:mm:ss):</td>
+								<td>Flight Time (hh:mm):</td>
 								<td><input type="text" id="time" name="seats"
 									value="${time}"></td>
 							</tr>
