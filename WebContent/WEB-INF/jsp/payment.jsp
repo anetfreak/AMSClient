@@ -54,7 +54,6 @@ $(document).ready(function(){
 	}
     
     $('#payment').click(function(){
-    	if(validateForm){
     	var name = $('#ownerName').val();
 		var cardNumber1 = $('#cardNumber1').val();
 		var cardNumber2 = $('#cardNumber2').val();
@@ -75,7 +74,6 @@ $(document).ready(function(){
 			    	alert("Could not process request.. " + errorThrown);
 		    }
 		});
-    }
     });
 });
 </script>
