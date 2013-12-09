@@ -145,19 +145,23 @@ public class FlightController {
 			@RequestParam("time") String time,
 			@RequestParam("seats") int seats) 
 	{
-		
+		System.out.println("Came inside.. ");
 		flightProxy.setEndpoint("http://localhost:8080/AMS/services/FlightService");
 		Flight flight = new Flight();
-		FlightTime[] flightTimes = null;
+		FlightTime flightTime = new FlightTime();
 		Response response = null;
+		flight.setFlightId(flightId);
+		flight.setFlightNo(flightNo);
 		flight.setAirlineName(airlineName);
 		flight.setDestination(destination);
 		flight.setNoOfSeats(seats);
 		flight.setSource(source);
-		flightTimes[0].setFlightDay(day);
-		flightTimes[0].setFlightTime(time);		
-		flight.setFlightTime(flightTimes);
+		flightTime.setFlightDay(day);
+		flightTime.setFlightTime(time);
+		FlightTime[] fTimes = new FlightTime[]{flightTime}; 
+		flight.setFlightTime(fTimes);
 				
+		System.out.println("11111111111");
 		try 
 		{
 			System.out.println("Inside post method of updateFLight");
@@ -180,7 +184,7 @@ public class FlightController {
 		return new ModelAndView(VIEW_NAME, "result", response);
 	}
 	
-	/*
+	
 	@RequestMapping(value = "/UpdateFlights.htm", method = RequestMethod.POST)
 	public ModelAndView UpdateFlight(@RequestParam("source") String source,
 			@RequestParam("destination") String destination,
@@ -194,6 +198,6 @@ public class FlightController {
 		}
 
 		return new ModelAndView("UpdateFlight", "flights", flights);
-	}*/
+	}
 
 }

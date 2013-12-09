@@ -60,12 +60,9 @@
 		}
 	};
 
-	$(document)
-			.ready(
-					function() {
-						$('#updateFlight')
-								.click(
-										function(e) {
+	$(document).ready(function() {
+						$('#updateFlight').click(function(e) {
+								e.preventDefault();
 											if (validateForm) {
 												var flightId = $('#flightId').val();
 												var airlineName = $('#airlineName').val();
@@ -77,41 +74,34 @@
 												var seats = $('#seats').val();
 												$
 														.ajax({
-															url : "UpdateFlight.htm",
+															url : "/AMSClient/UpdateFlight.htm",
 															type : "POST",
 															data : "flightId="
 																	+ flightId
-																	+ "&airlineName"
+																	+ "&airlineName="
 																	+ airlineName
-																	+ "&flightNo"
+																	+ "&flightNo="
 																	+ flightNo
-																	+ "&source"
+																	+ "&source="
 																	+ source
-																	+ "&destination"
+																	+ "&destination="
 																	+ destination
-																	+ "&day"
+																	+ "&day="
 																	+ day
-																	+ "&time"
+																	+ "&time="
 																	+ time
-																	+ "&seats"
+																	+ "&seats="
 																	+ seats,
 															success : function(
 																	data,
 																	textStatus,
 																	jqXHR) {
-																$(
-																		'#searchFlightError')
-																		.css(
-																				'display',
-																				'none;');
+																alert("Inside Success..")
+																$('#searchFlightError').css('display','none;');
 																if (data.response == "success") {
-																	window.location.href = "ListFlight.htm";
+ 																	window.location.href = "ListFlight.htm";
 																} else {
-																	$(
-																			'#loginError')
-																			.css(
-																					'display',
-																					'block');
+																	$('#loginError').css('display','block');
 																}
 															},
 
@@ -137,7 +127,7 @@
 					<span><h3>Update Flight Info</h3></span>
 				</div>
 				<div>
-					<form name="updateflightform">
+					<form name="updateflightform" method="post">
 						<table>
 							<tr>
 								<td>Airlines Name :</td>
@@ -159,8 +149,7 @@
 								<td><c:if test="${locations ne null}">
 										<select id="source">
 											<c:forEach items="${locations}" var="loc">
-												<option value="${loc.airportCode}"><c:out
-														value="${loc.airportCode}" /></option>
+												<option>${loc.airportCode}</option>
 											</c:forEach>
 										</select>
 									</c:if></td>
@@ -183,28 +172,13 @@
 							<tr>
 								<td>Flight Day :</td>
 								<td><select name="day" id="day">
-										<option value=" ">--Select--</option>
-										<c:if test="${day eq mon}">
-											<option value="mon" selected="selected">Monday</option>
-										</c:if>
-										<c:if test="${day eq tue}">
-											<option value="tue" selected="selected">Tuesday</option>
-										</c:if>
-										<c:if test="${day eq wed}">
-											<option value="wed" selected="selected">Wednesday</option>
-										</c:if>
-										<c:if test="${day eq thu}">
-											<option value="thu" selected="selected">Thursday</option>
-										</c:if>
-										<c:if test="${day eq fri}">
-											<option value="fri" selected="selected">Friday</option>
-										</c:if>
-										<c:if test="${day eq sat}">
-											<option value="sat" selected="selected">Saturday</option>
-										</c:if>
-										<c:if test="${day eq sun}">
-											<option value="sun" selected="selected">Sunday</option>
-										</c:if>
+										<option value="mon" <c:if test="${day eq 'mon'}">selected="selected"</c:if>>Monday</option>
+										<option value="tue" <c:if test="${day eq 'tue'}">selected="selected"</c:if>>Tuesday</option>
+										<option value="wed" <c:if test="${day eq 'wed'}">selected="selected"</c:if>>Wednesday</option>
+										<option value="thu" <c:if test="${day eq 'thu'}">selected="selected"</c:if>>Thursday</option>
+										<option value="fri" <c:if test="${day eq 'fri'}">selected="selected"</c:if>>Friday</option>
+										<option value="sat" <c:if test="${day eq 'sat'}">selected="selected"</c:if>>Saturday</option>
+										<option value="sun" <c:if test="${day eq 'sun'}">selected="selected"</c:if>>Sunday</option>
 								</select></td>
 							</tr>
 							<tr>
