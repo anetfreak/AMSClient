@@ -269,7 +269,7 @@
 																$('#loginError')
 																		.css('display','none;');
 																if(data.response == "updated") {
-														    		window.location.href="ViewProfile.htm";
+														    		window.location.href="/AMSClient/";
 														    	} else {
 														    		$('#loginError').css('display', 'block');
 														    	}
