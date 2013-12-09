@@ -44,28 +44,22 @@ public class CustomerServiceProxy implements com.service.CustomerService {
     return customerService;
   }
   
-  public boolean updateCustomer(com.domain.Customer customer) throws java.rmi.RemoteException{
-    if (customerService == null)
-      _initCustomerServiceProxy();
-    return customerService.updateCustomer(customer);
-  }
-  
-  public com.domain.Customer retriveCustomerbypId(int personId) throws java.rmi.RemoteException{
-    if (customerService == null)
-      _initCustomerServiceProxy();
-    return customerService.retriveCustomerbypId(personId);
-  }
-  
   public int insertCustomer(com.domain.Customer customer) throws java.rmi.RemoteException{
     if (customerService == null)
       _initCustomerServiceProxy();
     return customerService.insertCustomer(customer);
   }
   
-  public com.domain.Customer[] getCustomers() throws java.rmi.RemoteException{
+  public boolean updateCustomer(com.domain.Customer customer) throws java.rmi.RemoteException{
     if (customerService == null)
       _initCustomerServiceProxy();
-    return customerService.getCustomers();
+    return customerService.updateCustomer(customer);
+  }
+  
+  public boolean deleteCustomer(int customerId) throws java.rmi.RemoteException{
+    if (customerService == null)
+      _initCustomerServiceProxy();
+    return customerService.deleteCustomer(customerId);
   }
   
   public com.domain.Customer getCustomer(int customerId) throws java.rmi.RemoteException{
@@ -74,10 +68,16 @@ public class CustomerServiceProxy implements com.service.CustomerService {
     return customerService.getCustomer(customerId);
   }
   
-  public boolean deleteCustomer(int customerId) throws java.rmi.RemoteException{
+  public com.domain.Customer retriveCustomerbypId(int personId) throws java.rmi.RemoteException{
     if (customerService == null)
       _initCustomerServiceProxy();
-    return customerService.deleteCustomer(customerId);
+    return customerService.retriveCustomerbypId(personId);
+  }
+  
+  public com.domain.Customer[] getCustomers() throws java.rmi.RemoteException{
+    if (customerService == null)
+      _initCustomerServiceProxy();
+    return customerService.getCustomers();
   }
   
   

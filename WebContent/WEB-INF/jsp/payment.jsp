@@ -54,12 +54,12 @@ $(document).ready(function(){
 	}
     
     $('#payment').click(function(){
-    	var name = document.forms["paymentform"]["ownerName"].value;
-		var cardNumber1 = document.forms["paymentform"]["cardNumber1"].value;
-		var cardNumber2 = document.forms["paymentform"]["cardNumber2"].value;
-		var cardNumber3 = document.forms["paymentform"]["cardNumber3"].value;
-		var cardNumber4 = document.forms["paymentform"]["cardNumber4"].value;
-		var cvv = document.forms["paymentform"]["cvv"].value;
+    	var name = $('#ownerName').val();
+		var cardNumber1 = $('#cardNumber1').val();
+		var cardNumber2 = $('#cardNumber2').val();
+		var cardNumber3 = $('#cardNumber3').val();
+		var cardNumber4 = $('#cardNumber4').val();
+		var cvv = $('#cvv').val();
 		var card = cardNumber1 + cardNumber2 + cardNumber3 + cardNumber4;
 		var expiryDate = $('#expireDate').val();
 		
@@ -85,7 +85,6 @@ $(document).ready(function(){
 			<span><h3>Payment Option</h3></span>
 		</div>
 		<div>
-			<form name = "paymentform">
 			<table>
 				<tr>
 					<td>Name on Credit Card : </td>
@@ -111,7 +110,6 @@ $(document).ready(function(){
 					<td><input class="btn btn-primary" type = "submit" name = "payment" id = "payment" value = "Pay Now"></td>
 				</tr>
 			</table>
-			</form>
 		</div>
 	</div>
 <%@include file="footer.jsp" %>

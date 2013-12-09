@@ -44,28 +44,28 @@ public class AuthenticationServiceProxy implements com.service.AuthenticationSer
     return authenticationService;
   }
   
-  public int signInEmployee(java.lang.String username, java.lang.String password) throws java.rmi.RemoteException{
-    if (authenticationService == null)
-      _initAuthenticationServiceProxy();
-    return authenticationService.signInEmployee(username, password);
-  }
-  
-  public int employeeSignUp(com.domain.Employee employee) throws java.rmi.RemoteException{
-    if (authenticationService == null)
-      _initAuthenticationServiceProxy();
-    return authenticationService.employeeSignUp(employee);
-  }
-  
   public int signInCustomer(java.lang.String username, java.lang.String password) throws java.rmi.RemoteException{
     if (authenticationService == null)
       _initAuthenticationServiceProxy();
     return authenticationService.signInCustomer(username, password);
   }
   
+  public int signInEmployee(java.lang.String username, java.lang.String password) throws java.rmi.RemoteException{
+    if (authenticationService == null)
+      _initAuthenticationServiceProxy();
+    return authenticationService.signInEmployee(username, password);
+  }
+  
   public int customerSignUp(com.domain.Customer customer) throws java.rmi.RemoteException{
     if (authenticationService == null)
       _initAuthenticationServiceProxy();
     return authenticationService.customerSignUp(customer);
+  }
+  
+  public int employeeSignUp(com.domain.Employee employee) throws java.rmi.RemoteException{
+    if (authenticationService == null)
+      _initAuthenticationServiceProxy();
+    return authenticationService.employeeSignUp(employee);
   }
   
   public boolean updateCustInformation(com.domain.Customer customer) throws java.rmi.RemoteException{

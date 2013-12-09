@@ -44,16 +44,22 @@ public class ReservationServiceProxy implements com.service.ReservationService {
     return reservationService;
   }
   
+  public com.domain.Reservation[] getReservationbyCustId(int customerId) throws java.rmi.RemoteException{
+    if (reservationService == null)
+      _initReservationServiceProxy();
+    return reservationService.getReservationbyCustId(customerId);
+  }
+  
+  public boolean cancelReservation(int reservationId) throws java.rmi.RemoteException{
+    if (reservationService == null)
+      _initReservationServiceProxy();
+    return reservationService.cancelReservation(reservationId);
+  }
+  
   public boolean insertReservation(com.domain.Reservation reservation) throws java.rmi.RemoteException{
     if (reservationService == null)
       _initReservationServiceProxy();
     return reservationService.insertReservation(reservation);
-  }
-  
-  public com.domain.Reservation[] getReservations() throws java.rmi.RemoteException{
-    if (reservationService == null)
-      _initReservationServiceProxy();
-    return reservationService.getReservations();
   }
   
   public com.domain.Reservation getReservation(int reservationId) throws java.rmi.RemoteException{
@@ -62,22 +68,16 @@ public class ReservationServiceProxy implements com.service.ReservationService {
     return reservationService.getReservation(reservationId);
   }
   
-  public com.domain.Reservation[] getReservationbyCustId(int customerId) throws java.rmi.RemoteException{
+  public com.domain.Reservation[] getReservations() throws java.rmi.RemoteException{
     if (reservationService == null)
       _initReservationServiceProxy();
-    return reservationService.getReservationbyCustId(customerId);
+    return reservationService.getReservations();
   }
   
   public boolean updateReservation(com.domain.Reservation reservation) throws java.rmi.RemoteException{
     if (reservationService == null)
       _initReservationServiceProxy();
     return reservationService.updateReservation(reservation);
-  }
-  
-  public boolean cancelReservation(int reservationId) throws java.rmi.RemoteException{
-    if (reservationService == null)
-      _initReservationServiceProxy();
-    return reservationService.cancelReservation(reservationId);
   }
   
   

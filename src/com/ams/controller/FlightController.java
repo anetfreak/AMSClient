@@ -77,7 +77,29 @@ public class FlightController {
 
 		return new ModelAndView("ListFlight","arr_flights", flight_list);
 	}
+	
+	/*
+	@RequestMapping(value = "/ListFlight.htm", method = RequestMethod.POST)
+	public ModelAndView showUpdatedFlights() {
 
+		Flight[] flights = null;
+
+		flightProxy.setEndpoint("http://localhost:8080/AMS/services/FlightService");
+
+		try {
+			flights = flightProxy.getFlights();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		List<Flight> flight_list = null;
+		if(flights != null)
+		{
+			flight_list = Arrays.asList(flights);
+		}
+
+		return new ModelAndView(VIEW_NAME,"arr_flights", flight_list);
+	}
+*/
 	@RequestMapping(value = "/UpdateEachFlight/{flightId}.htm", method = RequestMethod.GET)
 	public ModelAndView UpdateFlight(@PathVariable("flightId") int flightId) {
 
@@ -124,19 +146,20 @@ public class FlightController {
 		mv.addObject("flight", flight);
 		mv.addObject("day", day);
 		mv.addObject("time",time);
-		mv.addObject(response);
+		mv.addObject("result", response);
 		mv.addObject("locations", Arrays.asList(locations));
 		return mv;
 	}
 
+	
 	@RequestMapping(value = "/UpdateFlight.htm", method = RequestMethod.GET)
 	public ModelAndView updateFlightInfo() {
 
 		return new ModelAndView("UpdateFlight");
 	}
 
-	@RequestMapping(value = "/UpdateFlight.htm", method = RequestMethod.POST)
-	public ModelAndView updatEachFlightInfo(@RequestParam("flightId") int flightId,
+	@RequestMapping(value = "/UpdateEachFlight.htm", method = RequestMethod.POST)
+	public ModelAndView updateEachFlightInfo(@RequestParam("flightId") int flightId,
 			@RequestParam("airlineName") String airlineName,
 			@RequestParam("flightNo") String flightNo,
 			@RequestParam("source") String source,

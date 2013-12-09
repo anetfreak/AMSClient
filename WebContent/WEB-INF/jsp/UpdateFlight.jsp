@@ -10,6 +10,7 @@
 <%@include file="includes.jsp"%>
 
 <script type="text/javascript">
+
 	function validateForm() {
 		var airlineName = $('#airlineName').val();
 		var source = $('#source').val();
@@ -61,8 +62,7 @@
 	};
 
 	$(document).ready(function() {
-						$('#updateFlight').click(function(e) {
-								e.preventDefault();
+						$('#updateFlight').click(function(event) {
 											if (validateForm) {
 												var flightId = $('#flightId').val();
 												var airlineName = $('#airlineName').val();
@@ -74,7 +74,7 @@
 												var seats = $('#seats').val();
 												$
 														.ajax({
-															url : "/AMSClient/UpdateFlight.htm",
+															url : "/AMSClient/UpdateEachFlight.htm",
 															type : "POST",
 															data : "flightId="
 																	+ flightId
@@ -92,17 +92,14 @@
 																	+ time
 																	+ "&seats="
 																	+ seats,
-															success : function(
-																	data,
-																	textStatus,
-																	jqXHR) {
-																alert("Inside Success..")
-																$('#searchFlightError').css('display','none;');
-																if (data.response == "success") {
- 																	window.location.href = "/AMSClient/ListFlight.htm";
-																} else {
-																	$('#loginError').css('display','block');
-																}
+															success : function(data,textStatus,jqXHR) {
+// 																alert("Inside Success..");
+// 																$('#updateFlightStatus').css('display','block');
+// 																if (data.response == "success") {
+																	window.location.href="ListFlight.htm";
+// 																} else {
+// 																	$('#loginError').css('display','none');
+// 																}
 															},
 
 														});
@@ -115,12 +112,12 @@
 	<%@include file="header.jsp"%>
 	<div id="container" style="padding: 40px 0px 80px 0px;">
 		<div class="container-fluid">
-			<div id="loginError" class="alert alert-success alert-dismissable"
+			<div id="updateFlightStatus" class="alert alert-success alert-dismissable"
 				style="display: none;">
 				<button type="button" class="close" data-dismiss="alert"
 					aria-hidden="true">&times;</button>
 				Flight Information updated successfully. Please view it <a
-					href="ListFlight.htm">here</a>
+					href="/AMSClient/ListFlight.htm">here</a>
 			</div>
 			<div style="padding: 30px;">
 				<div>
@@ -183,12 +180,12 @@
 							</tr>
 							<tr>
 								<td>Flight Time (hh:mm):</td>
-								<td><input type="text" id="time" name="seats"
+								<td><input type="text" id="time" name="time"
 									value="${time}"></td>
 							</tr>
 							<tr>
-								<td><input class="btn btn-primary" type="submit"
-									name="updateFlight" id="updateFlight" value="Update"></td>
+								<td><input type="submit" class="btn btn-default"
+											id="updateFlight" value="Update Information" /></td>
 							</tr>
 						</table>
 					</form>

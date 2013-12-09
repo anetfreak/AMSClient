@@ -44,34 +44,16 @@ public class EmployeeServiceProxy implements com.service.EmployeeService {
     return employeeService;
   }
   
-  public int insertEmployee(com.domain.Employee employee) throws java.rmi.RemoteException{
-    if (employeeService == null)
-      _initEmployeeServiceProxy();
-    return employeeService.insertEmployee(employee);
-  }
-  
-  public com.domain.Employee[] getEmployees() throws java.rmi.RemoteException{
-    if (employeeService == null)
-      _initEmployeeServiceProxy();
-    return employeeService.getEmployees();
-  }
-  
-  public com.domain.Employee getEmployee(int employeeId) throws java.rmi.RemoteException{
-    if (employeeService == null)
-      _initEmployeeServiceProxy();
-    return employeeService.getEmployee(employeeId);
-  }
-  
-  public com.domain.Employee retriveEmployeebypId(int personId) throws java.rmi.RemoteException{
-    if (employeeService == null)
-      _initEmployeeServiceProxy();
-    return employeeService.retriveEmployeebypId(personId);
-  }
-  
   public boolean updateEmployee(com.domain.Employee employee) throws java.rmi.RemoteException{
     if (employeeService == null)
       _initEmployeeServiceProxy();
     return employeeService.updateEmployee(employee);
+  }
+  
+  public int insertEmployee(com.domain.Employee employee) throws java.rmi.RemoteException{
+    if (employeeService == null)
+      _initEmployeeServiceProxy();
+    return employeeService.insertEmployee(employee);
   }
   
   public com.domain.Employee[] retriveEmployeesbyName(java.lang.String firstName, java.lang.String lastName) throws java.rmi.RemoteException{
@@ -84,6 +66,24 @@ public class EmployeeServiceProxy implements com.service.EmployeeService {
     if (employeeService == null)
       _initEmployeeServiceProxy();
     return employeeService.deleteEmployee(employeeId);
+  }
+  
+  public com.domain.Employee getEmployee(int employeeId) throws java.rmi.RemoteException{
+    if (employeeService == null)
+      _initEmployeeServiceProxy();
+    return employeeService.getEmployee(employeeId);
+  }
+  
+  public com.domain.Employee[] getEmployees() throws java.rmi.RemoteException{
+    if (employeeService == null)
+      _initEmployeeServiceProxy();
+    return employeeService.getEmployees();
+  }
+  
+  public com.domain.Employee retriveEmployeebypId(int personId) throws java.rmi.RemoteException{
+    if (employeeService == null)
+      _initEmployeeServiceProxy();
+    return employeeService.retriveEmployeebypId(personId);
   }
   
   
