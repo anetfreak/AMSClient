@@ -19,6 +19,62 @@ $(document).ready(function(){
         return date.valueOf() < now.valueOf() ? 'disabled' : '';
       }
     }).data('datepicker');
+    
+    function validateForm() {
+		var name = document.forms["paymentform"]["ownerName"].value;
+		var cardNumber1 = document.forms["paymentform"]["cardNumber1"].value;
+		var cardNumber2 = document.forms["paymentform"]["cardNumber2"].value;
+		var cardNumber3 = document.forms["paymentform"]["cardNumber3"].value;
+		var cardNumber4 = document.forms["paymentform"]["cardNumber4"].value;
+		var cvv = document.forms["paymentform"]["cvv"].value;
+		//var expiryDate = document.forms["paymentform"]["expiryDate"].value;
+		var expiryDate = $('#expireDate').val();
+		
+		var letters = /^[A-Za-z]+$/;
+		var numbers = /^[0-9]+$/;
+		
+		if((name == null) || (name == "") || (cardNumber1 == null) || (cardNumber1 == "") || (cardNumber2 == null)
+				|| (cardNumber2 == "") || (cardNumber3 == null) || (cardNumber3 == "") || (cardNumber4 == null) ||
+					(cardNumber4 == "") || (cvv == null) || (cvv == "") || (expiryDate == null) || (expiryDate == "")){
+			alert("All fields should be filled!");
+			return false;
+		}
+		if(!name.match(letters)) {
+			alert("Not a valid name!");
+			return false;
+		}
+		if((!cardNumber1.match(numbers)) || (!cardNumber2.match(numbers)) || (!cardNumber3.match(numbers)) || (!cardNumber4.match(numbers))) {
+			alert("Not a valid credit card number!");
+			return false;
+		}
+		if(!cvv.match(numbers)) {
+			alert("Not a valid cvv number!");
+			return false;
+		}
+	}
+    
+    $('#payment').click(function(){
+    	var name = document.forms["paymentform"]["ownerName"].value;
+		var cardNumber1 = document.forms["paymentform"]["cardNumber1"].value;
+		var cardNumber2 = document.forms["paymentform"]["cardNumber2"].value;
+		var cardNumber3 = document.forms["paymentform"]["cardNumber3"].value;
+		var cardNumber4 = document.forms["paymentform"]["cardNumber4"].value;
+		var cvv = document.forms["paymentform"]["cvv"].value;
+		var card = cardNumber1 + cardNumber2 + cardNumber3 + cardNumber4;
+		var expiryDate = $('#expireDate').val();
+		
+    	$.ajax({
+			url : "showPayment.htm",
+		    type: "POST",
+		    data : "name=" + name + "&card=" + card + "&cvv=" + cvv + "&expiryDate=" + expiryDate,
+		    success:function(data, textStatus, jqXHR){
+		    	window.location.href = "showPayment.htm";
+		    },
+		    error: function(jqXHR, textStatus, errorThrown){
+			    	alert("Could not process request.. " + errorThrown);
+		    }
+		});
+    });
 });
 	function validateForm() {
 		var name = document.forms["paymentform"]["ownerName"].value;

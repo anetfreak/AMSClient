@@ -10,10 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.domain.Customer;
+import com.domain.Flight;
 import com.domain.Reservation;
+import com.service.FlightServiceProxy;
 import com.domain.Response;
 import com.service.ReservationServiceProxy;
 
@@ -21,6 +24,7 @@ import com.service.ReservationServiceProxy;
 public class ReservationController {
   
   ReservationServiceProxy reservationProxy = new ReservationServiceProxy();
+  FlightServiceProxy flightProxy = new FlightServiceProxy();
 	
 	@RequestMapping(value = "/ListReservations.htm", method = RequestMethod.GET)
 	public ModelAndView showReservations() {
@@ -44,6 +48,30 @@ public class ReservationController {
 		
 		return new ModelAndView("ListReservations","Reservations",reservations);
 	}
+
+	@RequestMapping(value = "/AddTraveller.htm", method = RequestMethod.POST)
+	  public ModelAndView AddTraveller(@RequestParam("flightId1") Integer flightId1, 
+			  @RequestParam("flightId2") Integer flightId2, 
+			  HttpSession session) {
+		
+		flightProxy.setEndpoint("http://localhost:8080/AMS/services/FlightService");
+		Customer customer = (Customer) session.getAttribute("customer");
+		Flight flight1 = null;
+		Flight flight2 = null;
+		try {
+			flight1 = flightProxy.getFlightById(flightId1);
+			flight2 = flightProxy.getFlightById(flightId2);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
+	    ModelAndView mav = new ModelAndView("AddTraveller");
+	    session.setAttribute("flight1", flight1);
+	    session.setAttribute("flight2", flight2);
+	    return mav;
+	    
+	}
+	
 	@RequestMapping(value = "/ShowReservation.htm", method = RequestMethod.GET)
 	public ModelAndView showReservation(HttpSession session) {
 		
@@ -113,8 +141,7 @@ public class ReservationController {
 	}
 	
 	@RequestMapping(value = "/AddTraveller.htm", method = RequestMethod.GET)
-	  public ModelAndView AddTraveller() {
-	    return new ModelAndView("AddTraveller");
+	  public ModelAndView AddTraveller(HttpSession session) {
+		return new ModelAndView("AddTraveller");
 	}
-
 }

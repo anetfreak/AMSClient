@@ -15,10 +15,23 @@
 			$('.flightIds').click(function(e) {
 		        e.preventDefault();
 		        var index = this.id;
-// 		        alert(index);
-		        var secondId = $('#'+index).val();
-		        var firstId = $('#'+index-1).val();
-// 		        alert(secondId + "" + firstId);
+		        var selector = 'td.' + index;
+		        var selector2 = 'td.' + (index - 1);
+		        var secondId = $(selector).text();
+		        var firstId = $(selector2).text();
+		        
+		        $.ajax({
+					url : "AddTraveller.htm",
+				    type: "POST",
+				    data : "flightId1=" + firstId + "&flightId2=" + secondId,
+				    success:function(data, textStatus, jqXHR){
+				    	window.location.href = "AddTraveller.htm";
+				    },
+				    error: function(jqXHR, textStatus, errorThrown){
+				    	$('#searchFlightError').css('display', 'block');
+// 				    	alert("Could not process request.. " + errorThrown);
+				    }
+				});
 		    });
 			
 			$('#btnSearchFlight').click(function(e){
@@ -99,13 +112,13 @@
 									<c:if test="${flight ne null}">
 										<c:choose>
 										<c:when test="${flightCounter.count % 2 == 0}">
-											<td><input type="button" class="flightIds" id="${flightCounter}" value="Select Flight"/></td>
+											<td><input type="button" class="flightIds" id="${flightCounter.count}" value="Select Flight"/></td>
 										</c:when>
 										<c:otherwise>
 											<td></td>
 										</c:otherwise>
 										</c:choose>
-										<td id="${flightCounter}">${flight.flightId}</td>
+										<td class="${flightCounter.count}">${flight.flightId}</td>
 										<td>${flight.flightNo}</td>
 										<td>${flight.airlineName}</td>
 										<td>${flight.source}</td>
