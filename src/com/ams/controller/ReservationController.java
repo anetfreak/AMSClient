@@ -39,5 +39,9 @@ public class ReservationController {
 		
 		return new ModelAndView("ListReservations","Reservations",reservations);
 	}
+	@RequestMapping(value = "/AddTraveller.htm", method = RequestMethod.GET)
+	  public ModelAndView AddTraveller() {
+	    return new ModelAndView("AddTraveller");
+	}
 
 }
