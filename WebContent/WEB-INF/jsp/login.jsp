@@ -16,25 +16,47 @@
 				var email = $('#email').val();
 				var password = $('#password').val();
 				var userType = $("input:radio[name=userTypeInput]:checked").val();
-				$.ajax({
-					url : "login.htm",
-				    type: "POST",
-				    data : "email=" + email + "&password=" + password + "&userType=" + userType,
-				    success:function(data, textStatus, jqXHR){
-				    	$('#loginError').css('display', 'none;');
-				    	if(data.response == "success") {
-				    		window.location.href="/AMSClient/";
-				    	} else {
-				    		$('#loginError').css('display', 'block');
-				    		$('#email').val('');
-				    		$('#password').val('');
-				    	}
-				    },
-				    error: function(jqXHR, textStatus, errorThrown){
-				    	$('#loginError').css('display', 'block');
-// 				    	alert("Could not process request.. " + errorThrown);
-				    }
-				});
+				
+				if(userType != 99){
+					$.ajax({
+						url : "login.htm",
+					    type: "POST",
+					    data : "email=" + email + "&password=" + password + "&userType=" + userType,
+					    success:function(data, textStatus, jqXHR){
+					    	$('#loginError').css('display', 'none;');
+					    	if(data.response == "success") {
+					    		window.location.href="/AMSClient/";
+					    	} else {
+					    		$('#loginError').css('display', 'block');
+					    		$('#email').val('');
+					    		$('#password').val('');
+					    	}
+					    },
+					    error: function(jqXHR, textStatus, errorThrown){
+					    	$('#loginError').css('display', 'block');
+	// 				    	alert("Could not process request.. " + errorThrown);
+					    }
+					});
+				} else {
+					$.ajax({
+						url : "adminLogin.htm",
+					    type: "POST",
+					    data : "email=" + email + "&password=" + password + "&userType=" + userType,
+					    success:function(data, textStatus, jqXHR){
+					    	$('#loginError').css('display', 'none;');
+					    	if(data.response == "success") {
+					    		window.location.href="/AMSClient/";
+					    	} else {
+					    		$('#loginError').css('display', 'block');
+					    		$('#email').val('');
+					    		$('#password').val('');
+					    	}
+					    },
+					    error: function(jqXHR, textStatus, errorThrown){
+					    	$('#loginError').css('display', 'block');
+					    }
+					});
+				}
 			}
 		});
 		
@@ -92,11 +114,12 @@
 											<input name="userTypeInput" id="userTypeInputCustomer" type="radio" class="required" value="0">
 											<span style="margin-top:5px;">Customer</span>
 											</span>
-											<span> <input name="userTypeInput"
-												id="userTypeInputEmployee" type="radio" class="required"
-												value="1">
+											<span> <input name="userTypeInput" id="userTypeInputEmployee" type="radio" class="required" value="1">
 											</span>
 											<span>Employee</span>
+											<span> <input name="userTypeInput" id="userTypeInputEmployee" type="radio" class="required" value="99">
+											</span>
+											<span>Administrator</span>
 										</div>
 									</div>
  								</td>

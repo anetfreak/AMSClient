@@ -137,6 +137,24 @@ public class AuthenticationController {
 		return new ModelAndView(VIEW_NAME, "result", response);
 	}
 
+	
+	@RequestMapping(value = "/adminLogin.htm", method = RequestMethod.POST)
+	public ModelAndView adminLogin(@RequestParam("email") String email,
+			@RequestParam("password") String password,
+			@RequestParam("userType") Integer userType,
+			HttpSession session) {
+		Response response = null;
+		
+		if(userType == 99 && email.equalsIgnoreCase("admin@gmail.com") && password.equalsIgnoreCase("admin")) {
+			response = new Response("success");
+			session.setAttribute("isAdmin", true);
+			session.setAttribute("sessionId", session.getId());
+		} else {
+			response = new Response("failure");
+		}
+		return new ModelAndView(VIEW_NAME, "result", response);
+	}
+	
 	@RequestMapping(value = "/logout.htm", method = RequestMethod.GET)
 	public ModelAndView logout(HttpSession session) {
 		session.invalidate();
