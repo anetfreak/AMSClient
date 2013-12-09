@@ -21,13 +21,12 @@ $(document).ready(function(){
     }).data('datepicker');
     
     function validateForm() {
-		var name = document.forms["paymentform"]["ownerName"].value;
-		var cardNumber1 = document.forms["paymentform"]["cardNumber1"].value;
-		var cardNumber2 = document.forms["paymentform"]["cardNumber2"].value;
-		var cardNumber3 = document.forms["paymentform"]["cardNumber3"].value;
-		var cardNumber4 = document.forms["paymentform"]["cardNumber4"].value;
-		var cvv = document.forms["paymentform"]["cvv"].value;
-		//var expiryDate = document.forms["paymentform"]["expiryDate"].value;
+    	var name = $('#ownerName').val();
+		var cardNumber1 = $('#cardNumber1').val();
+		var cardNumber2 = $('#cardNumber2').val();
+		var cardNumber3 = $('#cardNumber3').val();
+		var cardNumber4 = $('#cardNumber4').val();
+		var cvv = $('#cvv').val();
 		var expiryDate = $('#expireDate').val();
 		
 		var letters = /^[A-Za-z]+$/;
@@ -51,6 +50,7 @@ $(document).ready(function(){
 			alert("Not a valid cvv number!");
 			return false;
 		}
+		return true;
 	}
     
     $('#payment').click(function(){
@@ -63,17 +63,19 @@ $(document).ready(function(){
 		var card = cardNumber1 + cardNumber2 + cardNumber3 + cardNumber4;
 		var expiryDate = $('#expireDate').val();
 		
-    	$.ajax({
-			url : "issueTicket.htm",
-		    type: "POST",
-		    data : "name=" + name + "&card=" + card + "&cvv=" + cvv + "&expiryDate=" + expiryDate,
-		    success:function(data, textStatus, jqXHR){
-		    	window.location.href = "issueTicket.htm";
-		    },
-		    error: function(jqXHR, textStatus, errorThrown){
-			    	alert("Could not process request.. " + errorThrown);
-		    }
-		});
+		if(validateForm()){
+	    	$.ajax({
+				url : "issueTicket.htm",
+			    type: "POST",
+			    data : "name=" + name + "&card=" + card + "&cvv=" + cvv + "&expiryDate=" + expiryDate,
+			    success:function(data, textStatus, jqXHR){
+			    	window.location.href = "issueTicket.htm";
+			    },
+			    error: function(jqXHR, textStatus, errorThrown){
+				    	alert("Could not process request.. " + errorThrown);
+			    }
+			});
+		}
     });
 });
 </script>
