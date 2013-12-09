@@ -19,33 +19,46 @@
 		var time = $('#time').val();
 		var seats = $('#seats').val();
 		var result = false;
+		var numbers = /^[0-9]+$/;
+		var letters = /^[A-Za-z]+$/;
+		var timere = /^\d{1,2}:\d{2}([ap]m)?$/;
 
-		if ((airlineName == null) || (airlineName == ""))
-		{
+		if ((airlineName == null) || (airlineName == "")){
 			alert("Please enter value for Airline Name");
+			return false;
 		}
-		else if((flightNo == null) || (flightNo == "")){
-			alert("Please enter value for Flight Number");
-		}
-		else if((source == null) || (source == "")){
+		if((source == null) || (source == "")){
 			alert("Please enter value for Source");
+			return false;
 		}
-		else if ((destination == null) || (destination == "")){
+		if ((destination == null) || (destination == "")){
 			alert("Please enter value for Destination");
+			return false;
 		} 
-		else if ((day == null) || (day == "")){
+		if ((day == null) || (day == "")){
 			alert("Please enter values for Day");
+			return false;
 		}
-		else if ((time == null) || (time == "")){
+		if ((time == null) || (time == "")){
 			alert("Please enter values for Time");
+			return false;
 		}
-		else if((seats == null) || (seats == "")) {
+		if((seats == null) || (seats == "")) {
 			alert("Please enter value for Number of Seats");
+			return false;
 		}
-		else
-			result = true;
-		
-		return result;
+		if(!airlineName.match(letters)) {
+			alert("Not a valid airline name. Only alphabets allowed.");
+			return false;
+		}
+		if(!seats.match(numbers)) {
+			alert("Not a valid seat number. Only numbers allowed.");
+			return false;
+		}
+		if(!time.match(timere)) {
+			alert("Time is not in valid format.");
+			return false;
+		}
 	};
 	
 	$(document).ready(function(){
@@ -99,7 +112,7 @@
 					<span><h3>Update Flight Info</h3></span>
 				</div>
 				<div>
-					<form name="updateflightform" action="" method="post">
+					<form name="updateflightform" action="" method="post" onsubmit = "return validateForm()">
 						<table>
 							<tr>
 								<td>Airlines Name :</td>
@@ -118,13 +131,29 @@
 							</tr>
 							<tr>
 								<td>Source Airport :</td>
-								<td><input type="text" id="source" name="source"
-									value="${flight.source}"></td>
+								<td>
+									<c:if test="${locations ne null}">
+										<select id="source">
+											<option value = "">--Select--</option>
+											<c:forEach items="${locations}" var="loc">
+												<option value="${loc.airportCode}"><c:out value="${loc.airportCode}"/></option>
+							    			</c:forEach>
+							  			</select>
+							  		 </c:if>
+								</td>
 							</tr>
 							<tr>
 								<td>Destination Airport :</td>
-								<td><input type="text" id="destination" name="destination"
-									value="${flight.destination}"></td>
+								<td>
+									<c:if test="${locations ne null}">
+							  			<select id="destination">
+							  				<option value = "">--Select--</option>
+							  				<c:forEach items="${locations}" var="loc">
+								  				<option>${loc.airportCode}</option>
+							    			</c:forEach>
+							  			</select>
+						  			</c:if>
+								</td>
 							</tr>
 							<tr>
 								<td>Number of Seats :</td>
