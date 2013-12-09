@@ -11,8 +11,8 @@
 			
 			$('#btnSearchEmployee').click(function(e){
 				e.preventDefault();
-				var firstname = $('#firstname').val();
-				var lastname = $('#lastname').val();
+				var firstname = $('#firstName').val();
+				var lastname = $('#lastName').val();
 				$.ajax({
 					url : "searchEmployee.htm",
 				    type: "POST",
@@ -54,6 +54,9 @@
 						<div class="input-group">
 							<input type="text" id="lastName" class="required"
 								placeholder="Last Name">
+						</div>
+						<div>
+						<button type="submit" class="btn" id="btnSearchEmployee">Search</button>
 						</div>
 					</div>
 				</div>

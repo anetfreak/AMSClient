@@ -1,5 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <div id="header">
 	<div class="navbar navbar-static-top">
 		<div id="headerNav" class="navbar-inner">
@@ -10,6 +8,7 @@
 				<li><a href="ListEmployees.htm">List Employees</a></li>
 				<li><a href="ListReservations.htm">List Reservations</a></li>
 				<li><a href="ListCustomers.htm">List Customers</a></li>
+				<li><a href="searchEmployee.htm">Search Employee</a>
 			</ul>
 			<% if(session.getAttribute("sessionId") == null) { %>
 			<ul id="loginMenu" class="nav" style=" float:right;">
@@ -21,7 +20,7 @@
 				<li class="dropdown" id="loggedInDown">
 	 				<a class="dropdown-toggle" data-toggle="dropdown" href="#loggedInDown">Hello ${firstname} <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-				      <li><a href="EditProfile.htm">Profile</a></li>
+				      <li><a href="ViewProfile.htm">Profile</a></li>
 				      <li><a href="logout.htm">Logout</a></li>
 				    </ul>
 			    </li>

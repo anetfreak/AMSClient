@@ -44,6 +44,12 @@ public class FlightServiceProxy implements com.service.FlightService {
     return flightService;
   }
   
+  public com.domain.Location[] getLocations() throws java.rmi.RemoteException{
+    if (flightService == null)
+      _initFlightServiceProxy();
+    return flightService.getLocations();
+  }
+  
   public boolean insertFlight(com.domain.Flight flight) throws java.rmi.RemoteException{
     if (flightService == null)
       _initFlightServiceProxy();

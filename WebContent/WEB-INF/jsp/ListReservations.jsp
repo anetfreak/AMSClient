@@ -13,26 +13,26 @@
 	<div id="container" style="padding-top: 40px;" align="center">
 		<table class="table table-bordered table-striped" border="1">
 			<tr>
-				<td><BR>Reservation Id</td>
-				<td><BR>Reservation No</td>
-				<td><BR>Customer Id</td>
-				<td><BR>Reservation Status</td>
-				<td><BR>Seats Booked</td>
-				<td><BR>flightId</td>
-				<td><BR>source</td>
-				<td><BR>destination</td>
-				<td><BR>dateTime</td>
-				<td><BR>travellerId</td>
-				<td><BR>firstName</td>
-				<td><BR>lastName</td>
-				<td><BR>age</td>
-				<td><BR>sex</td>
+				<td><B>Reservation Id</B></td>
+				<td><B>Reservation No</B></td>
+				<td><B>Customer Id</B></td>
+				<td><B>Reservation Status</B></td>
+				<td><B>Seats Booked</B></td>
+				<td><B>FlightId</B></td>
+				<td><B>Source</B></td>
+				<td><B>Destination</B></td>
+				<td><B>Date-Time</B></td>
+				<td><B>Traveller Id</B></td>
+				<td><B>Traveller's First Name</B></td>
+				<td><B>Traveller's Last Name</B></td>
+				<td><B>Age</B></td>
+				<td><B>Sex</B></td>
 				
 			</tr>
 			<c:if test="${Reservations ne null}">
 				<c:forEach items="${Reservations}" var="reservation">
 					<tr>
-						<c:if test="${customer ne null}">
+						<c:if test="${reservation ne null}">
 							<td>${reservation.reservationId}</td>
 							<td>${reservation.reservationNo}</td>
 							<td>${reservation.customerId}</td>

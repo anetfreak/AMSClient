@@ -21,7 +21,6 @@ public class ReservationController {
 	public ModelAndView showReservations() {
 		
 		Reservation[] reservation = null;
-
 		reservationProxy.setEndpoint("http://localhost:8080/AMS/services/ReservationService");
 		
 		try {
@@ -38,7 +37,11 @@ public class ReservationController {
 			//modelAndView.addObject("arr_flights", cust_list);
 		}
 		
-		return new ModelAndView("ListCustomers","Reservations",reservations);
+		return new ModelAndView("ListReservations","Reservations",reservations);
+	}
+	@RequestMapping(value = "/AddTraveller.htm", method = RequestMethod.GET)
+	  public ModelAndView AddTraveller() {
+	    return new ModelAndView("AddTraveller");
 	}
 
 }

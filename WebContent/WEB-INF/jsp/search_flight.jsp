@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=US-ASCII"
-	pageEncoding="US-ASCII"%>
+<%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 	<title>AMS! - Search a Flight</title>
+	
 	<%@include file="includes.jsp" %>
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -22,6 +23,7 @@
 				    data : "source=" + source + "&destination=" + destination + "&departDate=" + departDate,
 				    success:function(data, textStatus, jqXHR){
 				    	$('#searchFlightError').css('display', 'none;');
+// 				    	window.location.reload();
 				    },
 				    error: function(jqXHR, textStatus, errorThrown){
 				    	$('#searchFlightError').css('display', 'block');
@@ -46,22 +48,22 @@
 					<div>
 						<span><h3>Search Flight</h3></span>
 						<form class="form-inline">
-						  <span>Source: </span><select id="source">
-						    <option>SFO</option>
-						    <option>LAX</option>
-						    <option>SJC</option>
-						    <option>NEW</option>
-						    <option>JFK</option>
-						    <option>BOS</option>
-						  </select>
-						  <span style="margin-left:10px;">Destination: </span><select id="destination">
-						    <option>SFO</option>
-						    <option>LAX</option>
-						    <option>SJC</option>
-						    <option>NEW</option>
-						    <option>JFK</option>
-						    <option>BOS</option>
-						  </select>
+						  <span>Source: </span>
+							<c:if test="${locations ne null}">
+							  <select id="source">
+							  	<c:forEach items="${locations}" var="loc">
+								    <option value="${loc.airportCode}"><c:out value="${loc.airportCode}"/></option>
+							    </c:forEach>
+							  </select>
+						  </c:if>
+						  <span style="margin-left:10px;">Destination: </span>
+							<c:if test="${locations ne null}">
+							  <select id="destination">
+							  	<c:forEach items="${locations}" var="loc">
+								    <option>${loc.airportCode}</option>
+							    </c:forEach>
+							  </select>
+						  </c:if>
 						  <input id="departDate" size="16" type="text" readonly data-date-format="yyyy-mm-dd" placeholder="Departure Date">
 					      <button type="submit" class="btn" id="btnSearchFlight">Search</button>
 						</form>
@@ -70,7 +72,8 @@
 			</div>
 			<div class="row-fluid">
 				<div id="flightSearchResults">
-					<c:if test="${flights ne null}">
+					<c:choose>
+					<c:when test="${flights ne null}">
 					<table class="table table-bordered table-striped" border="1">
 						<tr>
 							<td><BR>Flight Id</td>
@@ -114,7 +117,8 @@
 						<tr>
 						</tr>
 					</table>
-					</c:if>
+					</c:when>
+					</c:choose>
 				</div>
 			</div>
 		</div>

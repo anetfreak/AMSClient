@@ -20,9 +20,11 @@
 			if (userType == 0) {
 				$('.customerExtra').css('display', 'none');
 				$('.empExtra').css('display', 'block');
+				$('.empExtra').css('display', 'table-row');
 			} else {
 				$('.empExtra').css('display', 'none');
 				$('.customerExtra').css('display', 'block');
+				$('.customerExtra').css('display', 'table-row');
 			}
 		});
 		
@@ -148,9 +150,12 @@
 			if(password.val().length < 8 || password.val().length > 12){
 				alert('Password can be between 8 and 12 characters');
 				password.val('');
+				rePassword.val('');
 			}
 			else if(password.val() != rePassword.val()){
 				alert('Passwords do not match');
+				password.val('');
+				rePassword.val('');
 			}
 			else{
 				result = true;
@@ -213,7 +218,8 @@
 		    type: "POST",
 		    data : "email=" + email + "&password=" + password + "&userType=" + userType + "&fname=" +fname+ "&lname=" +lname+ "&address=" +address+
 		    "&city=" +city+ "&state=" +state+ "&pincode=" +pincode+ "&dob=" +dob+ "&passport=" +passport+ "&nationality=" +nationality+ "&workdesc=" +workdesc+
-		    "&position=" +position+ "&hiredate=" +hiredate + "&ssn=" + ssn,
+		    "&position=" +position+ "&hiredate=" +hiredate + "&ssn=" + ssn + "&isUpdate=false",
+		    
 		    success:function(data, textStatus, jqXHR){
 		    	$('#loginError').css('display', 'none;');
 		    	if(data.response == "success") {
@@ -238,6 +244,10 @@
 
 	<div id="container" style="padding: 40px 0px 80px 0px;">
 		<div class="container-fluid">
+		<div id="loginError" class="alert alert-error alert-dismissable" style="display: none;">
+			  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			  SignUp Error. Please try again.
+			</div>
 			<div class="row-fluid">
 				<div id="sidebar" class="span2">
 					<!--Sidebar content-->
@@ -346,43 +356,34 @@
 								<td><input id="dob" size="16" type="text" readonly data-date-format="yyyy-mm-dd" placeholder="Date Of Birth"></td>
 							</tr>
 							<!-- 							Extra Fields -->
-							<tr class="customerExtra" style="display: none;"></tr>
 							<tr class="customerExtra" style="display: none;">
 								<td><h5>Passport Number</h5></td>
-								<td></td>
 								<td><div class="input-group">
 										<input type="text" id="passport" class="required"
-											placeholder="Passport Number">
+											placeholder="Passport Number" maxlength="8">
 									</div></td>
 							</tr>
-							<tr class="customerExtra" style="display: none;"></tr>
 							<tr class="customerExtra" style="display: none;">
 								<td><h5>Nationality</h5></td>
-								<td></td>
 								<td><div class="input-group">
 										<input type="text" id="nationality" class="required"
 											placeholder="Nationality">
 									</div></td>
 							</tr>
-							<tr class="empExtra" style="display: none;"></tr>
 							<tr class="empExtra" style="display: none;">
 								<td><h5>Work Description</h5></td>
-								<td></td>
 								<td><div class="input-group">
 										<input type="text" id="workDesc" class="required"
 											placeholder="Work Description">
 									</div></td>
 							</tr>
-							<tr class="empExtra" style="display: none;"></tr>
 							<tr class="empExtra" style="display: none;">
 								<td><h5>Position</h5></td>
-								<td></td>
 								<td><div class="input-group">
 										<input type="text" id="position" class="required"
 											placeholder="Position">
 									</div></td>
 							</tr>
-							<tr class="empExtra" style="display: none;"></tr>
 							<tr class="empExtra" style="display: none;">
 								<td><h5>Hire Date</h5></td>
 								<td><input id="hireDate" size="16" type="text" readonly data-date-format="yyyy-mm-dd" placeholder="Hire Date"></td>

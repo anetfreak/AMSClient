@@ -40,6 +40,7 @@ public class AuthenticationController {
 			HttpSession session) {
 		Response response = null;
 		Customer customer = new Customer();
+		Person person = new Person();
 
 		authProxy.setEndpoint("http://localhost:8080/AMS/services/AuthenticationService");
 		if(userType == 0)
@@ -68,11 +69,15 @@ public class AuthenticationController {
 					{
 						String firstName = customer.getPerson().getFirstName();
 						int customerId = customer.getCustomerId();
+						person = customer.getPerson();
 
 						session.setAttribute("firstname", firstName);
 						session.setAttribute("customerId", customerId);
 						session.setAttribute("sessionId", session.getId());
 						session.setAttribute("personId", personId);
+						session.setAttribute("person", person);
+						session.setAttribute("customer", customer);
+
 						System.out.println("Session sttributes set for Customer..!!");
 						response = new Response("success");
 					}
@@ -110,11 +115,14 @@ public class AuthenticationController {
 					{
 						String firstName = employee.getPerson().getFirstName();
 						int employeeId = employee.getEmployeeId();
+						person = employee.getPerson();
 
 						session.setAttribute("firstname", firstName);
 						session.setAttribute("employeeId", employeeId);
 						session.setAttribute("sessionId", session.getId());
 						session.setAttribute("personId", personId);
+						session.setAttribute("person", person);
+						session.setAttribute("employee", employee);
 						System.out.println("Session attributes set for Employee..!!");
 						response = new Response("success");
 					} 
@@ -129,6 +137,12 @@ public class AuthenticationController {
 		return new ModelAndView(VIEW_NAME, "result", response);
 	}
 
+	@RequestMapping(value = "/logout.htm", method = RequestMethod.GET)
+	public ModelAndView logout(HttpSession session) {
+		session.invalidate();
+		return new ModelAndView("home");
+	}
+	
 	@RequestMapping(value = "/signup.htm", method = RequestMethod.GET)
 	public ModelAndView showSignup() {
 		return new ModelAndView("signup");
@@ -151,6 +165,7 @@ public class AuthenticationController {
 			@RequestParam(value="position", required=false) String position,
 			@RequestParam(value="hiredate", required=false) String hiredate,
 			@RequestParam("userType") Integer userType,
+			@RequestParam(value="isUpdate", required=false) Boolean isUpdate,
 			HttpSession session) {
 
 		authProxy.setEndpoint("http://localhost:8080/AMS/services/AuthenticationService");
@@ -158,9 +173,13 @@ public class AuthenticationController {
 		Customer customer = new Customer();
 		Person person = new Person();
 		Response response = null; 
-		
-		String[] splitSSN = ssn.split("-");
-		String combinedSSN = splitSSN[0].concat(splitSSN[1]).concat(splitSSN[2]);
+
+		String combinedSSN = String.valueOf(ssn);
+		if(!isUpdate)
+		{
+			String[] splitSSN = ssn.split("-");
+			combinedSSN = splitSSN[0].concat(splitSSN[1]).concat(splitSSN[2]);
+		}
 		person.setFirstName(fname);
 		person.setLastName(lname);
 		person.setAddress(address);
@@ -174,6 +193,7 @@ public class AuthenticationController {
 
 		int personId = -1;
 
+
 		if(userType == 0)
 		{
 			System.out.println("You are an employee");
@@ -186,20 +206,52 @@ public class AuthenticationController {
 				employee.setWorkDesc(workdesc);
 				employee.setPerson(person);
 
-				personId = authProxy.employeeSignUp(employee);
-				if(personId > 0)
+				if(!isUpdate)
 				{
-					System.out.println("Employee Created..!! PersonID : "+personId);
-					response = new Response("success");
-					session.setAttribute("person", person);
-					session.setAttribute("employee", employee);
-					session.setAttribute("personId", personId);
-					session.setAttribute("firstname", person.getFirstName());
-					Person p1 = (Person)session.getAttribute("person");
-					System.out.println("First Name from session:"+ p1.getFirstName());
+					personId = authProxy.employeeSignUp(employee);
+					System.out.println("Entry not updated for employee");
+					
+					if(personId > 0)
+					{
+						System.out.println("Employee Created..!! PersonID : "+personId);
+						response = new Response("success");
+						session.setAttribute("person", person);
+						session.setAttribute("employee", employee);
+						session.setAttribute("personId", personId);
+						session.setAttribute("firstname", person.getFirstName());
+						session.setAttribute("sessionId", session.getId());
+						Person p1 = (Person)session.getAttribute("person");
+						System.out.println("First Name from session:"+ p1.getFirstName());
+					}
+					else
+					{
+						response = new Response("failure");
+					}
 				}
 				else
-					response = new Response("failure");
+				{
+					personId = (Integer) session.getAttribute("personId");
+					person.setPersonId(personId);
+					boolean b =authProxy.updateEmpInformation(employee);
+					if(b){
+
+						//setting updated values in session
+						session.setAttribute("person", person);
+						session.setAttribute("employee", employee);
+						session.setAttribute("personId", personId);
+						session.setAttribute("firstname", person.getFirstName());
+						session.setAttribute("sessionId", session.getId());
+
+						response = new Response("updated");
+						System.out.println("Employee table updated.");
+						System.out.println("personID  = "+session.getAttribute("personId"));
+						
+					}
+					else
+					{
+						response = new Response("updateFailed");
+					}
+				}
 			}
 			catch (RemoteException e) 
 			{
@@ -211,7 +263,6 @@ public class AuthenticationController {
 		else
 		{
 			System.out.println("You are a customer");
-
 			try 
 			{
 				customer.setCustomerId(Integer.valueOf(combinedSSN));
@@ -219,18 +270,46 @@ public class AuthenticationController {
 				customer.setPassportNumber(passport);
 				customer.setPerson(person);
 
-				personId = authProxy.customerSignUp(customer);
-				if (personId > 0)
+				if(!isUpdate)
 				{
-					System.out.println("Customer Created..!! Person ID : "+personId);
-					response = new Response("success");
-					session.setAttribute("person", person);
-					session.setAttribute("personId", personId);
-					session.setAttribute("firstname", person.getFirstName());
-					session.setAttribute("customer", customer);
+					personId = authProxy.customerSignUp(customer);
+					System.out.println("New Entry added for customer");
+
+					if (personId > 0)
+					{
+						System.out.println("Customer Created..!! Person ID : "+personId);
+						response = new Response("success");
+						session.setAttribute("person", person);
+						session.setAttribute("personId", personId);
+						session.setAttribute("firstname", person.getFirstName());
+						session.setAttribute("sessionId", session.getId());
+						session.setAttribute("customer", customer);
+					}
+					else
+						response = new Response("failure");
 				}
 				else
-					response = new Response("failure");
+				{
+					personId = (Integer) session.getAttribute("personId");
+					person.setPersonId(personId);
+					boolean b =authProxy.updateCustInformation(customer);
+					if(b)
+					{
+						//setting values in session
+						session.setAttribute("person", person);
+						session.setAttribute("personId", personId);
+						session.setAttribute("firstname", person.getFirstName());
+						session.setAttribute("sessionId", session.getId());
+						session.setAttribute("customer", customer);
+						response = new Response("updated");
+						System.out.println("Customer table updated.");
+						System.out.println("personID  = "+session.getAttribute("personId"));
+					}
+					else
+					{
+						response = new Response("updateFailed");
+					}
+				}
 			} 
 			catch (RemoteException e) 
 			{
@@ -239,74 +318,59 @@ public class AuthenticationController {
 				System.out.println("Exception encountered in customer creation..!! "+e);
 			}
 		}
-
 		return new ModelAndView(VIEW_NAME, "result", response);
 	}
 
 
-	@RequestMapping(value = "/EditProfile.htm", method = RequestMethod.GET)
-	public ModelAndView showEditProfile(HttpSession session) {
+	@RequestMapping(value = "/EditProfile.htm", method = RequestMethod.POST)
+	public ModelAndView showProfile(HttpSession session) {
 
-		Response response = null;
 		authProxy.setEndpoint("http://localhost:8080/AMS/services/AuthenticationService");
 
+		Response response = null;
 		Person person = new Person();
 		person = (Person) session.getAttribute("person");
-		System.out.println("Person ID : "+person.getPersonId());
 		int personId = (Integer) session.getAttribute("personId");
+		person.setPersonId(personId);
 		int userType = person.getPersonType();
 
-		ModelAndView modelview = new ModelAndView();
-		modelview.addObject(person);
-
-		/*String fname = person.getFirstName();
-		String lname = person.getLastName();
-		String address = person.getAddress();
-		String city = person.getCity();
-		String state = person.getState();
-		int zipCode = person.getZip();
-		String dob = person.getDOB();
-		String email = person.getUsername();
-		String password	= person.getPassword();*/
+		response = new Response("failure");
+		//ModelAndView modelview = new ModelAndView("EditProfile");
 
 		if(userType == 1){
 			System.out.println("The logged in user is an Employee");
 			System.out.println("PersonId in session : "+personId);
 			Employee emp = (Employee)session.getAttribute("employee");
-			/*int empId = emp.getEmployeeId();
-			String hireDate = emp.getHireDate();
-			String position = emp.getPosition();
-			String workDesc = emp.getWorkDesc();
-			int empSSN = emp.getEmployeeId();*/
+			System.out.println("Employee ID "+ emp.getEmployeeId());
+			emp.setPerson(person);
+			response = new Response("success");
+			//modelview.addObject("employee",emp);
+			//modelview.addObject("person",emp.getPerson());
 
-			modelview.addObject(emp);
 		}
 		else{
 			System.out.println("The logged in user is a customer");
 			System.out.println("PersonId in session : "+personId);
 			Customer customer = (Customer) session.getAttribute("customer");
-			/*int custSSN = customer.getCustomerId();
-			String passport = customer.getPassportNumber();
-			String nationality = customer.getNationality();*/
-
-			modelview.addObject(customer);
+			System.out.println("Customer ID : "+customer.getCustomerId());
+			customer.setPerson(person);
+			response = new Response("success");
+			//modelview.addObject("customer",customer);
+			//modelview.addObject("person",customer.getPerson());
 		}
 
+		return new ModelAndView(VIEW_NAME, "result", response);
+		//return modelview;
+	}
+	
+	@RequestMapping(value = "/EditProfile.htm", method = RequestMethod.GET)
+	public ModelAndView updateProfile() {
 		return new ModelAndView("EditProfile");
 	}
-
-	@RequestMapping(value = "/EditProfile.htm", method = RequestMethod.POST)
-	public ModelAndView editProfile(HttpSession session) {
-		session.invalidate();
-		return new ModelAndView("EditProfile");
+	
+	@RequestMapping(value = "/ViewProfile.htm", method = RequestMethod.GET)
+	public ModelAndView displayProfile() {
+		return new ModelAndView("ViewProfile");
 	}
-
-
-
-	@RequestMapping(value = "/logout.htm", method = RequestMethod.GET)
-	public ModelAndView logout(HttpSession session) {
-		session.invalidate();
-		return new ModelAndView("home");
-	}
-
+	
 }

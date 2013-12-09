@@ -74,5 +74,11 @@ public class EmployeeServiceProxy implements com.service.EmployeeService {
     return employeeService.updateEmployee(employee);
   }
   
+  public com.domain.Employee[] retriveEmployeesbyName(java.lang.String firstName, java.lang.String lastName) throws java.rmi.RemoteException{
+    if (employeeService == null)
+      _initEmployeeServiceProxy();
+    return employeeService.retriveEmployeesbyName(firstName, lastName);
+  }
+  
   
 }
