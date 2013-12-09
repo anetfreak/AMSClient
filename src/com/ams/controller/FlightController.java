@@ -204,7 +204,7 @@ public class FlightController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new ModelAndView("ListFlight", "result", response);
+		return new ModelAndView(VIEW_NAME, "result", response);
 	}
 	
 	
