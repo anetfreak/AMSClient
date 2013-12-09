@@ -40,13 +40,20 @@ public class FlightController {
 			@RequestParam("departDate") String departDate) {
 
 		Flight[] flights = null;
+		Location[] locations = null;
 		try {
 			flights = flightProxy.searchFlight(source, destination, departDate);
+			locations = flightProxy.getLocations();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 
-		return new ModelAndView("search_flight", "flights", flights);
+		ModelAndView modelAndView = new ModelAndView("search_flight");
+		modelAndView.addObject("flights", flights);
+		modelAndView.addObject("source", source);
+		modelAndView.addObject("destination", destination);
+		modelAndView.addObject("locations", Arrays.asList(locations));
+		return modelAndView;
 	}
 
 	@RequestMapping(value = "/ListFlight.htm", method = RequestMethod.GET)
@@ -119,7 +126,15 @@ public class FlightController {
 	@RequestMapping(value = "/UpdateFlight.htm", method = RequestMethod.GET)
 	public ModelAndView updateFlightInfo() {
 
-		return new ModelAndView("UpdateFlight");
+		Location[] locations = null;
+		try {
+			locations = flightProxy.getLocations();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		return new ModelAndView("UpdateFlight", "locations", Arrays.asList(locations));
+		
+		//return new ModelAndView("UpdateFlight");
 	}
 
 	@RequestMapping(value = "/UpdateFlight.htm", method = RequestMethod.POST)
@@ -165,6 +180,7 @@ public class FlightController {
 		}
 		return new ModelAndView(VIEW_NAME, "result", response);
 	}
+	
 	@RequestMapping(value = "/UpdateFlights.htm", method = RequestMethod.POST)
 	public ModelAndView UpdateFlight(@RequestParam("source") String source,
 			@RequestParam("destination") String destination,

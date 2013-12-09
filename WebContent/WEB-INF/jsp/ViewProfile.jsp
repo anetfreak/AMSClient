@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=US-ASCII"
-	pageEncoding="US-ASCII"%>
+<%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -67,14 +67,10 @@
 																	data,
 																	textStatus,
 																	jqXHR) {
-																$('#loginError')
-																		.css('display','none;');
 																if(data.response == "success") {
 														    		window.location.href="EditProfile.htm";
-														    	} else {
-														    		$('#loginError').css('display', 'block');
-														    	}
-															},
+														    	} 
+																},
 															error : function(
 																	jqXHR,
 																	textStatus,
@@ -114,7 +110,7 @@
 										<td>Employee</td>
 									</c:when>
 									<c:otherwise>
-									<td><h5>You are a</h5></td>
+									<td><h5>You are a </h5></td>
 										<td>Customer</td>
 									</c:otherwise>
 								</c:choose>
@@ -139,10 +135,10 @@
 								<td><div class="input-group">
 										<c:choose>
 											<c:when test="${person.personType eq 1}">
-												${ employee.employeeId}
+												${employee.employeeId}
 											</c:when>
 											<c:otherwise>
-												${ customer.customerId}
+												${customer.customerId}
 											</c:otherwise>
 										</c:choose>
 									</div></td>

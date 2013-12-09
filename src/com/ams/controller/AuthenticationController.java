@@ -142,7 +142,8 @@ public class AuthenticationController {
 	public ModelAndView adminLogin(@RequestParam("email") String email,
 			@RequestParam("password") String password,
 			@RequestParam("userType") Integer userType,
-			HttpSession session) {
+			HttpSession session) 
+	{
 		Response response = null;
 		
 		if(userType == 99 && email.equalsIgnoreCase("admin@gmail.com") && password.equalsIgnoreCase("admin")) {

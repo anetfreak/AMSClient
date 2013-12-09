@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=US-ASCII"
-	pageEncoding="US-ASCII"%>
+<%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -18,7 +18,8 @@
 				    type: "POST",
 				    data : "firstname=" + firstname + "&lastname=" + lastname,
 				    success:function(data, textStatus, jqXHR){
-				    	$('#searchFlightError').css('display', 'none;');
+			    		$('#body').html(data);
+			    		$('#searchFlightError').css('display', 'none;');
 				    },
 				    error: function(jqXHR, textStatus, errorThrown){
 				    	$('#searchFlightError').css('display', 'block');
@@ -29,16 +30,15 @@
 		});
 	</script>
 </head>
-<body>
+<body id="body">
 
 	<%@include file="header.jsp"%>
 	<div id="container" style="margin: 0px 0px 40px 0px;">
 		<div class="container-fluid">
 			<div id="searchFlightError"
 				class="alert alert-error alert-dismissable" style="display: none;">
-				<button type="button" class="close" data-dismiss="alert"
-					aria-hidden="true">&times;</button>
-				No Employees found. Please try again.....
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					No Employees found. Please try again.....
 			</div>
 			<div class="row-fluid">
 				<div id="searchOptions" style="margin: 30px 0px 0px 0px;">
@@ -62,8 +62,9 @@
 				</div>
 			</div>
 			<div class="row-fluid">
-				<div id="employeeSearchResult">
+				<div id="employeeSearchResult" style="margin-top: 30px;">
 					<c:if test="${employees ne null}">
+					<h4>Search Results</h4>
 					<table class="table table-bordered table-striped" border="1">
 						<tr>
 							<td><B>Employee Id</B></td>

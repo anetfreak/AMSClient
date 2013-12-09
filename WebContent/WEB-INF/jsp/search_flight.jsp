@@ -23,7 +23,7 @@
 				    data : "source=" + source + "&destination=" + destination + "&departDate=" + departDate,
 				    success:function(data, textStatus, jqXHR){
 				    	$('#searchFlightError').css('display', 'none;');
-// 				    	window.location.reload();
+				    	$('#body').html(data);
 				    },
 				    error: function(jqXHR, textStatus, errorThrown){
 				    	$('#searchFlightError').css('display', 'block');
@@ -34,7 +34,7 @@
 		});
 	</script>
 </head>
-<body>
+<body id="body">
 	
 	<%@include file="header.jsp" %>
 	<div id="container" style="margin: 0px 0px 40px 0px;">
@@ -76,32 +76,32 @@
 					<c:when test="${flights ne null}">
 					<table class="table table-bordered table-striped" border="1">
 						<tr>
+							<td><BR></td>
 							<td><BR>Flight Id</td>
 							<td><BR>Flight No.</td>
 							<td><BR>Airline Name</td>
 							<td><BR>Source</td>
 							<td><BR>Destination</td>
 							<td><BR>No. Of Seat</td>
-							<td><BR>Flight Day</td>
 							<td><BR>Flight Time</td>
 						</tr>
-							<c:forEach items="${flights}" var="flight">
+							<c:forEach items="${flights}" var="flight" varStatus="flightCounter">
 								<tr>
 									<c:if test="${flight ne null}">
-										<td>${flight.flightId}</td>
+										<c:choose>
+										<c:when test="${flightCounter.count % 2 == 0}">
+											<td><a href="" name="flightIdRadio" id="flightIdRadio">Select Flight</a></td>
+										</c:when>
+										<c:otherwise>
+											<td></td>
+										</c:otherwise>
+										</c:choose>
+										<td id="${flightCounter}">${flight.flightId}</td>
 										<td>${flight.flightNo}</td>
 										<td>${flight.airlineName}</td>
 										<td>${flight.source}</td>
 										<td>${flight.destination}</td>
 										<td>${flight.noOfSeats}</td>
-			
-										<td><c:forEach items="${flight.flightTime}" var="timing">
-												<c:if test="${timing  ne null}">
-												${timing.flightDay}
-												<br>
-												</c:if>
-											</c:forEach>
-										</td>
 			
 										<td><c:forEach items="${flight.flightTime}" var="timing">
 												<c:if test="${timing  ne null}">

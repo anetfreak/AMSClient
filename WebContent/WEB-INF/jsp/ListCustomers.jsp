@@ -40,6 +40,10 @@
 							<td>${customer.customerId}</td>
 							<td>${customer.nationality}</td>
 							<td>${customer.person.DOB}</td>
+							<td><div class="col-sm-offset-2 col-sm-10">
+									<a href="/AMSClient/deleteCustomer/${customer.customerId}.htm" class="btn btn-default" 
+									id="deleteCustomer" name="deleteCustomer">Delete Customer</a>
+								</div></td>
 						</c:if>
 					</tr>
 				</c:forEach>
