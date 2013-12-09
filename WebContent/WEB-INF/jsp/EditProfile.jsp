@@ -375,11 +375,11 @@
 										<c:choose>
 											<c:when test="${person.personType eq 1}">
 												<input type="text" id="ssn" class="required"
-													placeholder="SSN" readonly value="${ employee.employeeId}">
+													placeholder="SSN" readonly value="${employee.employeeId}">
 											</c:when>
 											<c:otherwise>
 												<input type="text" id="ssn" class="required"
-													placeholder="SSN" value="${ customer.customerId}">
+													placeholder="SSN" value="${customer.customerId}">
 											</c:otherwise>
 										</c:choose>
 									</div></td>

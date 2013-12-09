@@ -119,7 +119,15 @@ public class FlightController {
 	@RequestMapping(value = "/UpdateFlight.htm", method = RequestMethod.GET)
 	public ModelAndView updateFlightInfo() {
 
-		return new ModelAndView("UpdateFlight");
+		Location[] locations = null;
+		try {
+			locations = flightProxy.getLocations();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		return new ModelAndView("UpdateFlight", "locations", Arrays.asList(locations));
+		
+		//return new ModelAndView("UpdateFlight");
 	}
 
 	@RequestMapping(value = "/UpdateFlight.htm", method = RequestMethod.POST)
@@ -165,6 +173,7 @@ public class FlightController {
 		}
 		return new ModelAndView(VIEW_NAME, "result", response);
 	}
+	
 	@RequestMapping(value = "/UpdateFlights.htm", method = RequestMethod.POST)
 	public ModelAndView UpdateFlight(@RequestParam("source") String source,
 			@RequestParam("destination") String destination,
