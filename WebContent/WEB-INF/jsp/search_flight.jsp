@@ -12,6 +12,15 @@
 			
 			$('#departDate').datepicker();
 			
+			$('.flightIds').click(function(e) {
+		        e.preventDefault();
+		        var index = this.id;
+// 		        alert(index);
+		        var secondId = $('#'+index).val();
+		        var firstId = $('#'+index-1).val();
+// 		        alert(secondId + "" + firstId);
+		    });
+			
 			$('#btnSearchFlight').click(function(e){
 				e.preventDefault();
 				var source = $('#source').val();
@@ -90,7 +99,7 @@
 									<c:if test="${flight ne null}">
 										<c:choose>
 										<c:when test="${flightCounter.count % 2 == 0}">
-											<td><a href="" name="flightIdRadio" id="flightIdRadio">Select Flight</a></td>
+											<td><input type="button" class="flightIds" id="${flightCounter}" value="Select Flight"/></td>
 										</c:when>
 										<c:otherwise>
 											<td></td>
