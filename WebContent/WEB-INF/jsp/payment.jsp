@@ -68,7 +68,7 @@ $(document).ready(function(){
 		    type: "POST",
 		    data : "name=" + name + "&card=" + card + "&cvv=" + cvv + "&expiryDate=" + expiryDate,
 		    success:function(data, textStatus, jqXHR){
-		    	window.location.href = "showPayment.htm";
+		    	window.location.href = "issueTicket.htm";
 		    },
 		    error: function(jqXHR, textStatus, errorThrown){
 			    	alert("Could not process request.. " + errorThrown);

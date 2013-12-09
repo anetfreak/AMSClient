@@ -49,9 +49,9 @@ public class TicketController {
 		reservationProxy.setEndpoint("http://localhost:8080/AMS/services/ReservationService");
 		
 		Reservation res = new Reservation();
-		Traveller trav1 = (Traveller) session.getAttribute("traveller1");
-		Traveller trav2 = (Traveller) session.getAttribute("traveller2");
-		Traveller trav3 = (Traveller) session.getAttribute("traveller3");
+		Traveller trav1 = (Traveller) session.getAttribute("trav1");
+		Traveller trav2 = (Traveller) session.getAttribute("trav2");
+		Traveller trav3 = (Traveller) session.getAttribute("trav3");
 		ArrayList<Traveller> travList = new ArrayList<Traveller>();
 		travList.add(trav1);
 		if(trav2 != null)
