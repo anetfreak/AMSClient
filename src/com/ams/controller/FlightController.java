@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.domain.Flight;
+import com.domain.FlightTime;
 import com.domain.Response;
 import com.service.AuthenticationServiceProxy;
 import com.service.CustomerServiceProxy;
@@ -68,14 +69,21 @@ public class FlightController {
 	  public ModelAndView UpdateFlight(@RequestParam("flightId") Integer flightId) {
 	    
 		Flight flight = new Flight();
+		String day = "";
+		String time = "";
+		// = new FlightTime();
 		flightProxy.setEndpoint("http://localhost:8080/AMS/services/FlightService");
 		Response response = null;
 		try 
 		{
+			System.out.println("Flight ID "+ flightId);
 			flight = flightProxy.getFlightById(flightId);
 			if(flight == null)
 			{
 				System.out.println("Flight object retireved");
+				FlightTime[] flightTime = flight.getFlightTime();
+				day = flightTime[0].getFlightDay();
+				time = flightTime[0].getFlightTime();
 				response = new Response ("success");
 			}
 			else
@@ -90,7 +98,12 @@ public class FlightController {
 			e.printStackTrace();
 		}
 		
-		return new ModelAndView("VIEW_NAME","result", response);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("flight", flight);
+		mv.addObject("day", day);
+		mv.addObject("time",time);
+		return mv;
 	}
 	
 	@RequestMapping(value = "/UpdateFlight.htm", method = RequestMethod.GET)

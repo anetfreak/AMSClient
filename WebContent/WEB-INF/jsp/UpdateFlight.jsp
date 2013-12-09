@@ -14,6 +14,7 @@
 		var flightNo = $('#flightNo').val();
 		var source = $('#source').val();
 		var destination = $('#destination').val();
+		var day = $('#day').val();
 		var time = $('#time').val();
 		var seats = $('#seats').val();
 		var result = false;
@@ -31,6 +32,9 @@
 		else if ((destination == null) || (destination == "")){
 			alert("Please enter value for Destination");
 		} 
+		else if ((day == null) || (day == "")){
+			alert("Please enter values for Day");
+		}
 		else if ((time == null) || (time == "")){
 			alert("Please enter values for Time");
 		}
@@ -48,15 +52,24 @@
 			if(validateForm){
 			e.preventDefault();
 			var flightId = $('#flightId').val();
+			var airlineName = $('#airlineName').val();
+			var flightNo = $('#flightNo').val();
+			var source = $('#source').val();
+			var destination = $('#destination').val();
+			var day = $('#day').val();
+			var time = $('#time').val();
+			var seats = $('#seats').val();
 			$.ajax({
 				url : "UpdateFlight.htm",
 			    type: "POST",
-			    data : "flightId=" + flightId,
+			    data : "flightId=" + flightId + "&airlineName" + airlineName + "&flightNo" + flightNo +
+			    "&source" + source + "&destination" + destination + "&day" + day + "&time" + time +
+			    "&seats" + seats,
 			    success:function(data, textStatus, jqXHR){
 			    	$('#searchFlightError').css('display', 'none;');
 			    	if(data.response == "success") 
 			    	{
-			    		window.location.href="UpdateFlight.htm";
+			    		window.location.href="ListFlight.htm";
 			    	} else 
 			    	{
 			    		$('#loginError').css('display', 'block');
@@ -111,13 +124,9 @@
 							</tr>
 							<tr>
 								<td>Destination Airport :</td>
-								<td><td><input type="text" id="destination"
+								<td><input type="text" id="destination"
 									name="flightdestination" value="${flight.destination}">
-							</td></tr>
-							<tr>
-								<td>Flight Time :</td>
-								<td><input type="text" id="time" name="time"
-									value="${flight.flightTime}"></td>
+								</td>
 							</tr>
 							<tr>
 								<td>Number of Seats :</td>
@@ -125,9 +134,18 @@
 									value="${flight.noOfSeats}"></td>
 							</tr>
 							<tr>
-								<td></td>
-								<td><input class="btn btn-primary" type="submit"
-									name="updateFlight" id="updateFlight" value="Update"></td>
+							<td>Flight Day : </td>
+								<td><input type="text" id="day" name="seats"
+									value="${day}"></td>
+							</tr>
+							<tr>
+							<td>Flight Time (hh:mm:ss): </td>
+							<td><input type="text" id="time" name="seats"
+									value="${time}"></td>
+							</tr>
+							<tr>
+							<td><input class="btn btn-primary" type="submit"
+								name="updateFlight" id="updateFlight" value="Update"></td>
 							</tr>
 						</table>
 					</form>

@@ -24,7 +24,6 @@
 				    		$('#loginError').css('display', 'block');
 				    	}
 				    },
-				    
 				});
 			});
 		});
@@ -72,8 +71,6 @@
 									</c:if>
 								</c:forEach>
 							</td>
-							<td><input type="submit" class="btn btn-default"
-											id="updateFlight" value="Update Flight Info" /></td>
 						</c:if>
 					</tr>
 				</c:forEach>
