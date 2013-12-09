@@ -37,6 +37,7 @@ public class TicketController {
 		
 		ModelAndView mav = new ModelAndView("issueTicket");
 		mav.addObject("res", (Reservation) session.getAttribute("res"));
+		mav.addObject("customer", (Customer) session.getAttribute("customer"));
 		return mav;
 	}
 	

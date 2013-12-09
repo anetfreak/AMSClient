@@ -85,7 +85,6 @@ $(document).ready(function(){
 			<span><h3>Payment Option</h3></span>
 		</div>
 		<div>
-			<form name = "paymentform">
 			<table>
 				<tr>
 					<td>Name on Credit Card : </td>
@@ -111,7 +110,6 @@ $(document).ready(function(){
 					<td><input class="btn btn-primary" type = "submit" name = "payment" id = "payment" value = "Pay Now"></td>
 				</tr>
 			</table>
-			</form>
 		</div>
 	</div>
 <%@include file="footer.jsp" %>
