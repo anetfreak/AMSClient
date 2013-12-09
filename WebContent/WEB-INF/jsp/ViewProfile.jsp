@@ -10,9 +10,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-						$('#viewProfile')
-								.click(
-										function(event) {
+						$('#viewProfile').click(function(event) {
 												var fname = $('#firstName').val();
 												var lname = $('#lastName').val();
 												var email = $('#email').val();

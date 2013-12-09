@@ -9,6 +9,7 @@
 <%@include file="includes.jsp"%>
 
 <script type="text/javascript">
+
 	function validateForm() {
 		var airlineName = $('#airlineName').val();
 		var flightNo = $('#flightNo').val();
@@ -48,9 +49,8 @@
 	};
 	
 	$(document).ready(function(){
-		$('#a').click(function(e){
+		$('#updateFlight').click(function(e){
 			if(validateForm){
-			e.preventDefault();
 			var flightId = $('#flightId').val();
 			var airlineName = $('#airlineName').val();
 			var flightNo = $('#flightNo').val();
@@ -99,8 +99,7 @@
 					<span><h3>Update Flight Info</h3></span>
 				</div>
 				<div>
-					<form name="updateflightform" action="" method="post"
-						onsubmit="return validateForm()">
+					<form name="updateflightform" action="" method="post">
 						<table>
 							<tr>
 								<td>Airlines Name :</td>
@@ -115,17 +114,17 @@
 							<tr>
 								<td>Flight Number :</td>
 								<td><input type="text" id="flightNo" name="flightNo"
-									value="${flight.flightNo}"></td>
+									readonly value="${flight.flightNo}"></td>
 							</tr>
 							<tr>
 								<td>Source Airport :</td>
-								<td><input type="text" id="source" name="flightSource"
+								<td><input type="text" id="source" name="source"
 									value="${flight.source}"></td>
 							</tr>
 							<tr>
 								<td>Destination Airport :</td>
 								<td><input type="text" id="destination"
-									name="flightdestination" value="${flight.destination}">
+									name="destination" value="${flight.destination}">
 								</td>
 							</tr>
 							<tr>
