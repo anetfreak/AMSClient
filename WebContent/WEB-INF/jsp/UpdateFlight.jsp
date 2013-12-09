@@ -96,7 +96,7 @@
 // 																alert("Inside Success..");
 // 																$('#updateFlightStatus').css('display','block');
 // 																if (data.response == "success") {
-																	window.location.href="ListFlight.htm";
+																	window.location.href="/AMSClient/ListFlight.htm";
 // 																} else {
 // 																	$('#loginError').css('display','none');
 // 																}
