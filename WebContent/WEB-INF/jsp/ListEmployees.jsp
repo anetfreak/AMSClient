@@ -9,7 +9,7 @@
 <%@include file="includes.jsp" %>
 
 </head>
-<body id="body">
+<body>
 	<%@include file="header.jsp" %>
 	<div id="container" style="padding-top: 40px;" align="center">
 		<table class="table table-bordered table-striped" border="1">

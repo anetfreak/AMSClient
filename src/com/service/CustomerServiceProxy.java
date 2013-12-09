@@ -74,5 +74,11 @@ public class CustomerServiceProxy implements com.service.CustomerService {
     return customerService.getCustomer(customerId);
   }
   
+  public boolean deleteCustomer(int customerId) throws java.rmi.RemoteException{
+    if (customerService == null)
+      _initCustomerServiceProxy();
+    return customerService.deleteCustomer(customerId);
+  }
+  
   
 }

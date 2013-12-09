@@ -49,6 +49,53 @@ public class PersonController {
 		return new ModelAndView("ListCustomers","Customers",customers);
 	}
 
+	@RequestMapping(value = "/deleteCustomer/{customerId}.htm", method = RequestMethod.GET)
+	public ModelAndView deleteCustomer(@PathVariable("customerId") int customerId) {
+
+		custProxy.setEndpoint("http://localhost:8080/AMS/services/CustomerService");
+		Response response = null;
+		try 
+		{
+			System.out.println(customerId);
+			boolean b = custProxy.deleteCustomer(customerId);
+			if(b)
+			{
+				System.out.println("Customer Deleted.!!");
+				response = new Response ("success");
+			}
+			else
+			{
+				System.out.println("Cant delete customer..");
+				response = new Response("failure");
+			}
+		} 
+		catch (RemoteException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		//Function repeat..
+		
+		Customer[] customer = null;
+
+		try 
+		{
+			customer = custProxy.getCustomers();
+		} 
+		catch (RemoteException e) 
+		{
+			e.printStackTrace();
+		}
+		List<Customer> customers = null;
+		if(customer != null)
+		{
+			customers = Arrays.asList(customer);
+		}
+
+		return new ModelAndView("ListCustomers","Customers",customers);
+	}
+	
 	@RequestMapping(value = "/ListEmployees.htm", method = RequestMethod.GET)
 	public ModelAndView showEmployees() {
 
