@@ -5,6 +5,7 @@
 			<% if(session.getAttribute("sessionId") != null) { %>
 			<ul id="testMenu" class="nav">
 				<li><a href="/AMSClient/searchFlight.htm">Search Flight</a></li>
+				<li><a href="/AMSClient/ShowReservation.htm">Show Reservation</a></li>
 				<% if(session.getAttribute("isAdmin") != null) { %>
 					<li><a href="/AMSClient/ListFlight.htm">List Flights</a></li>
 					<li><a href="/AMSClient/ListEmployees.htm">List Employees</a></li>

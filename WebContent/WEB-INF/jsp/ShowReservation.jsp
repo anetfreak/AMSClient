@@ -13,7 +13,8 @@
 	<div id="container" style="padding-top: 40px;" align="center">
 		<table class="table table-bordered table-striped" border="1">
 			<tr>
-				
+				<td><B>Cancel Reservation</B></td>
+				<td><B>Show Ticket</B></td>
 				<td><B>Reservation No</B></td>
 				<td><B>Customer Id</B></td>
 				<td><B>Reservation Status</B></td>
@@ -34,8 +35,12 @@
 					<tr>
 						<c:if test="${reservation ne null}">
 							<td><div class="col-sm-offset-2 col-sm-10">
-									<a href="/AMSClient/cancelReservation/${Reservations.reservationId}.htm" class="btn btn-default" 
-									id="cancelReservation" name="cancelReservation">Delete Employee</a>
+									<a href="/AMSClient/cancelReservation/${reservation.reservationId}.htm" class="btn btn-default" 
+									id="cancelReservation" name="cancelReservation">Cancel Reservation</a>
+								</div></td>
+							<td><div class="col-sm-offset-2 col-sm-10">
+									<a href="/AMSClient/ShowTicket/${reservation.reservationId}.htm" class="btn btn-default" 
+									id="ShowTicket" name="ShowTicket">Show Ticket</a>
 								</div></td>
 							<td>${reservation.reservationNo}</td>
 							<td>${reservation.customerId}</td>
@@ -70,35 +75,28 @@
 								</c:forEach>
 							</td>
 							
-							<td><c:forEach items="${reservation.journey}" var="travellers">
-									<c:if test="${travellers  ne null}">
-									${travellers.travellerId}
-									<br>
-									</c:if>
-								</c:forEach>
-							</td>
-							<td><c:forEach items="${reservation.journey}" var="travellers">
+							<td><c:forEach items="${reservation.travellers}" var="travellers">
 									<c:if test="${travellers  ne null}">
 									${travellers.firstName}
 									<br>
 									</c:if>
 								</c:forEach>
 							</td>
-							<td><c:forEach items="${reservation.journey}" var="travellers">
+							<td><c:forEach items="${reservation.travellers}" var="travellers">
 									<c:if test="${travellers  ne null}">
 									${travellers.lastName}
 									<br>
 									</c:if>
 								</c:forEach>
 							</td>
-							<td><c:forEach items="${reservation.journey}" var="travellers">
+							<td><c:forEach items="${reservation.travellers}" var="travellers">
 									<c:if test="${travellers  ne null}">
 									${travellers.age}
 									<br>
 									</c:if>
 								</c:forEach>
 							</td>
-							<td><c:forEach items="${reservation.journey}" var="travellers">
+							<td><c:forEach items="${reservation.travellers}" var="travellers">
 									<c:if test="${travellers  ne null}">
 									${travellers.sex}
 									<br>
