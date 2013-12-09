@@ -123,9 +123,8 @@
 							</tr>
 							<tr>
 								<td>Destination Airport :</td>
-								<td><input type="text" id="destination"
-									name="destination" value="${flight.destination}">
-								</td>
+								<td><input type="text" id="destination" name="destination"
+									value="${flight.destination}"></td>
 							</tr>
 							<tr>
 								<td>Number of Seats :</td>
@@ -133,18 +132,26 @@
 									value="${flight.noOfSeats}"></td>
 							</tr>
 							<tr>
-							<td>Flight Day : </td>
-								<td><input type="text" id="day" name="seats"
-									value="${day}"></td>
+								<td>Flight Day :</td>
+								<td><select name="day" id="day" value="${day}">
+										<option value="">--Select--</option>
+										<option value="mon">Monday</option>
+										<option value="tue">Tuesday</option>
+										<option value="wed">Wednesday</option>
+										<option value="thu">Thursday</option>
+										<option value="fri">Friday</option>
+										<option value="sat">Saturday</option>
+										<option value="sun">Sunday</option>
+								</select></td>
 							</tr>
 							<tr>
-							<td>Flight Time (hh:mm:ss): </td>
-							<td><input type="text" id="time" name="seats"
+								<td>Flight Time (hh:mm:ss):</td>
+								<td><input type="text" id="time" name="seats"
 									value="${time}"></td>
 							</tr>
 							<tr>
-							<td><input class="btn btn-primary" type="submit"
-								name="updateFlight" id="updateFlight" value="Update"></td>
+								<td><input class="btn btn-primary" type="submit"
+									name="updateFlight" id="updateFlight" value="Update"></td>
 							</tr>
 						</table>
 					</form>

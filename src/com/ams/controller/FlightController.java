@@ -129,7 +129,7 @@ public class FlightController {
 		flightProxy.setEndpoint("http://localhost:8080/AMS/services/FlightService");
 		Flight flight = new Flight();
 		FlightTime[] flightTimes = null;
-		
+		Response response = null;
 		flight.setAirlineName(airlineName);
 		flight.setDestination(destination);
 		flight.setNoOfSeats(seats);
@@ -144,17 +144,19 @@ public class FlightController {
 			if(b)
 			{
 				System.out.println("Flight detail updated..!");
+				response = new Response("success");
 			}
 			else
 			{
 				System.out.println("Unsuccess..!!");
+				response = new Response("failure");
 			}
 		} 
 		catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new ModelAndView("UpdateFlight");
+		return new ModelAndView(VIEW_NAME, "result", response);
 	}
 
 }
