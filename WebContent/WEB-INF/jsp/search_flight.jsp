@@ -96,7 +96,7 @@
 											<td></td>
 										</c:otherwise>
 										</c:choose>
-										<td>${flight.flightId}</td>
+										<td id="${flightCounter}">${flight.flightId}</td>
 										<td>${flight.flightNo}</td>
 										<td>${flight.airlineName}</td>
 										<td>${flight.source}</td>

@@ -129,9 +129,9 @@ public class PersonController {
 	@RequestMapping(value = "/searchEmployee.htm", method = RequestMethod.POST)
 	public ModelAndView searchEmployees(
 			@RequestParam(value="firstname", required=false) String firstname,
-			@RequestParam(value="lastname", required=false) String lastname) 
-	{
+			@RequestParam(value="lastname", required=false) String lastname) {
 
+		ModelAndView modelAndView = new ModelAndView("search_employee");
 		empProxy.setEndpoint("http://localhost:8080/AMS/services/EmployeeService");
 		Employee[] employee = null;
 		try 
@@ -148,7 +148,9 @@ public class PersonController {
 		{
 			employees = Arrays.asList(employee);
 		}
-		return new ModelAndView("search_employee","Employees",employees);
+		
+		modelAndView.addObject("employees",employees);
+		return modelAndView;
 
 	}
 	
