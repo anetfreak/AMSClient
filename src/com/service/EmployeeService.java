@@ -8,11 +8,11 @@
 package com.service;
 
 public interface EmployeeService extends java.rmi.Remote {
-    public int insertEmployee(com.domain.Employee employee) throws java.rmi.RemoteException;
-    public com.domain.Employee[] getEmployees() throws java.rmi.RemoteException;
-    public com.domain.Employee getEmployee(int employeeId) throws java.rmi.RemoteException;
-    public com.domain.Employee retriveEmployeebypId(int personId) throws java.rmi.RemoteException;
     public boolean updateEmployee(com.domain.Employee employee) throws java.rmi.RemoteException;
-    public boolean deleteEmployee(int employeeId) throws java.rmi.RemoteException;
+    public int insertEmployee(com.domain.Employee employee) throws java.rmi.RemoteException;
     public com.domain.Employee[] retriveEmployeesbyName(java.lang.String firstName, java.lang.String lastName) throws java.rmi.RemoteException;
+    public boolean deleteEmployee(int employeeId) throws java.rmi.RemoteException;
+    public com.domain.Employee getEmployee(int employeeId) throws java.rmi.RemoteException;
+    public com.domain.Employee[] getEmployees() throws java.rmi.RemoteException;
+    public com.domain.Employee retriveEmployeebypId(int personId) throws java.rmi.RemoteException;
 }

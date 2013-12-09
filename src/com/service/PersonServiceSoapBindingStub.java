@@ -24,15 +24,26 @@ public class PersonServiceSoapBindingStub extends org.apache.axis.client.Stub im
         org.apache.axis.description.OperationDesc oper;
         org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("getPerson");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://service.com", "personId"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
+        oper.setName("updatePerson");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://service.com", "person"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://domain.com", "Person"), com.domain.Person.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://domain.com", "Person"));
-        oper.setReturnClass(com.domain.Person.class);
-        oper.setReturnQName(new javax.xml.namespace.QName("http://service.com", "getPersonReturn"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "boolean"));
+        oper.setReturnClass(boolean.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://service.com", "updatePersonReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[0] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("insertPerson");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://service.com", "person"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://domain.com", "Person"), com.domain.Person.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "boolean"));
+        oper.setReturnClass(boolean.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://service.com", "insertPersonReturn"));
+        oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
+        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+        _operations[1] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("validatePerson");
@@ -45,26 +56,15 @@ public class PersonServiceSoapBindingStub extends org.apache.axis.client.Stub im
         oper.setReturnQName(new javax.xml.namespace.QName("http://service.com", "validatePersonReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[1] = oper;
-
-        oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("insertPerson");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://service.com", "person"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://domain.com", "Person"), com.domain.Person.class, false, false);
-        oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "boolean"));
-        oper.setReturnClass(boolean.class);
-        oper.setReturnQName(new javax.xml.namespace.QName("http://service.com", "insertPersonReturn"));
-        oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
-        oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[2] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("updatePerson");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://service.com", "person"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://domain.com", "Person"), com.domain.Person.class, false, false);
+        oper.setName("getPerson");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://service.com", "personId"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "boolean"));
-        oper.setReturnClass(boolean.class);
-        oper.setReturnQName(new javax.xml.namespace.QName("http://service.com", "updatePersonReturn"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://domain.com", "Person"));
+        oper.setReturnClass(com.domain.Person.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://service.com", "getPersonReturn"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[3] = oper;
@@ -173,7 +173,7 @@ public class PersonServiceSoapBindingStub extends org.apache.axis.client.Stub im
         }
     }
 
-    public com.domain.Person getPerson(int personId) throws java.rmi.RemoteException {
+    public boolean updatePerson(com.domain.Person person) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -185,45 +185,11 @@ public class PersonServiceSoapBindingStub extends org.apache.axis.client.Stub im
         _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("http://service.com", "getPerson"));
+        _call.setOperationName(new javax.xml.namespace.QName("http://service.com", "updatePerson"));
 
         setRequestHeaders(_call);
         setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {new java.lang.Integer(personId)});
-
-        if (_resp instanceof java.rmi.RemoteException) {
-            throw (java.rmi.RemoteException)_resp;
-        }
-        else {
-            extractAttachments(_call);
-            try {
-                return (com.domain.Person) _resp;
-            } catch (java.lang.Exception _exception) {
-                return (com.domain.Person) org.apache.axis.utils.JavaUtils.convert(_resp, com.domain.Person.class);
-            }
-        }
-  } catch (org.apache.axis.AxisFault axisFaultException) {
-  throw axisFaultException;
-}
-    }
-
-    public boolean validatePerson(java.lang.String username, java.lang.String password) throws java.rmi.RemoteException {
-        if (super.cachedEndpoint == null) {
-            throw new org.apache.axis.NoEndPointException();
-        }
-        org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[1]);
-        _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("");
-        _call.setEncodingStyle(null);
-        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
-        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
-        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("http://service.com", "validatePerson"));
-
-        setRequestHeaders(_call);
-        setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {username, password});
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {person});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;
@@ -246,7 +212,7 @@ public class PersonServiceSoapBindingStub extends org.apache.axis.client.Stub im
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[2]);
+        _call.setOperation(_operations[1]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);
@@ -275,7 +241,41 @@ public class PersonServiceSoapBindingStub extends org.apache.axis.client.Stub im
 }
     }
 
-    public boolean updatePerson(com.domain.Person person) throws java.rmi.RemoteException {
+    public boolean validatePerson(java.lang.String username, java.lang.String password) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[2]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("");
+        _call.setEncodingStyle(null);
+        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("http://service.com", "validatePerson"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {username, password});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return ((java.lang.Boolean) _resp).booleanValue();
+            } catch (java.lang.Exception _exception) {
+                return ((java.lang.Boolean) org.apache.axis.utils.JavaUtils.convert(_resp, boolean.class)).booleanValue();
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
+    public com.domain.Person getPerson(int personId) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -287,11 +287,11 @@ public class PersonServiceSoapBindingStub extends org.apache.axis.client.Stub im
         _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("http://service.com", "updatePerson"));
+        _call.setOperationName(new javax.xml.namespace.QName("http://service.com", "getPerson"));
 
         setRequestHeaders(_call);
         setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {person});
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {new java.lang.Integer(personId)});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;
@@ -299,9 +299,9 @@ public class PersonServiceSoapBindingStub extends org.apache.axis.client.Stub im
         else {
             extractAttachments(_call);
             try {
-                return ((java.lang.Boolean) _resp).booleanValue();
+                return (com.domain.Person) _resp;
             } catch (java.lang.Exception _exception) {
-                return ((java.lang.Boolean) org.apache.axis.utils.JavaUtils.convert(_resp, boolean.class)).booleanValue();
+                return (com.domain.Person) org.apache.axis.utils.JavaUtils.convert(_resp, com.domain.Person.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {

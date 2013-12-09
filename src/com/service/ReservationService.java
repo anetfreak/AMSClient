@@ -8,10 +8,10 @@
 package com.service;
 
 public interface ReservationService extends java.rmi.Remote {
-    public boolean insertReservation(com.domain.Reservation reservation) throws java.rmi.RemoteException;
-    public com.domain.Reservation[] getReservations() throws java.rmi.RemoteException;
-    public com.domain.Reservation getReservation(int reservationId) throws java.rmi.RemoteException;
     public com.domain.Reservation[] getReservationbyCustId(int customerId) throws java.rmi.RemoteException;
-    public boolean updateReservation(com.domain.Reservation reservation) throws java.rmi.RemoteException;
     public boolean cancelReservation(int reservationId) throws java.rmi.RemoteException;
+    public boolean insertReservation(com.domain.Reservation reservation) throws java.rmi.RemoteException;
+    public com.domain.Reservation getReservation(int reservationId) throws java.rmi.RemoteException;
+    public com.domain.Reservation[] getReservations() throws java.rmi.RemoteException;
+    public boolean updateReservation(com.domain.Reservation reservation) throws java.rmi.RemoteException;
 }

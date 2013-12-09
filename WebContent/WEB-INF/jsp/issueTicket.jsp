@@ -47,20 +47,12 @@
 				<p><b>Travellers' Info</b></p>
 				<table border = "1">
 					<tr style = "text-align:center;">
-						<td style = "width: 250px;"><b>Traveller ID</b></td>
 						<td style = "width: 250px;"><b>First Name</b></td>
 						<td style = "width: 250px;"><b>Last Name</b></td>
 						<td style = "width: 250px;"><b>Age</b></td>
 						<td style = "width: 250px;"><b>Gender</b></td>
 					</tr>
 					<tr style = "text-align:center;">
-						<td><c:forEach items="${res.travellers}" var="travellers">
-								<c:if test="${travellers  ne null}">
-									${travellers.travellerId}
-									<br>
-								</c:if>
-							</c:forEach>
-						</td>
 						<td><c:forEach items="${res.travellers}" var="travellers">
 								<c:if test="${travellers  ne null}">
 									${travellers.firstName}
@@ -94,26 +86,26 @@
 			</div>
 			<div style = "padding-top: 30px;">
 				<p><b>Flight Info</b></p>
-<!-- 				<table border = "1"> -->
-<!-- 					<tr style = "text-align:center;"> -->
-<!-- 						<td style = "width: 250px;"><b>Departure</b></td> -->
-<!-- 						<td style = "width: 250px;"><b>Arrival</b></td> -->
-<!-- 						<td style = "width: 250px;"><b>Flight Number</b></td> -->
-<!-- 						<td style = "width: 250px;"><b>Flight Time</b></td> -->
-<!-- 						<td style = "width: 250px;"><b>Aircraft</b></td> -->
-<!-- 					</tr> -->
-<%-- 					<c:if test="${res.flight ne null}"> --%>
-<%-- 					<c:forEach items="${Flight}" var="flight"> --%>
-<!-- 					<tr style = "text-align:center;"> -->
-<%-- 						<td>${flight.source}</td> --%>
-<%-- 						<td>${flight.destination}</td> --%>
-<%-- 						<td>${flight.flightNo}</td> --%>
-<%-- 						<td>${flight.flightTime}</td> --%>
-<%-- 						<td>${flight.airlineName}</td> --%>
-<!-- 					</tr> -->
-<%-- 					</c:forEach> --%>
-<%-- 					</c:if> --%>
-<!-- 				</table> -->
+				<table border = "1">
+					<tr style = "text-align:center;">
+						<td style = "width: 250px;"><b>Departure</b></td>
+						<td style = "width: 250px;"><b>Arrival</b></td>
+						<td style = "width: 250px;"><b>Flight Number</b></td>
+						<td style = "width: 250px;"><b>Flight Time</b></td>
+						<td style = "width: 250px;"><b>Aircraft</b></td>
+					</tr>
+					<c:if test="${flights ne null}">
+					<c:forEach items="${flights}" var="flight">
+					<tr style = "text-align:center;">
+						<td>${flight.source}</td>
+						<td>${flight.destination}</td>
+						<td>${flight.flightNo}</td>
+						<td>${flight.flightTime}</td>
+						<td>${flight.airlineName}</td>
+					</tr>
+					</c:forEach>
+					</c:if>
+				</table>
 			</div>
 			<div>
 				<%@include file="footer.jsp" %>

@@ -38,6 +38,12 @@ public class TicketController {
 		ModelAndView mav = new ModelAndView("issueTicket");
 		mav.addObject("res", (Reservation) session.getAttribute("res"));
 		mav.addObject("customer", (Customer) session.getAttribute("customer"));
+		Flight flight1 = (Flight) session.getAttribute("flight1");
+		Flight flight2 = (Flight) session.getAttribute("flight2");
+		ArrayList<Flight> flights = new ArrayList<Flight>();
+		flights.add(flight1);
+		flights.add(flight2);
+		mav.addObject("flights", flights);
 		return mav;
 	}
 	
