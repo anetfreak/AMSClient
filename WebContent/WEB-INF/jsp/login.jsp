@@ -92,9 +92,9 @@
 			  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			  Login Error. Please try again.
 			</div>
-			<div id="loginOptions" style="margin: 80px 0px 0px 300px;">
+			<div id="loginOptions" style="margin: 80px 0px 0px 200px;">
 				<div class="span1"></div>
-				<div class="span4">
+				<div class="span6">
 					<div style="-webkit-box-shadow: 3px 0px 5px #888888; -moz-box-shadow: 3px 0px 5px #888888; box-shadow: 3px 0px 5px #888888; padding: 30px;">
 						<h3> Sign In </h3>
 						<table cellpadding="5px">
