@@ -27,6 +27,7 @@ public class FlightController {
 	public ModelAndView showSearchFlight() {
 		Location[] locations = null;
 		try {
+			flightProxy.setEndpoint("http://localhost:8080/AMS/services/FlightService");
 			locations = flightProxy.getLocations();
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -83,6 +84,7 @@ public class FlightController {
 		Flight flight = new Flight();
 		String day = "";
 		String time = "";
+		Location[] locations = null;
 		// = new FlightTime();
 		System.out.println("In method..!!");
 		flightProxy.setEndpoint("http://localhost:8080/AMS/services/FlightService");
@@ -91,6 +93,9 @@ public class FlightController {
 		{
 			System.out.println("Flight ID "+ flightId);
 			flight = flightProxy.getFlightById(flightId);
+			locations = flightProxy.getLocations();
+			System.out.println("Locations Retrieved..!!"+locations);
+			
 			if(flight != null)
 			{
 				System.out.println("Flight object retireved");
@@ -120,21 +125,14 @@ public class FlightController {
 		mv.addObject("day", day);
 		mv.addObject("time",time);
 		mv.addObject(response);
+		mv.addObject("locations", Arrays.asList(locations));
 		return mv;
 	}
 
 	@RequestMapping(value = "/UpdateFlight.htm", method = RequestMethod.GET)
 	public ModelAndView updateFlightInfo() {
 
-		Location[] locations = null;
-		try {
-			locations = flightProxy.getLocations();
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-		return new ModelAndView("UpdateFlight", "locations", Arrays.asList(locations));
-		
-		//return new ModelAndView("UpdateFlight");
+		return new ModelAndView("UpdateFlight");
 	}
 
 	@RequestMapping(value = "/UpdateFlight.htm", method = RequestMethod.POST)
@@ -162,6 +160,7 @@ public class FlightController {
 				
 		try 
 		{
+			System.out.println("Inside post method of updateFLight");
 			boolean b = flightProxy.updateFlight(flight);
 			if(b)
 			{
@@ -181,6 +180,7 @@ public class FlightController {
 		return new ModelAndView(VIEW_NAME, "result", response);
 	}
 	
+	/*
 	@RequestMapping(value = "/UpdateFlights.htm", method = RequestMethod.POST)
 	public ModelAndView UpdateFlight(@RequestParam("source") String source,
 			@RequestParam("destination") String destination,
@@ -194,6 +194,6 @@ public class FlightController {
 		}
 
 		return new ModelAndView("UpdateFlight", "flights", flights);
-	}
+	}*/
 
 }
