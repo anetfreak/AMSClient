@@ -165,5 +165,19 @@ public class FlightController {
 		}
 		return new ModelAndView(VIEW_NAME, "result", response);
 	}
+	@RequestMapping(value = "/UpdateFlights.htm", method = RequestMethod.POST)
+	public ModelAndView UpdateFlight(@RequestParam("source") String source,
+			@RequestParam("destination") String destination,
+			@RequestParam("departDate") String departDate) {
+
+		Flight[] flights = null;
+		try {
+			flights = flightProxy.searchFlight(source, destination, departDate);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+
+		return new ModelAndView("UpdateFlight", "flights", flights);
+	}
 
 }
