@@ -329,18 +329,25 @@
 							<tr></tr>
 							<tr>
 								<td><h5>City</h5></td>
-								<td><div class="input-group">
-										<input type="text" id="city" class="required"
-											placeholder="City">
-									</div></td>
+								<td><c:if test="${locations ne null}">
+										<select id="city">
+											<c:forEach items="${locations}" var="loc">
+												<option value="${loc.state}"><c:out value="${loc.state}"/></option>
+											</c:forEach>
+										</select>
+									</c:if>
+									</td>
 							</tr>
 							<tr></tr>
 							<tr>
 								<td><h5>State</h5></td>
-								<td><div class="input-group">
-										<input type="text" id="state" class="required"
-											placeholder="State">
-									</div></td>
+									<td><c:if test="${locations ne null}">
+										<select id="state">
+										<c:forEach items="${locations}" var="loc">
+											<option value="${loc.stateCode}"><c:out value="${loc.stateCode}"/></option>
+										</c:forEach>
+										</select>
+									</c:if></td>
 							</tr>
 							<tr></tr>
 							<tr>

@@ -1,6 +1,7 @@
 package com.ams.controller;
 
 import java.rmi.RemoteException;
+import java.util.Arrays;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,12 +13,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.domain.Customer;
 import com.domain.Employee;
+import com.domain.Location;
 import com.domain.Person;
 import com.domain.Response;
 import com.service.AuthenticationServiceProxy;
 import com.service.CustomerServiceProxy;
 import com.service.EmployeeServiceProxy;
 //import com.service.FlightServiceProxy;
+import com.service.FlightServiceProxy;
 
 @Controller
 public class AuthenticationController {
@@ -26,6 +29,8 @@ public class AuthenticationController {
 	AuthenticationServiceProxy authProxy=new AuthenticationServiceProxy(); 
 	CustomerServiceProxy custProxy = new CustomerServiceProxy();
 	EmployeeServiceProxy empProxy = new EmployeeServiceProxy();
+	FlightServiceProxy flightProxy = new FlightServiceProxy();
+
 	//FlightServiceProxy flightProxy = new FlightServiceProxy();
 
 	@RequestMapping(value = "/login.htm", method = RequestMethod.GET)
@@ -137,7 +142,7 @@ public class AuthenticationController {
 		return new ModelAndView(VIEW_NAME, "result", response);
 	}
 
-	
+
 	@RequestMapping(value = "/adminLogin.htm", method = RequestMethod.POST)
 	public ModelAndView adminLogin(@RequestParam("email") String email,
 			@RequestParam("password") String password,
@@ -145,7 +150,7 @@ public class AuthenticationController {
 			HttpSession session) 
 	{
 		Response response = null;
-		
+
 		if(userType == 99 && email.equalsIgnoreCase("admin@gmail.com") && password.equalsIgnoreCase("admin")) {
 			response = new Response("success");
 			session.setAttribute("isAdmin", true);
@@ -155,16 +160,24 @@ public class AuthenticationController {
 		}
 		return new ModelAndView(VIEW_NAME, "result", response);
 	}
-	
+
 	@RequestMapping(value = "/logout.htm", method = RequestMethod.GET)
 	public ModelAndView logout(HttpSession session) {
 		session.invalidate();
 		return new ModelAndView("home");
 	}
-	
+
 	@RequestMapping(value = "/signup.htm", method = RequestMethod.GET)
 	public ModelAndView showSignup() {
-		return new ModelAndView("signup");
+		Location[] locations = null;
+		try {
+			flightProxy.setEndpoint("http://localhost:8080/AMS/services/FlightService");
+			locations = flightProxy.getLocations();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		return new ModelAndView("signup", "locations", Arrays.asList(locations));
+		//return new ModelAndView("signup");
 	}
 
 	@RequestMapping(value = "/signup.htm", method = RequestMethod.POST)
@@ -229,7 +242,7 @@ public class AuthenticationController {
 				{
 					personId = authProxy.employeeSignUp(employee);
 					System.out.println("Entry not updated for employee");
-					
+
 					if(personId > 0)
 					{
 						System.out.println("Employee Created..!! PersonID : "+personId);
@@ -264,7 +277,7 @@ public class AuthenticationController {
 						response = new Response("updated");
 						System.out.println("Employee table updated.");
 						System.out.println("personID  = "+session.getAttribute("personId"));
-						
+
 					}
 					else
 					{
@@ -345,6 +358,7 @@ public class AuthenticationController {
 	public ModelAndView showProfile(HttpSession session) {
 
 		authProxy.setEndpoint("http://localhost:8080/AMS/services/AuthenticationService");
+		flightProxy.setEndpoint("http://localhost:8080/AMS/services/FlightService");
 
 		Response response = null;
 		Person person = new Person();
@@ -355,6 +369,14 @@ public class AuthenticationController {
 
 		response = new Response("failure");
 		//ModelAndView modelview = new ModelAndView("EditProfile");
+
+		Location[] locations = null;
+		try 
+		{
+			locations = flightProxy.getLocations();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 
 		if(userType == 1){
 			System.out.println("The logged in user is an Employee");
@@ -378,18 +400,30 @@ public class AuthenticationController {
 			//modelview.addObject("person",customer.getPerson());
 		}
 
-		return new ModelAndView(VIEW_NAME, "result", response);
-		//return modelview;
+		ModelAndView modelView = new ModelAndView(VIEW_NAME);
+		modelView.addObject("locations",Arrays.asList(locations));
+		modelView.addObject("result",response);
+
+		//return new ModelAndView(VIEW_NAME, "result", response);
+		return modelView;
 	}
-	
+
 	@RequestMapping(value = "/EditProfile.htm", method = RequestMethod.GET)
 	public ModelAndView updateProfile() {
-		return new ModelAndView("EditProfile");
+		Location[] locations = null;
+		try {
+			flightProxy.setEndpoint("http://localhost:8080/AMS/services/FlightService");
+			locations = flightProxy.getLocations();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		return new ModelAndView("EditProfile", "locations", Arrays.asList(locations));
+		//return new ModelAndView("EditProfile");
 	}
-	
+
 	@RequestMapping(value = "/ViewProfile.htm", method = RequestMethod.GET)
 	public ModelAndView displayProfile() {
 		return new ModelAndView("ViewProfile");
 	}
-	
+
 }
