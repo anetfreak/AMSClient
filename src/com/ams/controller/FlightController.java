@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.domain.Flight;
 import com.domain.FlightTime;
+import com.domain.Location;
 import com.domain.Response;
 import com.service.FlightServiceProxy;
 
@@ -24,7 +25,13 @@ public class FlightController {
 
 	@RequestMapping(value = "/searchFlight.htm", method = RequestMethod.GET)
 	public ModelAndView showSearchFlight() {
-		return new ModelAndView("search_flight");
+		Location[] locations = null;
+		try {
+			locations = flightProxy.getLocations();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		return new ModelAndView("search_flight", "locations", Arrays.asList(locations));
 	}
 
 	@RequestMapping(value = "/searchFlights.htm", method = RequestMethod.POST)
