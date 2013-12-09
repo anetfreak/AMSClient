@@ -82,7 +82,7 @@
 		}
 		
 		$('#addTravellers').click(function(){
- 			if(validateForm()) {
+// 			if(validateForm()) {
 				
 				var firstName1 = $('#firstName1').val();
 				var lastName1 = $('#lastName1').val();
@@ -110,7 +110,7 @@
 					    	alert("Could not process request.. " + errorThrown);
 				    }
 				});
- 			}
+// 			}
 		});
 		
 	});
