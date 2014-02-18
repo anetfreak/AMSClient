@@ -22,7 +22,6 @@
 				<td><B>Source</B></td>
 				<td><B>Destination</B></td>
 				<td><B>Date-Time</B></td>
-				<td><B>Traveller Id</B></td>
 				<td><B>Traveller's First Name</B></td>
 				<td><B>Traveller's Last Name</B></td>
 				<td><B>Age</B></td>
@@ -67,13 +66,6 @@
 								</c:forEach>
 							</td>
 							
-							<td><c:forEach items="${reservation.journey}" var="travellers">
-									<c:if test="${travellers  ne null}">
-									${travellers.travellerId}
-									<br>
-									</c:if>
-								</c:forEach>
-							</td>
 							<td><c:forEach items="${reservation.journey}" var="travellers">
 									<c:if test="${travellers  ne null}">
 									${travellers.firstName}

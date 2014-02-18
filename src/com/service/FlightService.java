@@ -9,10 +9,10 @@ package com.service;
 
 public interface FlightService extends java.rmi.Remote {
     public com.domain.Location[] getLocations() throws java.rmi.RemoteException;
-    public com.domain.Flight getFlightById(int flightId) throws java.rmi.RemoteException;
-    public com.domain.Flight getFlightByNo(java.lang.String flightNo) throws java.rmi.RemoteException;
-    public boolean insertFlight(com.domain.Flight flight) throws java.rmi.RemoteException;
-    public com.domain.Flight[] searchFlight(java.lang.String sourceAirport, java.lang.String destAirport, java.lang.String departDate) throws java.rmi.RemoteException;
-    public com.domain.Flight[] getFlights() throws java.rmi.RemoteException;
     public boolean updateFlight(com.domain.Flight flight) throws java.rmi.RemoteException;
+    public com.domain.Flight getFlightByNo(java.lang.String flightNo) throws java.rmi.RemoteException;
+    public com.domain.Flight[] searchFlight(java.lang.String sourceAirport, java.lang.String destAirport, java.lang.String departDate) throws java.rmi.RemoteException;
+    public boolean insertFlight(com.domain.Flight flight) throws java.rmi.RemoteException;
+    public com.domain.Flight getFlightById(int flightId) throws java.rmi.RemoteException;
+    public com.domain.Flight[] getFlights() throws java.rmi.RemoteException;
 }
